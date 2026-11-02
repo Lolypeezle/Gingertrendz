@@ -84,57 +84,57 @@ function generateDropEmailHtml(product) {
     <head>
       <meta charset="utf-8">
       <style>
-        body { margin: 0; padding: 0; background-color: #09080B; font-family: 'DM Sans', -apple-system, Roboto, sans-serif; }
+        body { margin: 0; padding: 0; background-color: #0A0A0C; font-family: 'DM Sans', -apple-system, Roboto, sans-serif; }
       </style>
     </head>
-    <body style="background-color: #09080B; margin: 0; padding: 30px 10px;">
-      <div style="max-width: 600px; margin: 0 auto; background-color: #120F16; border: 1px solid rgba(230, 189, 123, 0.35); border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.7);">
+    <body style="background-color: #0A0A0C; margin: 0; padding: 30px 10px;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: #121215; border: 1px solid rgba(212, 175, 122, 0.35); border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.7);">
         <!-- Header -->
-        <div style="background: linear-gradient(90deg, #120F16 0%, #26160F 50%, #120F16 100%); padding: 22px 24px; text-align: center; border-bottom: 1px solid rgba(230, 189, 123, 0.25);">
-          <span style="font-size: 11px; letter-spacing: 0.25em; color: #DF6932; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 4px;">GINGERTRENDZ ATELIER</span>
-          <h1 style="font-size: 22px; margin: 0; letter-spacing: 0.15em; color: #FAF7F2; font-weight: 400;">THE FASHION DISCIPLES</h1>
+        <div style="background: #0E0E12; padding: 22px 24px; text-align: center; border-bottom: 1px solid rgba(212, 175, 122, 0.25);">
+          <span style="font-size: 11px; letter-spacing: 0.25em; color: #D4AF7A; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 4px;">GINGERTRENDZ ATELIER</span>
+          <h1 style="font-size: 22px; margin: 0; letter-spacing: 0.15em; color: #F5F5F7; font-weight: 400;">THE FASHION DISCIPLES</h1>
         </div>
 
         <!-- Body -->
         <div style="padding: 34px 28px; text-align: center;">
-          <span style="display: inline-block; font-size: 11px; letter-spacing: 0.15em; color: #E6BD7B; text-transform: uppercase; background: rgba(230, 189, 123, 0.14); border: 1px solid rgba(230, 189, 123, 0.35); padding: 5px 14px; border-radius: 20px; margin-bottom: 16px;">
+          <span style="display: inline-block; font-size: 11px; letter-spacing: 0.15em; color: #D4AF7A; text-transform: uppercase; background: rgba(212, 175, 122, 0.12); border: 1px solid rgba(212, 175, 122, 0.35); padding: 5px 14px; border-radius: 20px; margin-bottom: 16px;">
             ✦ NEW GARMENT DROP ALERT ✦
           </span>
-          <h2 style="font-size: 26px; margin: 0 0 10px; color: #FAF7F2; font-weight: 400;">${product.title}</h2>
-          <p style="color: #9C96A8; font-size: 14px; line-height: 1.6; max-width: 480px; margin: 0 auto 24px;">
+          <h2 style="font-size: 26px; margin: 0 0 10px; color: #F5F5F7; font-weight: 400;">${product.title}</h2>
+          <p style="color: #9E9EA8; font-size: 14px; line-height: 1.6; max-width: 480px; margin: 0 auto 24px;">
             ${product.description}
           </p>
 
           <!-- Product Card Preview in Email -->
-          <div style="margin: 0 auto 28px; max-width: 440px; background: #18141E; border: 1px solid rgba(230, 189, 123, 0.2); border-radius: 6px; overflow: hidden; text-align: left;">
-            <div style="width: 100%; height: 260px; background: #09080B; overflow: hidden; position: relative;">
+          <div style="margin: 0 auto 28px; max-width: 440px; background: #18181E; border: 1px solid rgba(212, 175, 122, 0.2); border-radius: 6px; overflow: hidden; text-align: left;">
+            <div style="width: 100%; height: 260px; background: #0A0A0C; overflow: hidden; position: relative;">
               <img src="${product.image}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </div>
             <div style="padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.08);">
               <div>
-                <span style="font-size: 11px; color: #9C96A8; text-transform: uppercase; letter-spacing: 0.05em; display: block;">Silhouette Sizes:</span>
-                <strong style="color: #FAF7F2; font-size: 13px; letter-spacing: 0.05em;">${sizesStr}</strong>
+                <span style="font-size: 11px; color: #9E9EA8; text-transform: uppercase; letter-spacing: 0.05em; display: block;">Silhouette Sizes:</span>
+                <strong style="color: #F5F5F7; font-size: 13px; letter-spacing: 0.05em;">${sizesStr}</strong>
               </div>
               <div style="text-align: right;">
-                <span style="font-size: 11px; color: #E6BD7B; text-transform: uppercase; display: block; font-weight: 600;">Price</span>
-                <span style="font-size: 20px; font-weight: 700; color: #FAF7F2;">₦${priceFormatted}</span>
+                <span style="font-size: 11px; color: #D4AF7A; text-transform: uppercase; display: block; font-weight: 600;">Price</span>
+                <span style="font-size: 20px; font-weight: 700; color: #F5F5F7;">₦${priceFormatted}</span>
               </div>
             </div>
           </div>
 
           <!-- CTA Button -->
           <div style="margin-top: 10px;">
-            <a href="http://localhost:3000/#shop" style="display: inline-block; background-color: #DF6932; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 15px 36px; border-radius: 4px; box-shadow: 0 4px 18px rgba(223, 105, 50, 0.4);">
+            <a href="http://localhost:3000/#shop" style="display: inline-block; background-color: #D4AF7A; color: #0A0A0C; text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 15px 36px; border-radius: 4px; box-shadow: 0 4px 18px rgba(212, 175, 122, 0.35);">
               Explore Drop & Claim Your Size
             </a>
           </div>
 
           <!-- Footer Note -->
           <div style="margin-top: 36px; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 20px; text-align: center;">
-            <p style="font-size: 11px; color: #6F6A7B; margin: 0 0 6px;">
+            <p style="font-size: 11px; color: #666673; margin: 0 0 6px;">
               You received this drop update because you shopped at Gingertrendz or joined our VIP Atelier newsletter.
             </p>
-            <p style="font-size: 11px; color: #6F6A7B; margin: 0;">
+            <p style="font-size: 11px; color: #666673; margin: 0;">
               &copy; 2026 GINGERTRENDZ ATELIER. Powered by Supabase & Node.js.
             </p>
           </div>
@@ -149,30 +149,30 @@ function generateDropEmailHtml(product) {
 function generateOrderEmailHtml(order) {
   const itemsListHtml = (order.items || []).map(item => `
     <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
-      <td style="padding: 10px 0; color: #FAF7F2; font-size: 13px;">${item.title} (Size: <strong>${item.size}</strong>) × ${item.quantity}</td>
-      <td style="padding: 10px 0; text-align: right; color: #E6BD7B; font-weight: 700; font-size: 13px;">₦${Number(item.price * item.quantity).toLocaleString()}</td>
+      <td style="padding: 10px 0; color: #F5F5F7; font-size: 13px;">${item.title} (Size: <strong>${item.size}</strong>) × ${item.quantity}</td>
+      <td style="padding: 10px 0; text-align: right; color: #D4AF7A; font-weight: 700; font-size: 13px;">₦${Number(item.price * item.quantity).toLocaleString()}</td>
     </tr>
   `).join('');
 
   return `
-    <div style="background-color: #09080B; color: #FAF7F2; font-family: sans-serif; max-width: 580px; margin: 0 auto; border: 1px solid rgba(230, 189, 123, 0.35); border-radius: 8px; padding: 28px;">
-      <h2 style="color: #DF6932; margin-top: 0; letter-spacing: 0.08em;">GINGERTRENDZ ATELIER</h2>
-      <h3 style="color: #FAF7F2; margin-bottom: 4px;">Order Confirmed: ${order.id}</h3>
-      <p style="color: #9C96A8; font-size: 13px;">Hello ${order.customer.firstName}, thank you for your order. Your garment is being prepared for dispatch.</p>
+    <div style="background-color: #0A0A0C; color: #F5F5F7; font-family: sans-serif; max-width: 580px; margin: 0 auto; border: 1px solid rgba(212, 175, 122, 0.35); border-radius: 8px; padding: 28px;">
+      <h2 style="color: #D4AF7A; margin-top: 0; letter-spacing: 0.08em;">GINGERTRENDZ ATELIER</h2>
+      <h3 style="color: #F5F5F7; margin-bottom: 4px;">Order Confirmed: ${order.id}</h3>
+      <p style="color: #9E9EA8; font-size: 13px;">Hello ${order.customer.firstName}, thank you for your order. Your garment is being prepared for dispatch.</p>
       
       <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
         ${itemsListHtml}
         <tr>
-          <td style="padding: 12px 0; font-weight: 700; color: #FAF7F2;">Total Paid (${order.method})</td>
-          <td style="padding: 12px 0; text-align: right; font-weight: 700; color: #E6BD7B; font-size: 16px;">₦${Number(order.total).toLocaleString()}</td>
+          <td style="padding: 12px 0; font-weight: 700; color: #F5F5F7;">Total Paid (${order.method})</td>
+          <td style="padding: 12px 0; text-align: right; font-weight: 700; color: #D4AF7A; font-size: 16px;">₦${Number(order.total).toLocaleString()}</td>
         </tr>
       </table>
 
-      <div style="background: #18141E; padding: 12px 16px; border-radius: 4px; font-size: 12px; color: #9C96A8; border: 1px solid rgba(255,255,255,0.06);">
+      <div style="background: #18181E; padding: 12px 16px; border-radius: 4px; font-size: 12px; color: #9E9EA8; border: 1px solid rgba(255,255,255,0.06);">
         <strong>Delivery Destination:</strong> ${order.customer.address}, ${order.customer.city}, ${order.customer.state}
       </div>
 
-      <p style="font-size: 11px; color: #6F6A7B; margin-top: 24px;">
+      <p style="font-size: 11px; color: #666673; margin-top: 24px;">
         ✨ As a valued customer, you will also receive exclusive email drop updates in your inbox whenever new Gingertrendz garments land on the website.
       </p>
     </div>
