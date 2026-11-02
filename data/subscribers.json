@@ -1,0 +1,26 @@
+[
+  {
+    "email": "tari.eze@example.com",
+    "name": "Tari Eze",
+    "source": "checkout",
+    "subscribed_at": "2026-10-31T16:40:00Z",
+    "orders_count": 1,
+    "last_notified": "2026-10-31T16:40:00Z"
+  },
+  {
+    "email": "zainab.b@example.com",
+    "name": "Zainab Bello",
+    "source": "checkout",
+    "subscribed_at": "2026-10-31T18:15:00Z",
+    "orders_count": 1,
+    "last_notified": "2026-10-31T18:15:00Z"
+  },
+  {
+    "email": "chinedu.o@example.com",
+    "name": "Chinedu Okafor",
+    "source": "checkout",
+    "subscribed_at": "2026-10-30T10:10:00Z",
+    "orders_count": 1,
+    "last_notified": "2026-10-30T10:10:00Z"
+  }
+]

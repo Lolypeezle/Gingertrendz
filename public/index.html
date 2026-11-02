@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GINGERTRENDZ - The Fashion Disciples. Luxury Editorial Streetwear & Contemporary Silhouette">
+  <title>GINGERTRENDZ | The Fashion Disciples | Luxury Editorial Boutique</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="announcement-inner">
+      <span>COMPLIMENTARY NATIONWIDE & GLOBAL DISPATCH ON ORDERS OVER ₦120,000</span>
+      <span class="announcement-divider">•</span>
+      <span>THE FASHION DISCIPLES DROP '26 LIVE</span>
+      <span class="announcement-divider">•</span>
+      <span>EVERY CHECKOUT EMAIL ENROLLED FOR INSTANT DROP ALERTS</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="container header-inner">
+      <nav class="header-nav">
+        <ul>
+          <li><a href="#" class="nav-link active" data-view="storefront-view" id="nav-shop">Shop</a></li>
+          <li><a href="#" class="nav-link" data-view="admin-login-view" id="nav-admin" title="Curator Portal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 5px; vertical-align: -1px;">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Portal
+          </a></li>
+        </ul>
+      </nav>
+
+      <a href="#" class="logo-centered" id="nav-logo">
+        <span class="brand-text">GINGERTRENDZ</span>
+        <span class="brand-sub">THE FASHION DISCIPLES</span>
+      </a>
+
+      <div class="header-actions">
+        <button class="cart-toggle" id="cart-btn" aria-label="Shopping Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- STOREFRONT VIEW -->
+    <section id="storefront-view" class="view-section active">
+
+      <!-- Hero Banner -->
+      <div class="hero">
+        <div class="hero-bg-media">
+          <img src="assets/images/hero_banner_1793575264897.jpg" alt="Gingertrendz Atelier Collection" class="hero-img">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-inner">
+          <span class="hero-badge">FALL / WINTER '26 ATELIER</span>
+          <h1 class="hero-title">THEFASHIONDISCIPLES</h1>
+          <p class="hero-subtitle">defining your own path with unapologetic ginger silhouettes.</p>
+          <div class="hero-btn-group">
+            <button class="btn btn-hero" id="hero-shop-btn">Explore Collection</button>
+            <a href="#category-filter-container" class="btn btn-secondary btn-hero-secondary">View Lookbook</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Ticker -->
+      <div class="ticker-wrapper">
+        <div class="ticker-content">
+          <span>THE FASHION DISCIPLES ATELIER</span>
+          <span class="dot">✦</span>
+          <span>520GSM ORGANIC FRENCH TERRY</span>
+          <span class="dot">✦</span>
+          <span>AUTOMATIC EMAIL UPDATES ON EVERY NEW DROP</span>
+          <span class="dot">✦</span>
+          <span>TAILORED TERRACOTTA GABARDINE</span>
+          <span class="dot">✦</span>
+          <span>THE FASHION DISCIPLES ATELIER</span>
+          <span class="dot">✦</span>
+          <span>520GSM ORGANIC FRENCH TERRY</span>
+          <span class="dot">✦</span>
+        </div>
+      </div>
+
+      <!-- Shop Controls: Category Filter + Search + Sort -->
+      <div class="container shop-controls">
+        <div class="categories-container" id="category-filter-container">
+          <button class="category-chip active" data-category="all">All Items</button>
+          <button class="category-chip" data-category="Hoodies">Hoodies</button>
+          <button class="category-chip" data-category="Outerwear">Outerwear</button>
+          <button class="category-chip" data-category="Pants">Pants</button>
+          <button class="category-chip" data-category="Tees">Tees</button>
+          <button class="category-chip" data-category="Accessories">Accessories</button>
+        </div>
+
+        <div class="search-sort-container">
+          <div class="search-box">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="search-input" placeholder="Search collection...">
+          </div>
+
+          <select class="sort-select" id="sort-select">
+            <option value="default">Sort by</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="stock-desc">In Stock</option>
+            <option value="newest">Newest Drops</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="container products-section">
+        <div class="products-grid" id="products-grid">
+          <!-- Dynamically populated from Node.js API -->
+        </div>
+      </div>
+
+      <!-- VIP Drop Newsletter Section (Every email is enrolled for new drop updates) -->
+      <section class="newsletter-section">
+        <div class="container newsletter-inner">
+          <span class="newsletter-badge">✦ THE FASHION DISCIPLES VIP LIST ✦</span>
+          <h2 class="newsletter-title">BE NOTIFIED OF EVERY NEW DROP</h2>
+          <p class="newsletter-subtitle">
+            Every customer email on Gingertrendz automatically receives private drop alerts with exclusive access to newly released silhouettes and sizes.
+          </p>
+          <form id="newsletter-form" class="newsletter-form">
+            <div class="newsletter-input-group">
+              <input type="email" id="newsletter-email" placeholder="Enter your email for new drop alerts..." required>
+              <button type="submit" class="btn btn-newsletter">Join Disciples</button>
+            </div>
+            <span class="newsletter-note">✦ Instant email notifications when new garments arrive in the atelier</span>
+          </form>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- CHECKOUT VIEW -->
+    <section id="checkout-view" class="view-section">
+      <div class="container checkout-view">
+        <div class="checkout-header-bar">
+          <button type="button" class="back-link-btn" id="cancel-checkout-top-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Return to Storefront
+          </button>
+          <h1 class="checkout-title">Express Checkout</h1>
+        </div>
+
+        <div class="checkout-grid">
+          <!-- Delivery Information Form -->
+          <div class="checkout-form-container">
+            <form id="checkout-details-form">
+              <h2 class="checkout-section-title">Delivery & Customer Information</h2>
+
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label for="first-name">First Name</label>
+                  <input type="text" id="first-name" required placeholder="e.g. Tunde">
+                </div>
+                <div class="form-group">
+                  <label for="last-name">Last Name</label>
+                  <input type="text" id="last-name" required placeholder="e.g. Adebayo">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="shipping-email">Email Address (You will receive order receipts & new drop alerts)</label>
+                <input type="email" id="shipping-email" required placeholder="name@domain.com">
+              </div>
+
+              <!-- Automated Drop Notification Opt-In Checkbox -->
+              <div class="checkout-email-notification-banner">
+                <label class="custom-checkbox-label">
+                  <input type="checkbox" id="checkout-subscribe-email" checked>
+                  <span class="custom-checkbox-box"></span>
+                  <span class="custom-checkbox-text">
+                    <strong>Email Me When New Garments Drop:</strong> I want an automatic email notification whenever a new product is added to Gingertrendz.
+                  </span>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label for="shipping-phone">Phone Number (Nigerian or International)</label>
+                <input type="tel" id="shipping-phone" required placeholder="e.g. +234 801 234 5678">
+              </div>
+
+              <div class="form-group">
+                <label for="shipping-address">Delivery Street Address</label>
+                <textarea id="shipping-address" rows="3" required
+                  placeholder="House number, street name, estate, apartment/suite"></textarea>
+              </div>
+
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label for="shipping-city">City</label>
+                  <input type="text" id="shipping-city" required placeholder="e.g. Ikeja, Lagos">
+                </div>
+                <div class="form-group">
+                  <label for="shipping-state">State / Region</label>
+                  <select id="shipping-state" required>
+                    <option value="" disabled selected>Select State</option>
+                    <option value="Lagos">Lagos</option>
+                    <option value="Abuja">Abuja (FCT)</option>
+                    <option value="Oyo">Oyo</option>
+                    <option value="Rivers">Rivers</option>
+                    <option value="Kano">Kano</option>
+                    <option value="Kaduna">Kaduna</option>
+                    <option value="Delta">Delta</option>
+                    <option value="Anambra">Anambra</option>
+                    <option value="Edo">Edo</option>
+                    <option value="Ogun">Ogun</option>
+                    <option value="Enugu">Enugu</option>
+                    <option value="International">International Delivery</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Shipping Method Option Selector -->
+              <div class="form-group" style="margin-top: 20px;">
+                <label style="margin-bottom: 8px; display: block;">Shipping Method</label>
+                <div class="shipping-options-grid">
+                  <label class="shipping-option-card active">
+                    <input type="radio" name="shipping-method" value="5000" checked>
+                    <div class="shipping-option-info">
+                      <span class="shipping-option-title">Standard Courier Delivery</span>
+                      <span class="shipping-option-desc">Delivery within 2 - 4 business days</span>
+                    </div>
+                    <span class="shipping-option-price">₦5,000</span>
+                  </label>
+                  <label class="shipping-option-card">
+                    <input type="radio" name="shipping-method" value="8000">
+                    <div class="shipping-option-info">
+                      <span class="shipping-option-title">Express Priority Dispatch</span>
+                      <span class="shipping-option-desc">Next day insured priority courier</span>
+                    </div>
+                    <span class="shipping-option-price">₦8,000</span>
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Order Summary Sidebar -->
+          <div class="order-summary-box">
+            <h2 class="checkout-section-title font-sans">Your Bag Summary</h2>
+
+            <div class="summary-items-list" id="checkout-summary-items">
+              <!-- Dynamically populated cart items -->
+            </div>
+
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="checkout-subtotal">₦0</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping Fee</span>
+              <span id="checkout-delivery">₦5,000</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total Amount</span>
+              <span id="checkout-total">₦0</span>
+            </div>
+
+            <div class="checkout-security-notice">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Automated Email Receipt & Drop Notifications Active</span>
+            </div>
+
+            <button type="button" class="btn" id="proceed-payment-btn">Authorize & Place Order</button>
+            <button type="button" class="btn btn-secondary" style="margin-top: 10px;" id="cancel-checkout-btn">Back to Shop</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUCCESS / CONFIRMATION VIEW -->
+    <section id="success-view" class="view-section">
+      <div class="container order-success-view">
+        <div class="success-check-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h1 class="success-title">Order Confirmed</h1>
+        <p class="success-message">
+          Thank you for shopping with Gingertrendz Atelier. Your receipt has been dispatched to your email, and your email is enrolled to receive all upcoming drop alerts!
+        </p>
+
+        <div class="receipt-card">
+          <div class="receipt-header-row">
+            <h2 class="receipt-title">Transaction Receipt</h2>
+            <span class="receipt-status-badge">PAID & EMAIL DISPATCHED</span>
+          </div>
+
+          <div class="receipt-row">
+            <span class="receipt-label">Order Reference</span>
+            <span class="receipt-val font-mono" id="receipt-ref">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Date & Time</span>
+            <span class="receipt-val" id="receipt-date">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Payment Method</span>
+            <span class="receipt-val" id="receipt-method">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Customer Name</span>
+            <span class="receipt-val" id="receipt-customer">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Delivery Address</span>
+            <span class="receipt-val" id="receipt-address" style="text-align: right; max-width: 60%;">-</span>
+          </div>
+          <div class="receipt-row" style="margin-top: 12px; border-top: 1px dashed var(--border-color); padding-top: 10px;">
+            <span class="receipt-label">Subtotal</span>
+            <span class="receipt-val" id="receipt-subtotal">₦0</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label">Shipping Fee</span>
+            <span class="receipt-val" id="receipt-shipping">₦0</span>
+          </div>
+          <div class="receipt-row"
+            style="margin-top: 8px; border-top: 1px solid var(--border-color); padding-top: 12px; font-weight: 700;">
+            <span class="receipt-label" style="color: var(--text-primary);">Total Paid</span>
+            <span class="receipt-val accent-color" id="receipt-total">-</span>
+          </div>
+        </div>
+
+        <button class="btn" id="success-shop-btn">Continue Shopping</button>
+      </div>
+    </section>
+
+    <!-- ADMIN LOGIN GATE -->
+    <section id="admin-login-view" class="view-section">
+      <div class="container admin-login-view">
+        <div class="login-card">
+          <div class="login-badge-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h1 class="login-title">Curator Gate</h1>
+          <p class="login-subtitle">Private access for Gingertrendz collection curators & directors</p>
+
+          <form id="admin-login-form">
+            <div class="form-group" style="margin-bottom: 20px;">
+              <label for="admin-email">Curator Email</label>
+              <input type="email" id="admin-email" value="curator@gingertrendz.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="admin-password">Private Access Key</label>
+              <input type="password" id="admin-password" placeholder="Enter private access key (admin123)" required>
+              <span class="error-message" id="login-error-msg">Incorrect access key. Please try again.</span>
+            </div>
+
+            <div class="demo-credential-hint">
+              <span>Demo Key: <strong>admin123</strong></span>
+              <button type="button" class="btn-text-link" id="btn-quick-fill-admin">Auto-Fill Key</button>
+            </div>
+
+            <button type="submit" class="btn" style="margin-top: 15px; width: 100%;">Authorize Session</button>
+            <button type="button" class="btn btn-secondary" style="margin-top: 10px; width: 100%;" id="btn-back-to-shop">Return to Shop</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN DASHBOARD VIEW -->
+    <section id="admin-view" class="view-section">
+      <div class="admin-view">
+
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+          <div class="admin-brand-header">
+            <span class="admin-brand-title">GINGERTRENDZ</span>
+            <span class="admin-brand-tag">PORTAL</span>
+          </div>
+
+          <div class="admin-nav-item active" data-admin-panel="admin-overview">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="9"></rect>
+              <rect x="14" y="3" width="7" height="5"></rect>
+              <rect x="14" y="12" width="7" height="9"></rect>
+              <rect x="3" y="16" width="7" height="5"></rect>
+            </svg>
+            Overview
+          </div>
+
+          <div class="admin-nav-item" data-admin-panel="admin-inventory">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+            Manage Catalog
+          </div>
+
+          <div class="admin-nav-item" data-admin-panel="admin-orders">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            Orders Fulfillment
+          </div>
+
+          <!-- NEW: Email Subscribers & Drops Tab -->
+          <div class="admin-nav-item" data-admin-panel="admin-subscribers">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Email Subscribers & Drops
+          </div>
+
+          <!-- Supabase Database Tab -->
+          <div class="admin-nav-item" data-admin-panel="admin-database">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+            </svg>
+            Supabase Database
+          </div>
+
+          <div class="admin-nav-item" id="admin-reset-data-btn" title="Restore sample catalog">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+              <path d="M21 3v5h-5"></path>
+              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+              <path d="M8 16H3v5"></path>
+            </svg>
+            Reset Default Catalog
+          </div>
+
+          <div class="admin-nav-item" id="admin-logout-btn" style="margin-top: auto;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            Exit Workspace
+          </div>
+        </aside>
+
+        <!-- Dashboard Content Panels -->
+        <div class="admin-content">
+
+          <!-- PANEL A: Overview Statistics -->
+          <div id="admin-overview" class="admin-panel active">
+            <div class="admin-header-row">
+              <h1>Store Overview</h1>
+              <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                <span class="live-indicator" id="overview-db-status-pill"><span class="pulse-dot"></span> Supabase Ready</span>
+                <span class="live-indicator"><span class="pulse-dot"></span> Live Node.js Sync</span>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-title">Total Sales</span>
+                <span class="stat-value" id="stat-total-sales">₦0</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-title">Total Orders</span>
+                <span class="stat-value" id="stat-total-orders">0</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-title">Email Subscribers</span>
+                <span class="stat-value accent-color" id="stat-total-subscribers">0</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-title">Average Order Value</span>
+                <span class="stat-value" id="stat-avg-value">₦0</span>
+              </div>
+            </div>
+
+            <div class="admin-dashboard-row">
+              <div class="chart-card">
+                <div class="chart-header">
+                  <h2 class="chart-title">Revenue Trajectory (Last 6 Months)</h2>
+                  <span class="chart-badge">+34.8% growth</span>
+                </div>
+                <div class="chart-svg-container" id="revenue-chart-container">
+                  <!-- Injected SVG graph from admin.js -->
+                </div>
+              </div>
+
+              <div class="chart-card">
+                <h2 class="chart-title">Live Fulfillment Activity</h2>
+                <div id="recent-activity-container"
+                  style="display:flex; flex-direction:column; gap:16px; font-size:13px; margin-top: 15px;">
+                  <!-- Injected activity log -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL B: Inventory Catalog Editor -->
+          <div id="admin-inventory" class="admin-panel">
+            <div class="admin-header-row">
+              <div>
+                <h1>Inventory Catalog</h1>
+                <p style="color: var(--text-secondary); font-size: 13px;">Manage sizes, quantities, pricing and drop photography with auto email blast</p>
+              </div>
+              <button class="btn" id="admin-add-product-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Add New Product
+              </button>
+            </div>
+
+            <div class="table-card">
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Product Title</th>
+                      <th>Category</th>
+                      <th>Price</th>
+                      <th>Available Sizes & Stock</th>
+                      <th>Total Stock</th>
+                      <th style="text-align: right;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-inventory-table-body">
+                    <!-- Products list dynamically loaded -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL C: Orders Fulfillment -->
+          <div id="admin-orders" class="admin-panel">
+            <div class="admin-header-row">
+              <div>
+                <h1>Orders Fulfillment</h1>
+                <p style="color: var(--text-secondary); font-size: 13px;">Customer emails are captured and auto-subscribed to all new drop updates</p>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Customer Email & Name</th>
+                      <th>Ordered Items (Size & Qty)</th>
+                      <th>Destination</th>
+                      <th>Method</th>
+                      <th>Total Amount</th>
+                      <th>Fulfillment</th>
+                      <th style="text-align: right;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-orders-table-body">
+                    <!-- Orders dynamically loaded -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL D: EMAIL SUBSCRIBERS & DROP NOTIFICATIONS -->
+          <div id="admin-subscribers" class="admin-panel">
+            <div class="admin-header-row">
+              <div>
+                <h1>Email Subscribers & Drop Notifications</h1>
+                <p style="color: var(--text-secondary); font-size: 13px;">
+                  Every checkout email and newsletter signup gets automated email updates whenever a new product is added.
+                </p>
+              </div>
+              <button class="btn" id="btn-open-broadcast-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+                  <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                </svg>
+                Send Drop Email Blast
+              </button>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-title">Active Email Subscribers</span>
+                <span class="stat-value accent-color" id="admin-subscribers-count">0</span>
+                <span style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Captured from Checkout & VIP list</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-title">Drop Campaigns Dispatched</span>
+                <span class="stat-value" id="admin-campaigns-count">0</span>
+                <span style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Sent to customer inboxes</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-title">Delivery Success Rate</span>
+                <span class="stat-value" style="color: var(--success);">99.8%</span>
+                <span style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Node.js Nodemailer engine</span>
+              </div>
+            </div>
+
+            <!-- Subscribers List Table -->
+            <div class="table-card" style="margin-bottom: 32px;">
+              <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 16px; font-family: var(--font-sans); font-weight: 600;">Customer Email Directory (Auto-Updated on Checkout)</h3>
+                <span class="status-badge in-stock">Automatic Sync Active</span>
+              </div>
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Customer Email</th>
+                      <th>Name</th>
+                      <th>Acquisition Source</th>
+                      <th>Orders Placed</th>
+                      <th>Subscribed Date</th>
+                      <th>Last Drop Notified</th>
+                      <th style="text-align: right;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-subscribers-table-body">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Email Dispatches Log & Live Template Preview -->
+            <div class="table-card">
+              <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 16px; font-family: var(--font-sans); font-weight: 600;">Recent Drop Email Dispatches</h3>
+                <span style="font-size: 12px; color: var(--text-secondary);">Click any campaign to preview what customers saw in their email</span>
+              </div>
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Dispatch ID</th>
+                      <th>Subject Line</th>
+                      <th>Garment Featured</th>
+                      <th>Recipients</th>
+                      <th>Date Sent</th>
+                      <th>Status</th>
+                      <th style="text-align: right;">Preview Email</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-email-logs-table-body">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- PANEL E: SUPABASE DATABASE MANAGEMENT -->
+          <div id="admin-database" class="admin-panel">
+            <div class="admin-header-row">
+              <div>
+                <h1>Supabase Cloud Database</h1>
+                <p style="color: var(--text-secondary); font-size: 13px;">
+                  Enterprise PostgreSQL storage with automatic table sync, Row Level Security, and offline JSON resilience
+                </p>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-secondary" id="btn-test-db-connection">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                  Test Connection
+                </button>
+                <button class="btn" id="btn-sync-to-supabase">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+                    <polyline points="17 1 21 5 17 9"></polyline>
+                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                    <polyline points="7 23 3 19 7 15"></polyline>
+                    <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                  </svg>
+                  Push Local Data to Supabase
+                </button>
+              </div>
+            </div>
+
+            <!-- Database Status Banner -->
+            <div class="db-status-banner">
+              <div class="db-status-left">
+                <div class="db-status-icon-box">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="db-status-title">
+                    <span id="db-status-label">Local JSON Cache (Supabase Ready)</span>
+                    <span class="db-chip fallback" id="db-connection-chip">STANDBY</span>
+                  </h3>
+                  <p class="db-status-desc" id="db-status-subtext">
+                    Gingertrendz is currently operating in offline resilient mode. Connect your Supabase project below for cloud PostgreSQL persistence.
+                  </p>
+                </div>
+              </div>
+              <div id="db-status-actions" style="text-align: right;">
+                <span style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">ACTIVE PROVIDER</span>
+                <strong style="color: var(--accent-gilded); font-size: 14px; letter-spacing: 0.05em;" id="db-provider-name">LOCAL_JSON_CACHE</strong>
+              </div>
+            </div>
+
+            <!-- Two-Column Grid: Config & Tables Overview -->
+            <div class="db-grid-container">
+              
+              <!-- Column 1: Supabase Configuration Form -->
+              <div class="db-card">
+                <div class="db-card-header">
+                  <h2 class="db-card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    Supabase Project Credentials
+                  </h2>
+                  <span style="font-size: 11px; color: var(--text-secondary);">Direct Cloud Connection</span>
+                </div>
+
+                <form id="supabase-config-form" style="display: flex; flex-direction: column; gap: 14px; flex: 1;">
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label for="db-supabase-url">Supabase Project URL</label>
+                    <input type="url" id="db-supabase-url" placeholder="https://your-project-id.supabase.co" required>
+                    <span style="font-size: 11px; color: var(--text-muted); margin-top: 4px; display: block;">
+                      Found under Supabase Dashboard &gt; Project Settings &gt; API
+                    </span>
+                  </div>
+
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label for="db-supabase-key">Supabase API Key (Anon / Service Role)</label>
+                    <input type="password" id="db-supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." required>
+                    <span style="font-size: 11px; color: var(--text-muted); margin-top: 4px; display: block;">
+                      Use your project <code>anon public</code> or <code>service_role</code> API key
+                    </span>
+                  </div>
+
+                  <div id="db-config-message" style="display: none; padding: 10px 14px; border-radius: 4px; font-size: 12px; margin-top: 4px;"></div>
+
+                  <div style="margin-top: auto; display: flex; gap: 10px; padding-top: 10px;">
+                    <button type="submit" class="btn" style="flex: 1;" id="btn-save-db-config">
+                      Save &amp; Connect Supabase
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Column 2: Live Database Schema Tables Metrics -->
+              <div class="db-card">
+                <div class="db-card-header">
+                  <h2 class="db-card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="3" y1="9" x2="21" y2="9"></line>
+                      <line x1="9" y1="21" x2="9" y2="9"></line>
+                    </svg>
+                    Database Tables &amp; Entities
+                  </h2>
+                  <span class="status-badge in-stock">4 Tables Defined</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div class="db-table-metric">
+                    <div>
+                      <span class="db-table-metric-name">public.products</span>
+                      <span style="display: block; font-size: 11px; color: var(--text-secondary);">Garment catalog, sizing, pricing &amp; imagery</span>
+                    </div>
+                    <span class="db-table-metric-badge" id="metric-products-count">6 items</span>
+                  </div>
+
+                  <div class="db-table-metric">
+                    <div>
+                      <span class="db-table-metric-name">public.orders</span>
+                      <span style="display: block; font-size: 11px; color: var(--text-secondary);">Customer orders, line items, delivery tracking</span>
+                    </div>
+                    <span class="db-table-metric-badge" id="metric-orders-count">0 orders</span>
+                  </div>
+
+                  <div class="db-table-metric">
+                    <div>
+                      <span class="db-table-metric-name">public.subscribers</span>
+                      <span style="display: block; font-size: 11px; color: var(--text-secondary);">Enrolled checkout emails &amp; VIP drops subscribers</span>
+                    </div>
+                    <span class="db-table-metric-badge" id="metric-subscribers-count">3 subscribers</span>
+                  </div>
+
+                  <div class="db-table-metric">
+                    <div>
+                      <span class="db-table-metric-name">public.email_logs</span>
+                      <span style="display: block; font-size: 11px; color: var(--text-secondary);">Automated drop email broadcasts &amp; templates</span>
+                    </div>
+                    <span class="db-table-metric-badge" id="metric-logs-count">0 broadcasts</span>
+                  </div>
+                </div>
+
+                <div style="margin-top: 18px; padding: 12px; background: rgba(224, 109, 59, 0.08); border: 1px solid rgba(224, 109, 59, 0.2); border-radius: 6px;">
+                  <span style="font-size: 12px; color: var(--accent-ginger); font-weight: 600; display: block; margin-bottom: 2px;">
+                    ✦ Automatic Synchronization Enabled
+                  </span>
+                  <p style="margin: 0; font-size: 11px; color: var(--text-secondary); line-height: 1.5;">
+                    Every garment added or order placed writes directly to Supabase with real-time local cache fallback.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- SQL Schema & Instructions Card -->
+            <div class="db-card" style="margin-bottom: 24px;">
+              <div class="db-card-header">
+                <div>
+                  <h2 class="db-card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="16 18 22 12 16 6"></polyline>
+                      <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    PostgreSQL Schema &amp; Migration Script (supabase_schema.sql)
+                  </h2>
+                  <p style="margin: 4px 0 0; font-size: 12px; color: var(--text-secondary);">
+                    Copy this SQL script and paste it into the <strong>SQL Editor</strong> in your Supabase Dashboard to instantiate all tables in 5 seconds.
+                  </p>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-secondary" id="btn-copy-schema-sql" style="padding: 8px 16px; font-size: 12px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 5px;">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    Copy SQL Script
+                  </button>
+                  <a href="https://supabase.com/dashboard" target="_blank" rel="noopener" class="btn" style="padding: 8px 16px; font-size: 12px;">
+                    Open Supabase Dashboard ↗
+                  </a>
+                </div>
+              </div>
+
+              <div class="sql-code-box" id="schema-sql-preview">
+-- Loading schema from supabase_schema.sql...
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">GINGERTRENDZ</span>
+        <p class="footer-description">
+          An independent design house crafting high-fashion essentials. Engineered from heavyweight textiles, designed in Lagos, shipped globally.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h3>Collections</h3>
+        <ul>
+          <li><a href="#" class="footer-filter-link" data-category="Hoodies">Atelier Hoodies</a></li>
+          <li><a href="#" class="footer-filter-link" data-category="Outerwear">Trench & Puffers</a></li>
+          <li><a href="#" class="footer-filter-link" data-category="Pants">Studio Trousers</a></li>
+          <li><a href="#" class="footer-filter-link" data-category="Tees">Washed Box Tees</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Boutique Services</h3>
+        <ul>
+          <li><a href="#" id="footer-size-guide-link">Size Guidelines & Fit</a></li>
+          <li><a href="#">Complimentary Returns</a></li>
+          <li><a href="#">Heavyweight Fabric Care</a></li>
+          <li><a href="#">Global Courier Tracking</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Workspace Gate</h3>
+        <ul>
+          <li><a href="#" class="nav-link" data-view="admin-login-view">Curator Portal</a></li>
+          <li><a href="#">Editorial Archive '26</a></li>
+          <li><a href="#">Contact Atelier Team</a></li>
+          <li><a href="#">Terms & Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>&copy; 2026 GINGERTRENDZ ATELIER. THE FASHION DISCIPLES. All rights reserved.</p>
+      <p style="font-size: 11px; opacity: 0.7;">Powered by Node.js & Express RESTful Engine.</p>
+    </div>
+  </footer>
+
+  <!-- DRAWER OVERLAYS -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <!-- Product Detail Drawer -->
+  <div class="drawer" id="product-detail-drawer">
+    <div class="drawer-header">
+      <h2>Item Specs & Fit</h2>
+      <button class="drawer-close" id="detail-drawer-close" aria-label="Close Product Drawer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="drawer-body">
+      <div class="detail-image-box" id="detail-image-container">
+        <!-- Product photo injected -->
+      </div>
+
+      <div class="detail-meta">
+        <div class="detail-category-row">
+          <span class="detail-category" id="detail-category">HOODIES</span>
+          <span class="detail-badge" id="detail-badge">NEW DROP</span>
+        </div>
+        <h1 class="detail-title" id="detail-title">Heavyweight Atelier Hoodie</h1>
+        <div class="detail-price" id="detail-price">₦48,000</div>
+        
+        <p class="detail-description" id="detail-description">
+          Detailed product description goes here...
+        </p>
+
+        <!-- Product Sizes Selection -->
+        <div class="detail-size-section">
+          <div class="size-header-row">
+            <span class="size-selector-label">Select Silhouette Size</span>
+            <button type="button" class="btn-text-link size-guide-btn" id="drawer-size-guide-toggle">Size Guide</button>
+          </div>
+          <div class="size-chips" id="detail-sizes-container">
+            <!-- Dynamic Size Chips with In-Stock / Low Stock indicators injected -->
+          </div>
+          <span class="size-selected-indicator" id="detail-size-selected-label">Please select a size to continue</span>
+        </div>
+
+        <div class="quantity-section">
+          <span class="size-selector-label">Quantity</span>
+          <div class="quantity-stepper">
+            <button type="button" class="qty-btn" id="detail-qty-minus">-</button>
+            <span class="qty-display" id="detail-qty-val">1</span>
+            <button type="button" class="qty-btn" id="detail-qty-plus">+</button>
+          </div>
+        </div>
+
+        <div class="detail-actions">
+          <button class="btn" id="add-to-cart-drawer-btn">Add to Bag</button>
+          <span class="stock-status" id="detail-stock-status">In Stock & Ready for Dispatch</span>
+        </div>
+
+        <!-- Size Guide Accordion / Specs -->
+        <div class="drawer-accordion" id="size-guide-accordion">
+          <div class="accordion-header">
+            <span>Garment Size Specs (Inches)</span>
+          </div>
+          <div class="accordion-body">
+            <table class="size-guide-table">
+              <thead>
+                <tr>
+                  <th>Size</th>
+                  <th>Chest</th>
+                  <th>Length</th>
+                  <th>Sleeve</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>XS</td><td>40"</td><td>26.5"</td><td>32"</td></tr>
+                <tr><td>S</td><td>42"</td><td>27.5"</td><td>33"</td></tr>
+                <tr><td>M</td><td>44"</td><td>28.5"</td><td>34"</td></tr>
+                <tr><td>L</td><td>46"</td><td>29.5"</td><td>35"</td></tr>
+                <tr><td>XL</td><td>49"</td><td>30.5"</td><td>36"</td></tr>
+                <tr><td>XXL</td><td>52"</td><td>31.5"</td><td>37"</td></tr>
+              </tbody>
+            </table>
+            <p class="size-guide-note">Fit: Relaxed drop-shoulder silhouette. For a standard tailored fit, consider sizing down.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Shopping Bag Cart Drawer -->
+  <div class="drawer" id="cart-drawer">
+    <div class="drawer-header">
+      <div class="cart-drawer-title-group">
+        <h2>Shopping Bag</h2>
+        <span class="cart-items-count-label" id="cart-items-count-label">0 items</span>
+      </div>
+      <button class="drawer-close" id="cart-drawer-close" aria-label="Close Shopping Bag">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Free Shipping Progress Indicator -->
+    <div class="shipping-progress-box">
+      <div class="shipping-progress-text" id="shipping-progress-text">
+        Add ₦120,000 for Complimentary Dispatch
+      </div>
+      <div class="shipping-progress-track">
+        <div class="shipping-progress-bar" id="shipping-progress-bar" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <div class="drawer-body">
+      <div class="cart-items" id="cart-items-container">
+        <!-- Cart item list injected dynamically -->
+      </div>
+    </div>
+
+    <div class="drawer-footer" id="cart-drawer-footer">
+      <div class="cart-summary-row">
+        <span>Subtotal</span>
+        <span id="cart-subtotal">₦0</span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Shipping (Standard Courier)</span>
+        <span id="cart-shipping">₦5,000</span>
+      </div>
+      <div class="cart-summary-row total">
+        <span>Estimated Total</span>
+        <span id="cart-total">₦0</span>
+      </div>
+      <button class="btn" id="cart-checkout-btn">Proceed to Checkout</button>
+      <button type="button" class="btn btn-secondary continue-shopping-btn" id="cart-continue-btn">Continue Exploring</button>
+    </div>
+  </div>
+
+  <!-- Admin Add / Edit Product Modal -->
+  <div class="admin-modal-overlay" id="admin-product-modal-overlay">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h2 id="admin-modal-title">Add New Atelier Garment</h2>
+        <button class="drawer-close" id="admin-modal-close" aria-label="Close Modal">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="admin-product-form">
+        <div class="admin-modal-body">
+          <input type="hidden" id="edit-product-id">
+
+          <div class="form-group">
+            <label for="product-title">Product Title</label>
+            <input type="text" id="product-title" required placeholder="e.g. Ginger Quilted Bomber">
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="product-category">Category</label>
+              <select id="product-category" required>
+                <option value="" disabled selected>Select category</option>
+                <option value="Hoodies">Hoodies</option>
+                <option value="Outerwear">Outerwear</option>
+                <option value="Pants">Pants</option>
+                <option value="Tees">Tees</option>
+                <option value="Accessories">Accessories</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="product-price">Price (₦ Naira)</label>
+              <input type="number" id="product-price" required min="1000" placeholder="e.g. 48000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="product-description">Product Description & Textile Density</label>
+            <textarea id="product-description" rows="3" required
+              placeholder="Describe loopback GSM, stitching, silhouette drape, hardware..."></textarea>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label for="product-image-file">Garment Photography (Upload via Node.js Multer or Paste URL)</label>
+            <input type="file" id="product-image-file" accept="image/*" class="file-upload-input">
+            <input type="text" id="product-image-url" placeholder="Or paste direct Image URL (e.g. assets/images/...)" class="url-upload-input">
+            <div id="product-image-preview-container" class="image-preview-box">
+              <img id="product-image-preview" src="" alt="Garment Preview">
+              <span id="product-image-info">Image ready for catalog</span>
+            </div>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="product-stock">Total Stock</label>
+              <input type="number" id="product-stock" required min="0" placeholder="e.g. 20" value="20">
+            </div>
+            <div class="form-group">
+              <label for="product-color">Accent Tone (HEX)</label>
+              <input type="text" id="product-color" required placeholder="e.g. #D4772C" value="#D4772C">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="product-sizes">Available Sizes (Comma Separated)</label>
+            <input type="text" id="product-sizes" required placeholder="e.g. XS, S, M, L, XL, XXL" value="XS, S, M, L, XL, XXL">
+            <span class="field-hint">Sizes available for customer selection in the store drawer</span>
+          </div>
+
+          <div class="form-group">
+            <label for="product-badge">Garment Badge</label>
+            <input type="text" id="product-badge" placeholder="e.g. Signature, Limited Edition, New Drop" value="New Drop">
+          </div>
+
+          <!-- Automated Email Drop Notification Checkbox -->
+          <div class="form-group" style="margin-top: 15px; padding: 12px; background: var(--bg-tertiary); border: 1px solid var(--border-ginger); border-radius: 4px;">
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="product-notify-subscribers" checked>
+              <span class="custom-checkbox-box"></span>
+              <span class="custom-checkbox-text">
+                <strong style="color: var(--accent-ginger);">Automatically notify all customer emails about this new drop</strong>
+                <span style="display:block; font-size:11px; color:var(--text-secondary); margin-top:2px;">Dispatches an editorial email announcement with photos and size selection to all customer emails from checkout & newsletter.</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-secondary" id="admin-modal-cancel">Cancel</button>
+          <button type="submit" class="btn" id="admin-modal-submit">Save Garment & Notify</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Manual Broadcast Drop Announcement Modal -->
+  <div class="admin-modal-overlay" id="admin-broadcast-modal-overlay">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h2>Send Drop Email Announcement Blast</h2>
+        <button class="drawer-close" id="admin-broadcast-modal-close" aria-label="Close Modal">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="admin-modal-body">
+        <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 20px;">
+          Select any garment below to dispatch a high-fashion drop notification email to every email captured from checkout and subscriber signups.
+        </p>
+
+        <div class="form-group">
+          <label for="broadcast-product-select">Select Garment to Announce</label>
+          <select id="broadcast-product-select" style="padding: 12px;">
+            <!-- Options populated from products -->
+          </select>
+        </div>
+
+        <div id="broadcast-preview-snippet" style="margin-top: 16px; padding: 14px; background: var(--bg-tertiary); border-radius: 4px; border: 1px solid var(--border-color);">
+          <span style="font-size: 11px; color: var(--accent-ginger); font-weight: 700; text-transform: uppercase;">Campaign Target:</span>
+          <div style="font-size: 14px; color: var(--text-primary); margin-top: 4px;" id="broadcast-recipient-preview">
+            Will dispatch to all registered customer emails
+          </div>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="btn btn-secondary" id="admin-broadcast-modal-cancel">Cancel</button>
+        <button type="button" class="btn" id="btn-confirm-send-broadcast">
+          Send Email Announcement Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Live Preview Modal (Allows Admin to preview what customers receive) -->
+  <div class="admin-modal-overlay" id="email-preview-modal-overlay">
+    <div class="admin-modal" style="max-width: 680px;">
+      <div class="admin-modal-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-ginger)" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <h2 id="email-preview-subject" style="font-size: 16px;">Customer Email Preview</h2>
+        </div>
+        <button class="drawer-close" id="email-preview-modal-close" aria-label="Close Email Preview">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="admin-modal-body" style="background: #000000; padding: 20px;">
+        <div id="email-preview-frame-container" style="border-radius: 6px; overflow: hidden;">
+          <!-- Injected live HTML preview -->
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="btn btn-secondary" id="email-preview-modal-done">Close Preview</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Size Guide Modal -->
+  <div class="admin-modal-overlay" id="size-guide-modal-overlay">
+    <div class="admin-modal size-guide-modal">
+      <div class="admin-modal-header">
+        <h2>Gingertrendz Garment Sizing & Fit Guidelines</h2>
+        <button class="drawer-close" id="size-guide-modal-close" aria-label="Close Size Guide">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="admin-modal-body">
+        <p style="color: var(--text-secondary); margin-bottom: 20px;">
+          All Gingertrendz garments are created in our signature relaxed architectural silhouette. Follow the chest and length specifications below:
+        </p>
+        <table class="size-guide-table">
+          <thead>
+            <tr>
+              <th>Garment Size</th>
+              <th>Chest Circumference</th>
+              <th>Body Length</th>
+              <th>Recommended Height</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>XS</strong></td><td>38" - 40"</td><td>26"</td><td>5'2" - 5'6"</td></tr>
+            <tr><td><strong>S</strong></td><td>40" - 42"</td><td>27"</td><td>5'5" - 5'9"</td></tr>
+            <tr><td><strong>M</strong></td><td>42" - 44"</td><td>28"</td><td>5'8" - 6'0"</td></tr>
+            <tr><td><strong>L</strong></td><td>44" - 47"</td><td>29"</td><td>5'11" - 6'3"</td></tr>
+            <tr><td><strong>XL</strong></td><td>47" - 50"</td><td>30.5"</td><td>6'1" - 6'5"</td></tr>
+            <tr><td><strong>XXL</strong></td><td>50" - 54"</td><td>31.5"</td><td>6'2"+</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top: 20px; padding: 15px; background: var(--bg-tertiary); border-radius: 4px; border-left: 3px solid var(--accent-ginger);">
+          <strong style="color: var(--text-primary); display: block; margin-bottom: 4px;">Atelier Sizing Advice:</strong>
+          <span style="font-size: 13px; color: var(--text-secondary);">If you prefer a true streetwear oversized silhouette with drop shoulders, choose your normal standard size. For a tailored, closer-to-body fit, choose one size down.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <div class="mobile-bottom-nav">
+    <a href="#shop" class="mobile-nav-link active" data-view="storefront-view">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span>Shop</span>
+    </a>
+    <a href="#cart" class="mobile-nav-link" id="mobile-cart-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+      <span>Bag (<span id="mobile-cart-count">0</span>)</span>
+    </a>
+    <a href="#admin" class="mobile-nav-link" data-view="admin-login-view">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      <span>Portal</span>
+    </a>
+  </div>
+
+  <!-- Payment Simulation Loading Modal -->
+  <div class="payment-confirmation-overlay" id="payment-confirmation-modal">
+    <div class="payment-confirmation-card">
+      <div class="payment-spinner"></div>
+      <h3 class="payment-confirmation-title" id="payment-status-title">Confirming Transaction...</h3>
+      <p class="payment-confirmation-desc" id="payment-status-desc">Synchronizing with Gingertrendz Node.js secure payment engine and logging customer email for drop updates.</p>
+      <div class="payment-sec-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>256-Bit Encrypted Atelier Gateway</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Hub -->
+  <div class="toast-hub" id="toast-hub"></div>
+
+  <!-- SCRIPT INCLUSIONS -->
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>

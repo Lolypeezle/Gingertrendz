@@ -1,0 +1,21 @@
+[
+  {
+    "id": "EML-8901",
+    "type": "drop_announcement",
+    "subject": "✦ NEW ATELIER DROP: Gingertrendz Heavyweight Atelier Hoodie is Live",
+    "recipientsCount": 3,
+    "recipients": [
+      "tari.eze@example.com",
+      "zainab.b@example.com",
+      "chinedu.o@example.com"
+    ],
+    "product": {
+      "title": "Gingertrendz Heavyweight Atelier Hoodie",
+      "price": 48000,
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "image": "assets/images/product_hoodie_1793575280654.jpg"
+    },
+    "sent_at": "2026-10-31T12:00:00Z",
+    "status": "Dispatched"
+  }
+]

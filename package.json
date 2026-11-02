@@ -1,0 +1,29 @@
+{
+  "name": "gingertrendz",
+  "version": "1.0.0",
+  "description": "Gingertrendz - Luxury Editorial Streetwear Clothing Brand with Node.js backend, Shopping Cart, Admin Dashboard & Size Selection",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "clothing-brand",
+    "ecommerce",
+    "streetwear",
+    "gingertrendz",
+    "cart",
+    "admin-portal",
+    "sizes"
+  ],
+  "author": "Gingertrendz Team",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "cors": "^2.8.5",
+    "dotenv": "^18.0.9",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^10.3.1"
+  }
+}
