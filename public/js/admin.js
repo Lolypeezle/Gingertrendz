@@ -306,19 +306,19 @@ const AdminApp = {
 
       barsSvg += `
         <g class="chart-col">
-          <rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="4" fill="rgba(224, 109, 59, 0.45)" stroke="#E06D3B" stroke-width="1.5">
+          <rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="4" fill="rgba(18, 78, 102, 0.55)" stroke="#124E66" stroke-width="1.5">
             <animate attributeName="height" from="0" to="${h}" dur="0.8s" fill="freeze" />
             <animate attributeName="y" from="${chartHeight - 30}" to="${y}" dur="0.8s" fill="freeze" />
           </rect>
-          <text x="${x + barWidth / 2}" y="${y - 8}" fill="#FFFFFF" font-size="10" font-family="DM Sans" text-anchor="middle">₦${Math.round(val / 1000)}k</text>
-          <text x="${x + barWidth / 2}" y="${chartHeight - 10}" fill="#A0A0A8" font-size="11" font-family="DM Sans" text-anchor="middle">${months[idx]}</text>
+          <text x="${x + barWidth / 2}" y="${y - 8}" fill="#D3D9D4" font-size="10" font-family="DM Sans" text-anchor="middle">₦${Math.round(val / 1000)}k</text>
+          <text x="${x + barWidth / 2}" y="${chartHeight - 10}" fill="#748D92" font-size="11" font-family="DM Sans" text-anchor="middle">${months[idx]}</text>
         </g>
       `;
     });
 
     container.innerHTML = `
       <svg viewBox="0 0 ${chartWidth} ${chartHeight}" style="width: 100%; height: 100%; overflow: visible;">
-        <line x1="0" y1="${chartHeight - 26}" x2="${chartWidth}" y2="${chartHeight - 26}" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1" />
+        <line x1="0" y1="${chartHeight - 26}" x2="${chartWidth}" y2="${chartHeight - 26}" stroke="rgba(116, 141, 146, 0.25)" stroke-width="1" />
         ${barsSvg}
       </svg>
     `;
@@ -847,7 +847,7 @@ const AdminApp = {
     if (overviewPill) {
       overviewPill.innerHTML = isConn
         ? '<span class="pulse-dot" style="background:#2ECC71;"></span> Supabase Connected'
-        : '<span class="pulse-dot" style="background:#DF6932;"></span> Local Cache (Supabase Ready)';
+        : '<span class="pulse-dot" style="background:#A0A0A8;"></span> Local Cache (Supabase Ready)';
     }
 
     // Update Database panel elements
