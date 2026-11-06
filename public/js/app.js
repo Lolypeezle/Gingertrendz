@@ -860,7 +860,7 @@ const StoreApp = {
         localStorage.setItem('gt_admin_token', data.token);
         this.adminLoggedIn = true;
         if (this.elements.loginError) this.elements.loginError.classList.remove('active');
-        this.showToast('Authenticated as Gingertrendz Director');
+        this.showToast('Authenticated as Atelier Director');
         this.showView('adminDashboard');
         if (window.AdminApp) {
           window.AdminApp.loadDashboard();

@@ -40,9 +40,10 @@ const AdminApp = {
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
         if (confirm('Restore the Gingertrendz default catalog sample data?')) {
-          this.resetDefaultCatalog();
-        }
-      });
+          if (confirm('Restore the default catalog sample data?')) {
+            this.resetDefaultCatalog();
+          }
+        });
     }
 
     // Add Product button
@@ -306,19 +307,19 @@ const AdminApp = {
 
       barsSvg += `
         <g class="chart-col">
-          <rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="4" fill="rgba(18, 78, 102, 0.55)" stroke="#124E66" stroke-width="1.5">
+          <rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="4" fill="rgba(192, 133, 82, 0.45)" stroke="#C08552" stroke-width="1.5">
             <animate attributeName="height" from="0" to="${h}" dur="0.8s" fill="freeze" />
             <animate attributeName="y" from="${chartHeight - 30}" to="${y}" dur="0.8s" fill="freeze" />
           </rect>
-          <text x="${x + barWidth / 2}" y="${y - 8}" fill="#D3D9D4" font-size="10" font-family="DM Sans" text-anchor="middle">₦${Math.round(val / 1000)}k</text>
-          <text x="${x + barWidth / 2}" y="${chartHeight - 10}" fill="#748D92" font-size="11" font-family="DM Sans" text-anchor="middle">${months[idx]}</text>
+          <text x="${x + barWidth / 2}" y="${y - 8}" fill="#F3E9DC" font-size="10" font-family="DM Sans" text-anchor="middle">₦${Math.round(val / 1000)}k</text>
+          <text x="${x + barWidth / 2}" y="${chartHeight - 10}" fill="#C08552" font-size="11" font-family="DM Sans" text-anchor="middle">${months[idx]}</text>
         </g>
       `;
     });
 
     container.innerHTML = `
       <svg viewBox="0 0 ${chartWidth} ${chartHeight}" style="width: 100%; height: 100%; overflow: visible;">
-        <line x1="0" y1="${chartHeight - 26}" x2="${chartWidth}" y2="${chartHeight - 26}" stroke="rgba(116, 141, 146, 0.25)" stroke-width="1" />
+        <line x1="0" y1="${chartHeight - 26}" x2="${chartWidth}" y2="${chartHeight - 26}" stroke="rgba(243, 233, 220, 0.2)" stroke-width="1" />
         ${barsSvg}
       </svg>
     `;
@@ -872,186 +873,188 @@ const AdminApp = {
       subtext.textContent = isConn
         ? 'Gingertrendz is synchronizing live with your Supabase PostgreSQL cluster with full Row Level Security.'
         : 'Gingertrendz is currently operating in offline resilient mode. Save your Supabase URL & Key below to switch to Cloud PostgreSQL.';
+        ? 'The platform is synchronizing live with your Supabase PostgreSQL cluster with full Row Level Security.'
+  : 'The platform is currently operating in offline resilient mode. Save your Supabase URL & Key below to switch to Cloud PostgreSQL.';
     }
 
-    if (providerName) {
-      providerName.textContent = provider.toUpperCase();
-    }
+if (providerName) {
+  providerName.textContent = provider.toUpperCase();
+}
 
-    if (urlInput && url && !urlInput.value) {
-      urlInput.value = url;
-    }
+if (urlInput && url && !urlInput.value) {
+  urlInput.value = url;
+}
 
-    // Update table count metrics
-    const metricProducts = document.getElementById('metric-products-count');
-    const metricOrders = document.getElementById('metric-orders-count');
-    const metricSubs = document.getElementById('metric-subscribers-count');
-    const metricLogs = document.getElementById('metric-logs-count');
+// Update table count metrics
+const metricProducts = document.getElementById('metric-products-count');
+const metricOrders = document.getElementById('metric-orders-count');
+const metricSubs = document.getElementById('metric-subscribers-count');
+const metricLogs = document.getElementById('metric-logs-count');
 
-    if (metricProducts) metricProducts.textContent = `${this.products.length} garments`;
-    if (metricOrders) metricOrders.textContent = `${this.orders.length} orders`;
-    if (metricSubs) metricSubs.textContent = `${this.subscribers.length} subscribers`;
-    if (metricLogs) metricLogs.textContent = `${this.emailLogs.length} drop broadcasts`;
+if (metricProducts) metricProducts.textContent = `${this.products.length} garments`;
+if (metricOrders) metricOrders.textContent = `${this.orders.length} orders`;
+if (metricSubs) metricSubs.textContent = `${this.subscribers.length} subscribers`;
+if (metricLogs) metricLogs.textContent = `${this.emailLogs.length} drop broadcasts`;
   },
 
   async testDatabaseConnection() {
-    const btn = document.getElementById('btn-test-db-connection');
-    if (btn) btn.disabled = true;
+  const btn = document.getElementById('btn-test-db-connection');
+  if (btn) btn.disabled = true;
 
-    try {
-      const res = await fetch('/api/database/test', { method: 'POST' });
-      const data = await res.json();
-      
-      if (data.connected) {
-        if (window.StoreApp) window.StoreApp.showToast('🟢 ' + data.message);
-      } else {
-        if (window.StoreApp) window.StoreApp.showToast('🟡 ' + data.message);
-      }
-      await this.fetchDatabaseStatus();
-    } catch (err) {
-      if (window.StoreApp) window.StoreApp.showToast('Connection test failed: ' + err.message);
-    } finally {
-      if (btn) btn.disabled = false;
+  try {
+    const res = await fetch('/api/database/test', { method: 'POST' });
+    const data = await res.json();
+
+    if (data.connected) {
+      if (window.StoreApp) window.StoreApp.showToast('🟢 ' + data.message);
+    } else {
+      if (window.StoreApp) window.StoreApp.showToast('🟡 ' + data.message);
     }
-  },
+    await this.fetchDatabaseStatus();
+  } catch (err) {
+    if (window.StoreApp) window.StoreApp.showToast('Connection test failed: ' + err.message);
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+},
 
   async saveDatabaseConfig() {
-    const urlInput = document.getElementById('db-supabase-url');
-    const keyInput = document.getElementById('db-supabase-key');
-    const msgBox = document.getElementById('db-config-message');
-    const saveBtn = document.getElementById('btn-save-db-config');
+  const urlInput = document.getElementById('db-supabase-url');
+  const keyInput = document.getElementById('db-supabase-key');
+  const msgBox = document.getElementById('db-config-message');
+  const saveBtn = document.getElementById('btn-save-db-config');
 
-    if (!urlInput || !keyInput) return;
-    const url = urlInput.value.trim();
-    const key = keyInput.value.trim();
+  if (!urlInput || !keyInput) return;
+  const url = urlInput.value.trim();
+  const key = keyInput.value.trim();
 
-    if (!url || !key) {
-      if (msgBox) {
-        msgBox.style.display = 'block';
-        msgBox.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
-        msgBox.style.border = '1px solid rgba(231, 76, 60, 0.4)';
-        msgBox.style.color = '#E74C3C';
-        msgBox.textContent = 'Please enter both your Supabase URL and API Key.';
-      }
-      return;
-    }
-
-    if (saveBtn) saveBtn.disabled = true;
+  if (!url || !key) {
     if (msgBox) {
       msgBox.style.display = 'block';
-      msgBox.style.backgroundColor = 'rgba(230, 189, 123, 0.1)';
-      msgBox.style.border = '1px solid rgba(230, 189, 123, 0.3)';
-      msgBox.style.color = 'var(--accent-gilded)';
-      msgBox.textContent = 'Connecting and verifying credentials with Supabase...';
+      msgBox.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
+      msgBox.style.border = '1px solid rgba(231, 76, 60, 0.4)';
+      msgBox.style.color = '#E74C3C';
+      msgBox.textContent = 'Please enter both your Supabase URL and API Key.';
     }
+    return;
+  }
 
-    try {
-      const res = await fetch('/api/database/config', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url, key })
-      });
-      const data = await res.json();
+  if (saveBtn) saveBtn.disabled = true;
+  if (msgBox) {
+    msgBox.style.display = 'block';
+    msgBox.style.backgroundColor = 'rgba(230, 189, 123, 0.1)';
+    msgBox.style.border = '1px solid rgba(230, 189, 123, 0.3)';
+    msgBox.style.color = 'var(--accent-gilded)';
+    msgBox.textContent = 'Connecting and verifying credentials with Supabase...';
+  }
 
-      if (data.success) {
-        if (msgBox) {
-          msgBox.style.backgroundColor = 'rgba(46, 204, 113, 0.15)';
-          msgBox.style.border = '1px solid rgba(46, 204, 113, 0.4)';
-          msgBox.style.color = '#2ECC71';
-          msgBox.textContent = '✓ ' + data.message;
-        }
-        if (window.StoreApp) window.StoreApp.showToast('Supabase PostgreSQL connected successfully!');
-      } else {
-        if (msgBox) {
-          msgBox.style.backgroundColor = 'rgba(243, 156, 18, 0.15)';
-          msgBox.style.border = '1px solid rgba(243, 156, 18, 0.4)';
-          msgBox.style.color = '#F39C12';
-          msgBox.textContent = 'Configuration saved, but connection check returned: ' + data.message;
-        }
-      }
-      await this.fetchDatabaseStatus();
-    } catch (err) {
+  try {
+    const res = await fetch('/api/database/config', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url, key })
+    });
+    const data = await res.json();
+
+    if (data.success) {
       if (msgBox) {
-        msgBox.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
-        msgBox.style.border = '1px solid rgba(231, 76, 60, 0.4)';
-        msgBox.style.color = '#E74C3C';
-        msgBox.textContent = 'Connection error: ' + err.message;
+        msgBox.style.backgroundColor = 'rgba(46, 204, 113, 0.15)';
+        msgBox.style.border = '1px solid rgba(46, 204, 113, 0.4)';
+        msgBox.style.color = '#2ECC71';
+        msgBox.textContent = '✓ ' + data.message;
       }
-    } finally {
-      if (saveBtn) saveBtn.disabled = false;
+      if (window.StoreApp) window.StoreApp.showToast('Supabase PostgreSQL connected successfully!');
+    } else {
+      if (msgBox) {
+        msgBox.style.backgroundColor = 'rgba(243, 156, 18, 0.15)';
+        msgBox.style.border = '1px solid rgba(243, 156, 18, 0.4)';
+        msgBox.style.color = '#F39C12';
+        msgBox.textContent = 'Configuration saved, but connection check returned: ' + data.message;
+      }
     }
-  },
+    await this.fetchDatabaseStatus();
+  } catch (err) {
+    if (msgBox) {
+      msgBox.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
+      msgBox.style.border = '1px solid rgba(231, 76, 60, 0.4)';
+      msgBox.style.color = '#E74C3C';
+      msgBox.textContent = 'Connection error: ' + err.message;
+    }
+  } finally {
+    if (saveBtn) saveBtn.disabled = false;
+  }
+},
 
   async syncToSupabase() {
-    const btn = document.getElementById('btn-sync-to-supabase');
-    if (btn) btn.disabled = true;
+  const btn = document.getElementById('btn-sync-to-supabase');
+  if (btn) btn.disabled = true;
 
-    try {
-      if (window.StoreApp) window.StoreApp.showToast('Syncing catalog & customer records to Supabase...');
-      const res = await fetch('/api/database/sync', { method: 'POST' });
-      const data = await res.json();
+  try {
+    if (window.StoreApp) window.StoreApp.showToast('Syncing catalog & customer records to Supabase...');
+    const res = await fetch('/api/database/sync', { method: 'POST' });
+    const data = await res.json();
 
-      if (data.success) {
-        if (window.StoreApp) {
-          window.StoreApp.showToast(`✓ Synced: ${data.synced.products} garments, ${data.synced.orders} orders, ${data.synced.subscribers} emails to Supabase!`);
-        }
-        await this.fetchDatabaseStatus();
-      } else {
-        if (window.StoreApp) window.StoreApp.showToast(`Sync Notice: ${data.message}`);
+    if (data.success) {
+      if (window.StoreApp) {
+        window.StoreApp.showToast(`✓ Synced: ${data.synced.products} garments, ${data.synced.orders} orders, ${data.synced.subscribers} emails to Supabase!`);
       }
-    } catch (err) {
-      if (window.StoreApp) window.StoreApp.showToast('Sync error: ' + err.message);
-    } finally {
-      if (btn) btn.disabled = false;
+      await this.fetchDatabaseStatus();
+    } else {
+      if (window.StoreApp) window.StoreApp.showToast(`Sync Notice: ${data.message}`);
     }
-  },
+  } catch (err) {
+    if (window.StoreApp) window.StoreApp.showToast('Sync error: ' + err.message);
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+},
 
   async loadSchemaSql() {
-    const previewEl = document.getElementById('schema-sql-preview');
-    if (!previewEl || previewEl.getAttribute('data-loaded') === 'true') return;
+  const previewEl = document.getElementById('schema-sql-preview');
+  if (!previewEl || previewEl.getAttribute('data-loaded') === 'true') return;
 
-    try {
-      const res = await fetch('/api/database/schema');
-      const data = await res.json();
-      if (data.success) {
-        previewEl.textContent = data.schema;
-        previewEl.setAttribute('data-loaded', 'true');
-        this.rawSchemaSql = data.schema;
-      }
-    } catch (err) {
-      console.warn('Could not fetch schema SQL:', err.message);
+  try {
+    const res = await fetch('/api/database/schema');
+    const data = await res.json();
+    if (data.success) {
+      previewEl.textContent = data.schema;
+      previewEl.setAttribute('data-loaded', 'true');
+      this.rawSchemaSql = data.schema;
     }
-  },
-
-  copySqlSchema() {
-    const previewEl = document.getElementById('schema-sql-preview');
-    const textToCopy = this.rawSchemaSql || (previewEl ? previewEl.textContent : '');
-
-    if (!textToCopy) return;
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        if (window.StoreApp) window.StoreApp.showToast('✓ Supabase SQL Schema copied to clipboard!');
-      });
-    } else {
-      const textarea = document.createElement('textarea');
-      textarea.value = textToCopy;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      if (window.StoreApp) window.StoreApp.showToast('✓ Supabase SQL Schema copied to clipboard!');
-    }
-  },
-
-  logout() {
-    localStorage.removeItem('gt_admin_token');
-    if (window.StoreApp) {
-      window.StoreApp.adminLoggedIn = false;
-      window.StoreApp.showView('storefront');
-      window.StoreApp.showToast('Logged out from Curator Workspace');
-    }
+  } catch (err) {
+    console.warn('Could not fetch schema SQL:', err.message);
   }
+},
+
+copySqlSchema() {
+  const previewEl = document.getElementById('schema-sql-preview');
+  const textToCopy = this.rawSchemaSql || (previewEl ? previewEl.textContent : '');
+
+  if (!textToCopy) return;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      if (window.StoreApp) window.StoreApp.showToast('✓ Supabase SQL Schema copied to clipboard!');
+    });
+  } else {
+    const textarea = document.createElement('textarea');
+    textarea.value = textToCopy;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    if (window.StoreApp) window.StoreApp.showToast('✓ Supabase SQL Schema copied to clipboard!');
+  }
+},
+
+logout() {
+  localStorage.removeItem('gt_admin_token');
+  if (window.StoreApp) {
+    window.StoreApp.adminLoggedIn = false;
+    window.StoreApp.showView('storefront');
+    window.StoreApp.showToast('Logged out from Curator Workspace');
+  }
+}
 };
 
 window.AdminApp = AdminApp;
