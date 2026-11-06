@@ -152,9 +152,35 @@ const StoreApp = {
     if (this.elements.navLogo) {
       this.elements.navLogo.addEventListener('click', (e) => {
         e.preventDefault();
+        window.location.hash = '';
         this.showView('storefront');
       });
     }
+
+    // Direct hash routing (#admin, #portal, #login)
+    const handleHash = () => {
+      const hash = (window.location.hash || '').toLowerCase();
+      if (hash === '#admin' || hash === '#portal' || hash === '#login') {
+        if (this.adminLoggedIn) {
+          this.showView('adminDashboard');
+          if (window.AdminApp) window.AdminApp.loadDashboard();
+        } else {
+          this.showView('adminLogin');
+        }
+      } else if (hash === '#shop' || hash === '#storefront') {
+        this.showView('storefront');
+      }
+    };
+    window.addEventListener('hashchange', handleHash);
+    handleHash();
+
+    // Discreet shortcut: Ctrl + Shift + A to open Admin Gate
+    window.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        window.location.hash = '#admin';
+      }
+    });
 
     // Hero explore button
     if (this.elements.heroShopBtn) {
