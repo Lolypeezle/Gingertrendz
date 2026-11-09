@@ -820,7 +820,51 @@ const StoreApp = {
       subscribeEmail: subscribeEmail
     };
 
-    // Show secure payment simulation overlay
+    // Check Flutterwave Gateway Configuration
+    let flwConfig = { publicKey: '', paymentOptions: 'card, banktransfer' };
+    try {
+      const cfgRes = await fetch('/api/payment-config');
+      flwConfig = await cfgRes.json();
+    } catch (e) {
+      console.warn('Config fetch note:', e.message);
+    }
+
+    // If Flutterwave SDK is loaded and public key is configured, trigger modal
+    if (window.FlutterwaveCheckout && flwConfig.publicKey) {
+      FlutterwaveCheckout({
+        public_key: flwConfig.publicKey,
+        tx_ref: 'GT-' + Date.now(),
+        amount: grandTotal,
+        currency: 'NGN',
+        payment_options: 'card, banktransfer', // STRICTLY Debit Card & Direct Bank Transfer Only!
+        customer: {
+          email: email,
+          phone_number: phone,
+          name: `${firstName} ${lastName}`,
+        },
+        customizations: {
+          title: 'GINGERTRENDZ Atelier',
+          description: 'Payment for luxury garments',
+          logo: window.location.origin + '/assets/images/logo.jpg',
+        },
+        callback: async (paymentResponse) => {
+          // Payment completed through Flutterwave Card / Bank Transfer
+          orderPayload.paymentDetails = paymentResponse;
+          orderPayload.method = `${shippingMethodTitle} (Flutterwave: ${paymentResponse.payment_type || 'Card/Bank'})`;
+          await this.completeOrderSubmission(orderPayload);
+        },
+        onclose: () => {
+          this.showToast('Payment modal closed.');
+        }
+      });
+      return;
+    }
+
+    // Fallback/Testing simulation if key not configured
+    await this.completeOrderSubmission(orderPayload);
+  },
+
+  async completeOrderSubmission(orderPayload) {
     if (this.elements.paymentModal) {
       this.elements.paymentModal.classList.add('active');
     }
@@ -843,9 +887,11 @@ const StoreApp = {
           this.saveCartToStorage();
           this.showReceipt(data.order);
           this.loadProducts(); // Refresh inventory counts
-          this.showToast('✦ Order confirmed! Email receipt & upcoming drop alerts active.');
+          this.showToast('✦ Order confirmed! Email receipt & drop alerts active.');
+        } else {
+          alert(data.message || 'Error processing order.');
         }
-      }, 1400);
+      }, 1200);
 
     } catch (err) {
       console.error('Order creation error:', err);

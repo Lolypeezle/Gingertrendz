@@ -1,123 +1,209 @@
 [
   {
     "id": "gt-001",
-    "title": "The Fashion Disciples Heavyweight Obsidian Hoodie",
+    "title": "Gingertrendz Heavyweight Atelier Hoodie",
     "category": "Hoodies",
     "price": 48000,
-    "description": "Engineered from 520GSM combed organic loopback French terry in washed volcanic obsidian. Cut in an oversized relaxed drop-shoulder silhouette with double-layered hood and tonal architectural embroidery.",
-    "image": "assets/images/product_hoodie.jpg",
-    "color": "#121215",
+    "description": "Engineered from 520GSM combed organic loopback French terry. Cut in an oversized, relaxed drop-shoulder silhouette with double-layered hood and tonal embroidered brand signature.",
+    "image": "assets/images/product_hoodie_1793575280654.jpg",
+    "color": "#D4772C",
     "stock": 24,
-    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
-    "sizeStock": {
-      "XS": 3,
-      "S": 5,
-      "M": 7,
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "size_stock": {
       "L": 5,
+      "M": 7,
+      "S": 5,
       "XL": 3,
+      "XS": 3,
       "XXL": 1
     },
-    "badge": "Signature",
-    "created_at": "2026-10-25T12:00:00Z"
+    "badge": "Signature Drop",
+    "created_at": "2026-11-07T20:40:05.391872+00:00",
+    "updated_at": "2026-11-07T20:40:05.391872+00:00",
+    "sizeStock": {
+      "L": 5,
+      "M": 7,
+      "S": 5,
+      "XL": 3,
+      "XS": 3,
+      "XXL": 1
+    }
   },
   {
     "id": "gt-002",
-    "title": "Tailored Double-Breasted Obsidian Trench Coat",
+    "title": "Terracotta Belted Overcoat Trench",
     "category": "Outerwear",
     "price": 75000,
-    "description": "Double-breasted trench crafted from heavyweight Italian wool-blend gabardine in deep midnight obsidian black. Features a structured storm flap, horn buckles, and deep side welt pockets.",
-    "image": "assets/images/product_jacket.jpg",
-    "color": "#1A1A1E",
+    "description": "Double-breasted trench crafted from heavyweight Italian wool-blend gabardine in rich terracotta rust. Features a structured storm flap, horn buckles, and deep side welt pockets.",
+    "image": "assets/images/product_jacket_1793575295368.jpg",
+    "color": "#943D1A",
     "stock": 14,
-    "sizes": ["S", "M", "L", "XL"],
-    "sizeStock": {
-      "S": 2,
-      "M": 5,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "size_stock": {
       "L": 4,
+      "M": 5,
+      "S": 2,
       "XL": 3
     },
     "badge": "Limited Edition",
-    "created_at": "2026-10-26T14:30:00Z"
+    "created_at": "2026-11-07T20:40:05.391872+00:00",
+    "updated_at": "2026-11-07T20:40:05.391872+00:00",
+    "sizeStock": {
+      "L": 4,
+      "M": 5,
+      "S": 2,
+      "XL": 3
+    }
   },
   {
     "id": "gt-003",
-    "title": "Matte Asphalt Quilted Funnel Puffer Jacket",
+    "title": "Gloss Ginger Quilted Puffer Jacket",
     "category": "Outerwear",
     "price": 68000,
-    "description": "Water-repellent technical ripstop shell stuffed with sustainably sourced 700-fill down alternative. Features a high insulated funnel neck, storm cuffs, and matte gunmetal zipper hardware.",
-    "image": "assets/images/product_puffer.jpg",
-    "color": "#151518",
+    "description": "Water-repellent ripstop shell stuffed with sustainably sourced 700-fill down alternative. Features a high insulated funnel neck, storm cuffs, and matte gunmetal zipper hardware.",
+    "image": "assets/images/product_puffer_1793575627533.jpg",
+    "color": "#B85523",
     "stock": 18,
-    "sizes": ["XS", "S", "M", "L", "XL"],
-    "sizeStock": {
-      "XS": 2,
-      "S": 4,
-      "M": 6,
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "size_stock": {
       "L": 4,
-      "XL": 2
+      "M": 6,
+      "S": 4,
+      "XL": 2,
+      "XS": 2
     },
     "badge": "Winter Drop",
-    "created_at": "2026-10-27T09:15:00Z"
+    "created_at": "2026-11-07T20:40:05.391872+00:00",
+    "updated_at": "2026-11-07T20:40:05.391872+00:00",
+    "sizeStock": {
+      "L": 4,
+      "M": 6,
+      "S": 4,
+      "XL": 2,
+      "XS": 2
+    }
   },
   {
     "id": "gt-004",
-    "title": "Chalk Off-White Chunky Ribbed Knit Sweater",
+    "title": "Chunky Ribbed Ginger Knit Sweater",
     "category": "Hoodies",
     "price": 42000,
-    "description": "Chunky architectural knit spun from 100% Australian merino wool in chalk ivory and charcoal blend. Features dropped shoulders, thick mock-neck collar, and clean structured drape.",
-    "image": "assets/images/product_knit.jpg",
-    "color": "#E5E5E5",
+    "description": "Chunky fisherman knit spun from 100% Australian merino wool blend. Features dropped shoulders, thick ribbed collar, and raw-textured sleeve hems for an effortless architectural drape.",
+    "image": "assets/images/product_knit_1793575650504.jpg",
+    "color": "#C45B25",
     "stock": 20,
-    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
-    "sizeStock": {
-      "XS": 3,
-      "S": 4,
-      "M": 6,
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "size_stock": {
       "L": 4,
+      "M": 6,
+      "S": 4,
       "XL": 2,
+      "XS": 3,
       "XXL": 1
     },
     "badge": "Trending",
-    "created_at": "2026-10-28T16:20:00Z"
+    "created_at": "2026-11-07T20:40:05.391872+00:00",
+    "updated_at": "2026-11-07T20:40:05.391872+00:00",
+    "sizeStock": {
+      "L": 4,
+      "M": 6,
+      "S": 4,
+      "XL": 2,
+      "XS": 3,
+      "XXL": 1
+    }
   },
   {
     "id": "gt-005",
-    "title": "Pleated Wide-Leg Studio Trouser in Jet Black",
+    "title": "Pleated Wide-Leg Studio Trouser",
     "category": "Pants",
     "price": 38000,
-    "description": "Tailored double-pleated relaxed trousers in deep volcanic jet black. High-waisted drape with discreet elastic back waistband and tailored cuff break.",
-    "image": "assets/images/hero_banner.jpg",
-    "color": "#101012",
+    "description": "Tailored double-pleated relaxed trousers in deep volcanic charcoal with amber stitching accents. High-waisted drape with discreet elastic back waistband and tailored cuff break.",
+    "image": "assets/images/hero_banner_1793575264897.jpg",
+    "color": "#2D2622",
     "stock": 15,
-    "sizes": ["S", "M", "L", "XL"],
-    "sizeStock": {
-      "S": 3,
-      "M": 5,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "size_stock": {
       "L": 5,
+      "M": 5,
+      "S": 3,
       "XL": 2
     },
     "badge": "Atelier",
-    "created_at": "2026-10-29T10:00:00Z"
+    "created_at": "2026-11-07T20:40:05.391872+00:00",
+    "updated_at": "2026-11-07T20:40:05.391872+00:00",
+    "sizeStock": {
+      "L": 5,
+      "M": 5,
+      "S": 3,
+      "XL": 2
+    }
   },
   {
     "id": "gt-006",
-    "title": "Vintage Washed Box Tee - Obsidian Monogram",
+    "title": "Vintage Washed Box Tee - Ginger Monogram",
     "category": "Tees",
     "price": 24000,
-    "description": "Heavy 280GSM ring-spun cotton tee with mineral charcoal wash. Finished with subtle distressed collar edge, wide boxy sleeves, and blind-stitched hem.",
-    "image": "assets/images/product_hoodie.jpg",
-    "color": "#18181C",
+    "description": "Heavy 280GSM ring-spun cotton tee with custom mineral wash. Finished with subtle distressed collar edge, wide boxy sleeves, and blind-stitched hem.",
+    "image": "assets/images/product_hoodie_1793575280654.jpg",
+    "color": "#1C1714",
     "stock": 30,
-    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
-    "sizeStock": {
-      "XS": 4,
-      "S": 6,
-      "M": 8,
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "size_stock": {
       "L": 6,
+      "M": 8,
+      "S": 6,
       "XL": 4,
+      "XS": 4,
       "XXL": 2
     },
     "badge": "Essential",
-    "created_at": "2026-10-30T11:45:00Z"
+    "created_at": "2026-11-07T20:40:05.391872+00:00",
+    "updated_at": "2026-11-07T20:40:05.391872+00:00",
+    "sizeStock": {
+      "L": 6,
+      "M": 8,
+      "S": 6,
+      "XL": 4,
+      "XS": 4,
+      "XXL": 2
+    }
   }
 ]

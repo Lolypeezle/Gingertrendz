@@ -63,16 +63,32 @@ ALTER TABLE public.subscribers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.email_logs ENABLE ROW LEVEL SECURITY;
 
 -- Allow Public Read Access for Storefront
+DROP POLICY IF EXISTS "Public can view products" ON public.products;
 CREATE POLICY "Public can view products" ON public.products FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public can insert orders" ON public.orders;
 CREATE POLICY "Public can insert orders" ON public.orders FOR INSERT WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Public can view their own order" ON public.orders;
 CREATE POLICY "Public can view their own order" ON public.orders FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public can subscribe emails" ON public.subscribers;
 CREATE POLICY "Public can subscribe emails" ON public.subscribers FOR INSERT WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Public can view subscribers count" ON public.subscribers;
 CREATE POLICY "Public can view subscribers count" ON public.subscribers FOR SELECT USING (true);
 
 -- Allow Full Access with Anon/Service Role Key
+DROP POLICY IF EXISTS "Full access products" ON public.products;
 CREATE POLICY "Full access products" ON public.products FOR ALL USING (true);
+
+DROP POLICY IF EXISTS "Full access orders" ON public.orders;
 CREATE POLICY "Full access orders" ON public.orders FOR ALL USING (true);
+
+DROP POLICY IF EXISTS "Full access subscribers" ON public.subscribers;
 CREATE POLICY "Full access subscribers" ON public.subscribers FOR ALL USING (true);
+
+DROP POLICY IF EXISTS "Full access email_logs" ON public.email_logs;
 CREATE POLICY "Full access email_logs" ON public.email_logs FOR ALL USING (true);
 
 -- 5. SEED INITIAL PRODUCTS (THE FASHION DISCIPLES DROP '26)

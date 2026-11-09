@@ -500,6 +500,15 @@ app.post('/api/products/reset', async (req, res) => {
 // API ROUTES: ORDERS
 // ========================
 
+// GET /api/payment-config (Flutterwave Public Key & Channels)
+app.get('/api/payment-config', (req, res) => {
+  res.json({
+    publicKey: process.env.FLW_PUBLIC_KEY || '',
+    paymentOptions: 'card, banktransfer', // STRICTLY Direct Bank & Debit Card Only!
+    isConfigured: Boolean(process.env.FLW_PUBLIC_KEY)
+  });
+});
+
 // GET /api/orders
 app.get('/api/orders', async (req, res) => {
   try {
@@ -512,7 +521,7 @@ app.get('/api/orders', async (req, res) => {
 
 // POST /api/orders (Checkout Creation + Automatic Customer Email Enrolment)
 app.post('/api/orders', async (req, res) => {
-  const { customer, items, subtotal, shipping, total, method, subscribeEmail } = req.body;
+  const { customer, items, subtotal, shipping, total, method, subscribeEmail, paymentDetails } = req.body;
 
   if (!customer || !items || !items.length) {
     return res.status(400).json({ success: false, message: 'Customer and items are required.' });
@@ -531,6 +540,25 @@ app.post('/api/orders', async (req, res) => {
     }
   }
 
+  // Verify transaction with Flutterwave if secret key is present
+  let paymentStatus = 'Paid';
+  let flwRef = (paymentDetails && paymentDetails.flw_ref) || null;
+
+  if (process.env.FLW_SECRET_KEY && paymentDetails && paymentDetails.transaction_id) {
+    try {
+      const verifyRes = await fetch(`https://api.flutterwave.com/v3/transactions/${paymentDetails.transaction_id}/verify`, {
+        headers: { Authorization: `Bearer ${process.env.FLW_SECRET_KEY}` }
+      });
+      const verifyData = await verifyRes.json();
+      if (verifyData.status === 'success' && verifyData.data) {
+        paymentStatus = verifyData.data.status === 'successful' ? 'Paid' : verifyData.data.status;
+        flwRef = verifyData.data.flw_ref || flwRef;
+      }
+    } catch (e) {
+      console.warn('Flutterwave server verification note:', e.message);
+    }
+  }
+
   const newOrder = {
     id: 'GT-ORD-' + Math.floor(1000 + Math.random() * 9000),
     customer,
@@ -539,6 +567,10 @@ app.post('/api/orders', async (req, res) => {
     shipping: Number(shipping),
     total: Number(total),
     method: method || 'Standard Courier Delivery',
+    payment_method: 'Flutterwave (Debit Card / Direct Bank Transfer)',
+    payment_status: paymentStatus,
+    transaction_id: (paymentDetails && paymentDetails.transaction_id) || null,
+    flw_ref: flwRef,
     status: 'Processing',
     created_at: new Date().toISOString()
   };
