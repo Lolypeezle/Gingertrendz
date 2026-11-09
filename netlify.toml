@@ -1,0 +1,27 @@
+# =====================================================================
+# GINGERTRENDZ - Netlify Configuration
+# =====================================================================
+
+[build]
+  # The folder containing index.html, styles.css, js/, and assets/
+  publish = "public"
+
+# SPA Redirect: route all unknown paths to index.html for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Optimized Asset Caching
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Security Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
