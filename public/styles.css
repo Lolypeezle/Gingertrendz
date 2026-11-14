@@ -2174,7 +2174,7 @@ header {
   border-top: 1px solid var(--border-color);
   padding: 10px 0;
   z-index: 90;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .mobile-nav-link {
