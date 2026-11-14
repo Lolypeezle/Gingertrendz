@@ -135,7 +135,7 @@ function generateDropEmailHtml(product) {
               You received this drop update because you shopped at The Fashion Disciples or joined our VIP newsletter.
             </p>
             <p style="font-size: 11px; color: #895737; margin: 0;">
-              &copy; 2026 THE FASHION DISCIPLES. Powered by Supabase & Node.js.
+              &copy; 2026 THE FASHION DISCIPLES. All rights reserved.
             </p>
           </div>
         </div>
@@ -185,14 +185,14 @@ async function dispatchDropNotification(product) {
   if (!subscribers.length) return { count: 0, recipients: [] };
 
   const emailHtml = generateDropEmailHtml(product);
-  const subject = `✦ NEW ATELIER DROP: ${product.title} is Live on Gingertrendz`;
+  const subject = `✦ NEW DROP: ${product.title} is Live on Gingertrendz`;
   const recipients = subscribers.map(s => s.email);
 
   try {
     const transporter = await getTransporter();
     await transporter.sendMail({
-      from: '"Gingertrendz Atelier" <atelier@gingertrendz.com>',
-      to: 'atelier@gingertrendz.com',
+      from: '"Gingertrendz" <info@gingertrendz.com>',
+      to: 'info@gingertrendz.com',
       bcc: recipients.join(', '),
       subject: subject,
       html: emailHtml
@@ -408,7 +408,7 @@ app.post('/api/products/reset', async (req, res) => {
   const defaultProducts = [
     {
       id: "gt-001",
-      title: "Gingertrendz Heavyweight Atelier Hoodie",
+      title: "Gingertrendz Heavyweight Hoodie",
       category: "Hoodies",
       price: 48000,
       description: "Engineered from 520GSM combed organic loopback French terry. Cut in an oversized, relaxed drop-shoulder silhouette with double-layered hood and tonal embroidered brand signature.",
@@ -473,7 +473,7 @@ app.post('/api/products/reset', async (req, res) => {
       stock: 15,
       sizes: ["S", "M", "L", "XL"],
       sizeStock: { "S": 3, "M": 5, "L": 5, "XL": 2 },
-      badge: "Atelier",
+      badge: "Essential",
       created_at: new Date().toISOString()
     },
     {
@@ -586,7 +586,7 @@ app.post('/api/orders', async (req, res) => {
     try {
       const transporter = await getTransporter();
       transporter.sendMail({
-        from: '"Gingertrendz Atelier" <orders@gingertrendz.com>',
+        from: '"Gingertrendz" <orders@gingertrendz.com>',
         to: customer.email,
         subject: `Your Gingertrendz Order ${newOrder.id} is Confirmed`,
         html: generateOrderEmailHtml(newOrder)
@@ -630,7 +630,7 @@ app.post('/api/subscribers', async (req, res) => {
     return res.status(400).json({ success: false, message: 'Valid email address is required.' });
   }
   const subscriber = await db.saveSubscriber(email, name, source || 'newsletter');
-  res.json({ success: true, subscriber, message: 'Subscribed to Gingertrendz Atelier Drop Updates!' });
+  res.json({ success: true, subscriber, message: 'Subscribed to Gingertrendz Drop Updates!' });
 });
 
 // DELETE /api/subscribers/:email

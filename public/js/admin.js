@@ -632,7 +632,7 @@ const AdminApp = {
     previewContainer.style.display = 'none';
 
     if (product) {
-      modalTitle.textContent = 'Edit Atelier Garment';
+      modalTitle.textContent = 'Edit Garment';
       idInput.value = product.id;
       document.getElementById('product-title').value = product.title || '';
       document.getElementById('product-category').value = product.category || 'Hoodies';
@@ -649,7 +649,7 @@ const AdminApp = {
         previewContainer.style.display = 'flex';
       }
     } else {
-      modalTitle.textContent = 'Add New Atelier Garment';
+      modalTitle.textContent = 'Add New Garment';
       idInput.value = '';
       document.getElementById('product-category').value = 'Hoodies';
       document.getElementById('product-stock').value = 24;
@@ -754,7 +754,7 @@ const AdminApp = {
       }
     } catch (err) {
       console.error('Save product error:', err);
-      alert('Failed to save product to Node.js backend.');
+      alert('Failed to save product.');
     }
   },
 

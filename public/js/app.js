@@ -504,7 +504,7 @@ const StoreApp = {
       return `
         <div class="product-card" onclick="StoreApp.openProductDetail('${p.id}')">
           <div class="product-image-wrap">
-            <span class="product-card-badge">${p.badge || 'Atelier'}</span>
+            <span class="product-card-badge">${p.badge || 'New'}</span>
             <img src="${p.image}" class="product-img" alt="${p.title}" loading="lazy" onerror="this.src='assets/images/product_hoodie_1793575280654.jpg'">
             <div class="product-card-quick-sizes">
               ${quickSizesHtml}
@@ -843,7 +843,7 @@ const StoreApp = {
           name: `${firstName} ${lastName}`,
         },
         customizations: {
-          title: 'GINGERTRENDZ Atelier',
+          title: 'GINGERTRENDZ',
           description: 'Payment for luxury garments',
           logo: window.location.origin + '/assets/images/logo.jpg',
         },
@@ -932,7 +932,7 @@ const StoreApp = {
         localStorage.setItem('gt_admin_token', data.token);
         this.adminLoggedIn = true;
         if (this.elements.loginError) this.elements.loginError.classList.remove('active');
-        this.showToast('Authenticated as Atelier Director');
+        this.showToast('Authenticated as Admin');
         this.showView('adminDashboard');
         if (window.AdminApp) {
           window.AdminApp.loadDashboard();

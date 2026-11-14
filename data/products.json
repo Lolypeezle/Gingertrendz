@@ -1,7 +1,7 @@
 [
   {
     "id": "gt-001",
-    "title": "Gingertrendz Heavyweight Atelier Hoodie",
+    "title": "Gingertrendz Heavyweight Hoodie",
     "category": "Hoodies",
     "price": 48000,
     "description": "Engineered from 520GSM combed organic loopback French terry. Cut in an oversized, relaxed drop-shoulder silhouette with double-layered hood and tonal embroidered brand signature.",
@@ -159,7 +159,7 @@
       "S": 3,
       "XL": 2
     },
-    "badge": "Atelier",
+    "badge": "Essential",
     "created_at": "2026-11-07T20:40:05.391872+00:00",
     "updated_at": "2026-11-07T20:40:05.391872+00:00",
     "sizeStock": {
