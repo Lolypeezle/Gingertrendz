@@ -6,17 +6,14 @@ const multer = require('multer');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-// Database & Supabase Adapter
 const db = require('./lib/supabase');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Directories
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
 if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 
-// Multer Storage Configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, UPLOADS_DIR);
@@ -32,25 +29,19 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }
 });
 
-// Middleware
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Static Assets
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(UPLOADS_DIR));
 app.use('/assets', express.static(path.join(__dirname, 'public', 'assets')));
 
-// Curator / Private Access Credentials
 const CURATOR_CREDENTIALS = {
   emails: ['curator@gingertrendz.com', 'admin@gingertrendz.com', 'director@gingertrendz.com'],
   password: 'admin123'
 };
 
-// ==========================================
-// EMAIL NOTIFICATION SYSTEM (NODEMAILER)
-// ==========================================
 let mailTransporter = null;
 async function getTransporter() {
   if (mailTransporter) return mailTransporter;
@@ -73,7 +64,6 @@ async function getTransporter() {
   return mailTransporter;
 }
 
-// Generate Drop Announcement Email HTML Template
 function generateDropEmailHtml(product) {
   const sizesStr = (product.sizes || ['XS', 'S', 'M', 'L', 'XL', 'XXL']).join(' • ');
   const priceFormatted = Number(product.price).toLocaleString();
@@ -89,13 +79,12 @@ function generateDropEmailHtml(product) {
     </head>
     <body style="background-color: #5E3023; margin: 0; padding: 30px 10px;">
       <div style="max-width: 600px; margin: 0 auto; background-color: #4A241A; border: 1px solid rgba(243, 233, 220, 0.2); border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-        <!-- Header -->
+        
         <div style="background: #3B1C14; padding: 22px 24px; text-align: center; border-bottom: 1px solid rgba(243, 233, 220, 0.15);">
           <span style="font-size: 11px; letter-spacing: 0.25em; color: #C08552; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 4px;">THE FASHION DISCIPLES</span>
           <h1 style="font-size: 22px; margin: 0; letter-spacing: 0.15em; color: #F3E9DC; font-weight: 400;">NEW DROP LIVE</h1>
         </div>
 
-        <!-- Body -->
         <div style="padding: 34px 28px; text-align: center;">
           <span style="display: inline-block; font-size: 11px; letter-spacing: 0.15em; color: #F3E9DC; text-transform: uppercase; background: rgba(192, 133, 82, 0.3); border: 1px solid rgba(192, 133, 82, 0.5); padding: 5px 14px; border-radius: 20px; margin-bottom: 16px;">
             ✦ NEW GARMENT DROP ALERT ✦
@@ -105,7 +94,6 @@ function generateDropEmailHtml(product) {
             ${product.description}
           </p>
 
-          <!-- Product Card Preview in Email -->
           <div style="margin: 0 auto 28px; max-width: 440px; background: #3B1C14; border: 1px solid rgba(243, 233, 220, 0.15); border-radius: 6px; overflow: hidden; text-align: left;">
             <div style="width: 100%; height: 260px; background: #2B120B; overflow: hidden; position: relative;">
               <img src="${product.image}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
@@ -122,14 +110,12 @@ function generateDropEmailHtml(product) {
             </div>
           </div>
 
-          <!-- CTA Button -->
           <div style="margin-top: 10px;">
             <a href="http://localhost:3000/#shop" style="display: inline-block; background-color: #C08552; color: #3B1C14; text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 15px 36px; border-radius: 4px; box-shadow: 0 4px 18px rgba(192, 133, 82, 0.4);">
               Explore Drop & Claim Your Size
             </a>
           </div>
 
-          <!-- Footer Note -->
           <div style="margin-top: 36px; border-top: 1px solid rgba(243, 233, 220, 0.15); padding-top: 20px; text-align: center;">
             <p style="font-size: 11px; color: #895737; margin: 0 0 6px;">
               You received this drop update because you shopped at The Fashion Disciples or joined our VIP newsletter.
@@ -145,7 +131,6 @@ function generateDropEmailHtml(product) {
   `;
 }
 
-// Order Confirmation Email HTML Template
 function generateOrderEmailHtml(order) {
   const itemsListHtml = (order.items || []).map(item => `
     <tr style="border-bottom: 1px solid rgba(243, 233, 220, 0.12);">
@@ -179,7 +164,6 @@ function generateOrderEmailHtml(order) {
   `;
 }
 
-// Function to dispatch email broadcast to all subscribers
 async function dispatchDropNotification(product) {
   const subscribers = await db.getSubscribers();
   if (!subscribers.length) return { count: 0, recipients: [] };
@@ -201,14 +185,12 @@ async function dispatchDropNotification(product) {
     console.warn('Transporter send note:', err.message);
   }
 
-  // Update subscriber last_notified timestamps
   const now = new Date().toISOString();
   for (const sub of subscribers) {
     sub.last_notified = now;
     await db.saveSubscriber(sub.email, sub.name, sub.source);
   }
 
-  // Log campaign to database
   const newLog = {
     id: 'EML-' + Math.floor(1000 + Math.random() * 9000),
     type: 'drop_announcement',
@@ -231,23 +213,16 @@ async function dispatchDropNotification(product) {
   return { count: recipients.length, recipients, log: newLog };
 }
 
-// ========================
-// API ROUTES: DATABASE & SUPABASE
-// ========================
-
-// GET /api/database/status
 app.get('/api/database/status', (req, res) => {
   const status = db.getStatus();
   res.json({ success: true, ...status });
 });
 
-// POST /api/database/test
 app.post('/api/database/test', async (req, res) => {
   const result = await db.testConnection();
   res.json({ success: result.connected, ...result });
 });
 
-// POST /api/database/config
 app.post('/api/database/config', async (req, res) => {
   const { url, key } = req.body;
   if (!url || !key) {
@@ -263,13 +238,11 @@ app.post('/api/database/config', async (req, res) => {
   });
 });
 
-// POST /api/database/sync
 app.post('/api/database/sync', async (req, res) => {
   const syncRes = await db.syncLocalToSupabase();
   res.json(syncRes);
 });
 
-// GET /api/database/schema
 app.get('/api/database/schema', (req, res) => {
   const schemaFile = path.join(__dirname, 'supabase_schema.sql');
   if (fs.existsSync(schemaFile)) {
@@ -280,11 +253,6 @@ app.get('/api/database/schema', (req, res) => {
   }
 });
 
-// ========================
-// API ROUTES: PRODUCTS
-// ========================
-
-// GET /api/products
 app.get('/api/products', async (req, res) => {
   try {
     const products = await db.getProducts(req.query);
@@ -294,7 +262,6 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
-// GET /api/products/:id
 app.get('/api/products/:id', async (req, res) => {
   try {
     const product = await db.getProductById(req.params.id);
@@ -307,7 +274,6 @@ app.get('/api/products/:id', async (req, res) => {
   }
 });
 
-// POST /api/products (Curator Add + Auto Notify Subscribers)
 app.post('/api/products', async (req, res) => {
   const { title, category, price, description, image, color, stock, sizes, sizeStock, badge, notifySubscribers } = req.body;
 
@@ -345,7 +311,6 @@ app.post('/api/products', async (req, res) => {
 
   await db.addProduct(newProduct);
 
-  // Auto-broadcast email drop notification if enabled (default true)
   let emailDispatchResult = null;
   if (notifySubscribers !== false) {
     emailDispatchResult = await dispatchDropNotification(newProduct);
@@ -358,7 +323,6 @@ app.post('/api/products', async (req, res) => {
   });
 });
 
-// PUT /api/products/:id (Curator Edit)
 app.put('/api/products/:id', async (req, res) => {
   const existing = await db.getProductById(req.params.id);
   if (!existing) {
@@ -392,7 +356,6 @@ app.put('/api/products/:id', async (req, res) => {
   res.json({ success: true, product: updatedProduct });
 });
 
-// DELETE /api/products/:id
 app.delete('/api/products/:id', async (req, res) => {
   const existing = await db.getProductById(req.params.id);
   if (!existing) {
@@ -403,7 +366,6 @@ app.delete('/api/products/:id', async (req, res) => {
   res.json({ success: true, message: 'Product removed from catalog' });
 });
 
-// POST /api/products/reset
 app.post('/api/products/reset', async (req, res) => {
   const defaultProducts = [
     {
@@ -496,20 +458,14 @@ app.post('/api/products/reset', async (req, res) => {
   res.json({ success: true, message: 'Products restored to default catalog', products: defaultProducts });
 });
 
-// ========================
-// API ROUTES: ORDERS
-// ========================
-
-// GET /api/payment-config (Flutterwave Public Key & Channels)
 app.get('/api/payment-config', (req, res) => {
   res.json({
     publicKey: process.env.FLW_PUBLIC_KEY || '',
-    paymentOptions: 'card, banktransfer', // STRICTLY Direct Bank & Debit Card Only!
+    paymentOptions: 'card, banktransfer',
     isConfigured: Boolean(process.env.FLW_PUBLIC_KEY)
   });
 });
 
-// GET /api/orders
 app.get('/api/orders', async (req, res) => {
   try {
     const orders = await db.getOrders();
@@ -519,7 +475,6 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 
-// POST /api/orders (Checkout Creation + Automatic Customer Email Enrolment)
 app.post('/api/orders', async (req, res) => {
   const { customer, items, subtotal, shipping, total, method, subscribeEmail, paymentDetails } = req.body;
 
@@ -527,7 +482,6 @@ app.post('/api/orders', async (req, res) => {
     return res.status(400).json({ success: false, message: 'Customer and items are required.' });
   }
 
-  // Deduct inventory per size
   for (const cartItem of items) {
     const product = await db.getProductById(cartItem.id);
     if (product) {
@@ -540,7 +494,6 @@ app.post('/api/orders', async (req, res) => {
     }
   }
 
-  // Verify transaction with Flutterwave if secret key is present
   let paymentStatus = 'Paid';
   let flwRef = (paymentDetails && paymentDetails.flw_ref) || null;
 
@@ -577,12 +530,9 @@ app.post('/api/orders', async (req, res) => {
 
   await db.addOrder(newOrder);
 
-  // AUTOMATIC EMAIL SUBSCRIPTION:
-  // Every email input on checkout is enrolled to receive all new drop announcements
   if (customer.email) {
     await db.saveSubscriber(customer.email, `${customer.firstName} ${customer.lastName}`, 'checkout');
 
-    // Send order confirmation email
     try {
       const transporter = await getTransporter();
       transporter.sendMail({
@@ -599,7 +549,6 @@ app.post('/api/orders', async (req, res) => {
   res.status(201).json({ success: true, order: newOrder });
 });
 
-// PUT /api/orders/:id
 app.put('/api/orders/:id', async (req, res) => {
   const { status } = req.body;
   const updated = await db.updateOrderStatus(req.params.id, status);
@@ -609,11 +558,6 @@ app.put('/api/orders/:id', async (req, res) => {
   res.json({ success: true, order: updated });
 });
 
-// ==========================================
-// API ROUTES: SUBSCRIBERS & EMAIL BROADCAST
-// ==========================================
-
-// GET /api/subscribers
 app.get('/api/subscribers', async (req, res) => {
   try {
     const subscribers = await db.getSubscribers();
@@ -623,7 +567,6 @@ app.get('/api/subscribers', async (req, res) => {
   }
 });
 
-// POST /api/subscribers (Checkout or Newsletter subscription)
 app.post('/api/subscribers', async (req, res) => {
   const { email, name, source } = req.body;
   if (!email || !email.includes('@')) {
@@ -633,13 +576,11 @@ app.post('/api/subscribers', async (req, res) => {
   res.json({ success: true, subscriber, message: 'Subscribed to Gingertrendz Drop Updates!' });
 });
 
-// DELETE /api/subscribers/:email
 app.delete('/api/subscribers/:email', async (req, res) => {
   await db.deleteSubscriber(req.params.email);
   res.json({ success: true, message: 'Subscriber removed.' });
 });
 
-// GET /api/email-logs
 app.get('/api/email-logs', async (req, res) => {
   try {
     const logs = await db.getEmailLogs();
@@ -649,7 +590,6 @@ app.get('/api/email-logs', async (req, res) => {
   }
 });
 
-// POST /api/broadcast-drop (Curator Manual Drop Email Trigger)
 app.post('/api/broadcast-drop', async (req, res) => {
   const { productId } = req.body;
   const product = await db.getProductById(productId);
@@ -666,11 +606,6 @@ app.post('/api/broadcast-drop', async (req, res) => {
   });
 });
 
-// ========================
-// API ROUTES: CURATOR AUTH & STATS
-// ========================
-
-// POST /api/admin/login
 app.post('/api/admin/login', (req, res) => {
   const { email, password } = req.body;
   const matchEmail = !email || CURATOR_CREDENTIALS.emails.some(e => e.toLowerCase() === email.trim().toLowerCase());
@@ -686,7 +621,6 @@ app.post('/api/admin/login', (req, res) => {
   return res.status(401).json({ success: false, message: 'Invalid private access key or curator email.' });
 });
 
-// GET /api/stats
 app.get('/api/stats', async (req, res) => {
   try {
     const orders = await db.getOrders();
@@ -720,7 +654,6 @@ app.get('/api/stats', async (req, res) => {
   }
 });
 
-// POST /api/upload
 app.post('/api/upload', upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: false, message: 'No file uploaded.' });
@@ -729,7 +662,6 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
   res.json({ success: true, url: fileUrl });
 });
 
-// SPA fallback
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });

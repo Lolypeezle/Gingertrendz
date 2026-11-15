@@ -10,12 +10,10 @@
 
   <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
   <link rel="stylesheet" href="styles.css?v=trendhigh9.3">
-  <!-- Flutterwave Inline Checkout SDK (Debit Card & Bank Transfer) -->
   <script src="https://checkout.flutterwave.com/v3.js"></script>
 </head>
 
 <body>
-
 
   <header>
     <div class="container header-inner">
@@ -46,10 +44,8 @@
 
   <main>
 
-    <!-- STOREFRONT VIEW -->
     <section id="storefront-view" class="view-section active">
 
-      <!-- Hero Banner -->
       <div class="hero">
         <div class="hero-bg-media">
           <img src="assets/images/hero_banner.jpg?v=trendhigh9.0" alt="The Fashion Disciples Collection"
@@ -64,7 +60,6 @@
         </div>
       </div>
 
-      <!-- Live Ticker -->
       <div class="ticker-wrapper">
         <div class="ticker-content">
           <span>THE FASHION DISCIPLES</span>
@@ -82,7 +77,6 @@
         </div>
       </div>
 
-      <!-- Shop Controls: Category Filter + Search + Sort -->
       <div class="container shop-controls">
         <div class="categories-container" id="category-filter-container">
           <button class="category-chip active" data-category="all">All Items</button>
@@ -113,14 +107,12 @@
         </div>
       </div>
 
-      <!-- Products Grid -->
       <div class="container products-section">
         <div class="products-grid" id="products-grid">
-          <!-- Dynamically populated from Node.js API -->
+          
         </div>
       </div>
 
-      <!-- VIP Drop Newsletter Section (Every email is enrolled for new drop updates) -->
       <section class="newsletter-section">
         <div class="container newsletter-inner">
           <span class="newsletter-badge">✦ THE FASHION DISCIPLES VIP LIST ✦</span>
@@ -141,7 +133,6 @@
 
     </section>
 
-    <!-- CHECKOUT VIEW -->
     <section id="checkout-view" class="view-section">
       <div class="container checkout-view">
         <div class="checkout-header-bar">
@@ -157,7 +148,7 @@
         </div>
 
         <div class="checkout-grid">
-          <!-- Delivery Information Form -->
+          
           <div class="checkout-form-container">
             <form id="checkout-details-form">
               <h2 class="checkout-section-title">Delivery & Customer Information</h2>
@@ -178,7 +169,6 @@
                 <input type="email" id="shipping-email" required placeholder="name@domain.com">
               </div>
 
-              <!-- Automated Drop Notification Opt-In Checkbox -->
               <div class="checkout-email-notification-banner">
                 <label class="custom-checkbox-label">
                   <input type="checkbox" id="checkout-subscribe-email" checked>
@@ -226,7 +216,6 @@
                 </div>
               </div>
 
-              <!-- Shipping Method Option Selector -->
               <div class="form-group" style="margin-top: 20px;">
                 <label style="margin-bottom: 8px; display: block;">Shipping Method</label>
                 <div class="shipping-options-grid">
@@ -251,12 +240,11 @@
             </form>
           </div>
 
-          <!-- Order Summary Sidebar -->
           <div class="order-summary-box">
             <h2 class="checkout-section-title font-sans">Your Bag Summary</h2>
 
             <div class="summary-items-list" id="checkout-summary-items">
-              <!-- Dynamically populated cart items -->
+              
             </div>
 
             <div class="summary-row">
@@ -281,27 +269,30 @@
               <span>Automated Email Receipt & Drop Notifications Active</span>
             </div>
 
-            <button type="button" class="btn" id="proceed-payment-btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button type="button" class="btn" id="proceed-payment-btn"
+              style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
                 <rect x="2" y="5" width="20" height="14" rx="2"></rect>
                 <line x1="2" y1="10" x2="22" y2="10"></line>
               </svg>
               <span>Pay with Card / Bank Transfer</span>
             </button>
-            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; font-size: 11px; color: var(--text-muted);">
+            <div
+              style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; font-size: 11px; color: var(--text-muted);">
               <span>Secured by Flutterwave</span>
               <span>•</span>
               <span>Debit Cards</span>
               <span>•</span>
               <span>Direct Bank Transfer</span>
             </div>
-            <button type="button" class="btn btn-secondary" style="margin-top: 10px;" id="cancel-checkout-btn">Back to Shop</button>
+            <button type="button" class="btn btn-secondary" style="margin-top: 10px;" id="cancel-checkout-btn">Back to
+              Shop</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SUCCESS / CONFIRMATION VIEW -->
     <section id="success-view" class="view-section">
       <div class="container order-success-view">
         <div class="success-check-icon">
@@ -362,7 +353,6 @@
       </div>
     </section>
 
-    <!-- ADMIN LOGIN GATE -->
     <section id="admin-login-view" class="view-section">
       <div class="container admin-login-view">
         <div class="login-card">
@@ -401,11 +391,9 @@
       </div>
     </section>
 
-    <!-- ADMIN DASHBOARD VIEW -->
     <section id="admin-view" class="view-section">
       <div class="admin-view">
 
-        <!-- Sidebar Navigation -->
         <aside class="admin-sidebar">
           <div class="admin-brand-header">
             <img src="assets/images/logo.jpg" alt="Logo" class="admin-brand-logo">
@@ -443,7 +431,6 @@
             Orders Fulfillment
           </div>
 
-          <!-- NEW: Email Subscribers & Drops Tab -->
           <div class="admin-nav-item" data-admin-panel="admin-subscribers">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -464,10 +451,8 @@
           </div>
         </aside>
 
-        <!-- Dashboard Content Panels -->
         <div class="admin-content">
 
-          <!-- PANEL A: Overview Statistics -->
           <div id="admin-overview" class="admin-panel active">
             <div class="admin-header-row">
               <h1>Store Overview</h1>
@@ -502,7 +487,7 @@
                   <span class="chart-badge">+34.8% growth</span>
                 </div>
                 <div class="chart-svg-container" id="revenue-chart-container">
-                  <!-- Injected SVG graph from admin.js -->
+                  
                 </div>
               </div>
 
@@ -510,13 +495,12 @@
                 <h2 class="chart-title">Live Fulfillment Activity</h2>
                 <div id="recent-activity-container"
                   style="display:flex; flex-direction:column; gap:16px; font-size:13px; margin-top: 15px;">
-                  <!-- Injected activity log -->
+                  
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- PANEL B: Inventory Catalog Editor -->
           <div id="admin-inventory" class="admin-panel">
             <div class="admin-header-row">
               <div>
@@ -549,14 +533,13 @@
                     </tr>
                   </thead>
                   <tbody id="admin-inventory-table-body">
-                    <!-- Products list dynamically loaded -->
+                    
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
 
-          <!-- PANEL C: Orders Fulfillment -->
           <div id="admin-orders" class="admin-panel">
             <div class="admin-header-row">
               <div>
@@ -582,14 +565,13 @@
                     </tr>
                   </thead>
                   <tbody id="admin-orders-table-body">
-                    <!-- Orders dynamically loaded -->
+                    
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
 
-          <!-- PANEL D: EMAIL SUBSCRIBERS & DROP NOTIFICATIONS -->
           <div id="admin-subscribers" class="admin-panel">
             <div class="admin-header-row">
               <div>
@@ -629,7 +611,6 @@
               </div>
             </div>
 
-            <!-- Subscribers List Table -->
             <div class="table-card" style="margin-bottom: 32px;">
               <div
                 style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
@@ -651,13 +632,12 @@
                     </tr>
                   </thead>
                   <tbody id="admin-subscribers-table-body">
-                    <!-- Populated dynamically -->
+                    
                   </tbody>
                 </table>
               </div>
             </div>
 
-            <!-- Email Dispatches Log & Live Template Preview -->
             <div class="table-card">
               <div
                 style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
@@ -680,15 +660,13 @@
                     </tr>
                   </thead>
                   <tbody id="admin-email-logs-table-body">
-                    <!-- Populated dynamically -->
+                    
                   </tbody>
                 </table>
               </div>
             </div>
 
           </div>
-
-
 
         </div>
       </div>
@@ -738,10 +716,8 @@
     </div>
   </footer>
 
-  <!-- DRAWER OVERLAYS -->
   <div class="drawer-overlay" id="drawer-overlay"></div>
 
-  <!-- Product Detail Drawer -->
   <div class="drawer" id="product-detail-drawer">
     <div class="drawer-header">
       <h2>Item Specs & Fit</h2>
@@ -755,7 +731,7 @@
     </div>
     <div class="drawer-body">
       <div class="detail-image-box" id="detail-image-container">
-        <!-- Product photo injected -->
+        
       </div>
 
       <div class="detail-meta">
@@ -770,14 +746,13 @@
           Detailed product description goes here...
         </p>
 
-        <!-- Product Sizes Selection -->
         <div class="detail-size-section">
           <div class="size-header-row">
             <span class="size-selector-label">Select Silhouette Size</span>
             <button type="button" class="btn-text-link size-guide-btn" id="drawer-size-guide-toggle">Size Guide</button>
           </div>
           <div class="size-chips" id="detail-sizes-container">
-            <!-- Dynamic Size Chips with In-Stock / Low Stock indicators injected -->
+            
           </div>
           <span class="size-selected-indicator" id="detail-size-selected-label">Please select a size to continue</span>
         </div>
@@ -796,7 +771,6 @@
           <span class="stock-status" id="detail-stock-status">In Stock & Ready for Dispatch</span>
         </div>
 
-        <!-- Size Guide Accordion / Specs -->
         <div class="drawer-accordion" id="size-guide-accordion">
           <div class="accordion-header">
             <span>Garment Size Specs (Inches)</span>
@@ -859,7 +833,6 @@
     </div>
   </div>
 
-  <!-- Shopping Bag Cart Drawer -->
   <div class="drawer" id="cart-drawer">
     <div class="drawer-header">
       <div class="cart-drawer-title-group">
@@ -875,7 +848,6 @@
       </button>
     </div>
 
-    <!-- Free Shipping Progress Indicator -->
     <div class="shipping-progress-box">
       <div class="shipping-progress-text" id="shipping-progress-text">
         Add ₦120,000 for Complimentary Dispatch
@@ -887,7 +859,7 @@
 
     <div class="drawer-body">
       <div class="cart-items" id="cart-items-container">
-        <!-- Cart item list injected dynamically -->
+        
       </div>
     </div>
 
@@ -910,7 +882,6 @@
     </div>
   </div>
 
-  <!-- Admin Add / Edit Product Modal -->
   <div class="admin-modal-overlay" id="admin-product-modal-overlay">
     <div class="admin-modal">
       <div class="admin-modal-header">
@@ -992,7 +963,6 @@
               value="New Drop">
           </div>
 
-          <!-- Automated Email Drop Notification Checkbox -->
           <div class="form-group"
             style="margin-top: 15px; padding: 12px; background: var(--bg-tertiary); border: 1px solid var(--border-ginger); border-radius: 4px;">
             <label class="custom-checkbox-label">
@@ -1017,7 +987,6 @@
     </div>
   </div>
 
-  <!-- Manual Broadcast Drop Announcement Modal -->
   <div class="admin-modal-overlay" id="admin-broadcast-modal-overlay">
     <div class="admin-modal">
       <div class="admin-modal-header">
@@ -1039,7 +1008,7 @@
         <div class="form-group">
           <label for="broadcast-product-select">Select Garment to Announce</label>
           <select id="broadcast-product-select" style="padding: 12px;">
-            <!-- Options populated from products -->
+            
           </select>
         </div>
 
@@ -1062,7 +1031,6 @@
     </div>
   </div>
 
-  <!-- Email Live Preview Modal (Allows Admin to preview what customers receive) -->
   <div class="admin-modal-overlay" id="email-preview-modal-overlay">
     <div class="admin-modal" style="max-width: 680px;">
       <div class="admin-modal-header">
@@ -1084,7 +1052,7 @@
       </div>
       <div class="admin-modal-body" style="background: #000000; padding: 20px;">
         <div id="email-preview-frame-container" style="border-radius: 6px; overflow: hidden;">
-          <!-- Injected live HTML preview -->
+          
         </div>
       </div>
       <div class="admin-modal-footer">
@@ -1093,7 +1061,6 @@
     </div>
   </div>
 
-  <!-- Size Guide Modal -->
   <div class="admin-modal-overlay" id="size-guide-modal-overlay">
     <div class="admin-modal size-guide-modal">
       <div class="admin-modal-header">
@@ -1171,7 +1138,6 @@
     </div>
   </div>
 
-  <!-- Mobile Bottom Navigation -->
   <div class="mobile-bottom-nav">
     <a href="#shop" class="mobile-nav-link active" data-view="storefront-view">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1182,7 +1148,6 @@
     </a>
   </div>
 
-  <!-- Payment Simulation Loading Modal -->
   <div class="payment-confirmation-overlay" id="payment-confirmation-modal">
     <div class="payment-confirmation-card">
       <div class="payment-spinner"></div>
@@ -1199,10 +1164,8 @@
     </div>
   </div>
 
-  <!-- Toast Notification Hub -->
   <div class="toast-hub" id="toast-hub"></div>
 
-  <!-- SCRIPT INCLUSIONS -->
   <script src="js/admin.js"></script>
   <script src="js/app.js"></script>
 

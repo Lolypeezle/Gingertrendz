@@ -1,8 +1,3 @@
-/**
- * GINGERTRENDZ - Admin Portal Management Engine
- * Communicates with Node.js REST API
- */
-
 const AdminApp = {
   activePanel: 'admin-overview',
   stats: {},
@@ -17,7 +12,6 @@ const AdminApp = {
   },
 
   bindEvents() {
-    // Admin navigation items
     const navItems = document.querySelectorAll('.admin-nav-item[data-admin-panel]');
     navItems.forEach(item => {
       item.addEventListener('click', (e) => {
@@ -27,7 +21,6 @@ const AdminApp = {
       });
     });
 
-    // Logout
     const logoutBtn = document.getElementById('admin-logout-btn');
     if (logoutBtn) {
       logoutBtn.addEventListener('click', () => {
@@ -35,18 +28,15 @@ const AdminApp = {
       });
     }
 
-    // Reset default catalog button
     const resetBtn = document.getElementById('admin-reset-data-btn');
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
-        if (confirm('Restore the Gingertrendz default catalog sample data?')) {
-          if (confirm('Restore the default catalog sample data?')) {
-            this.resetDefaultCatalog();
-          }
-        });
+        if (confirm('Restore the default catalog sample data?')) {
+          this.resetDefaultCatalog();
+        }
+      });
     }
 
-    // Add Product button
     const addProductBtn = document.getElementById('admin-add-product-btn');
     if (addProductBtn) {
       addProductBtn.addEventListener('click', () => {
@@ -54,7 +44,6 @@ const AdminApp = {
       });
     }
 
-    // Modal Close buttons
     const modalClose = document.getElementById('admin-modal-close');
     const modalCancel = document.getElementById('admin-modal-cancel');
     const modalOverlay = document.getElementById('admin-product-modal-overlay');
@@ -67,7 +56,6 @@ const AdminApp = {
       });
     }
 
-    // Broadcast Modal events
     const broadcastBtn = document.getElementById('btn-open-broadcast-modal');
     const broadcastClose = document.getElementById('admin-broadcast-modal-close');
     const broadcastCancel = document.getElementById('admin-broadcast-modal-cancel');
@@ -86,7 +74,6 @@ const AdminApp = {
       btnConfirmBroadcast.addEventListener('click', () => this.handleSendManualBroadcast());
     }
 
-    // Email Preview Modal events
     const emailPreviewClose = document.getElementById('email-preview-modal-close');
     const emailPreviewDone = document.getElementById('email-preview-modal-done');
     const emailPreviewOverlay = document.getElementById('email-preview-modal-overlay');
@@ -99,7 +86,6 @@ const AdminApp = {
       });
     }
 
-    // Admin Product Form Submit
     const productForm = document.getElementById('admin-product-form');
     if (productForm) {
       productForm.addEventListener('submit', (e) => {
@@ -108,7 +94,6 @@ const AdminApp = {
       });
     }
 
-    // Supabase Database Events
     const btnTestDb = document.getElementById('btn-test-db-connection');
     if (btnTestDb) {
       btnTestDb.addEventListener('click', () => this.testDatabaseConnection());
@@ -464,7 +449,6 @@ const AdminApp = {
     }).join('');
   },
 
-  // EMAIL SUBSCRIBERS TABLE
   renderSubscribersTable() {
     const tbody = document.getElementById('admin-subscribers-table-body');
     const countEl = document.getElementById('admin-subscribers-count');
@@ -498,7 +482,6 @@ const AdminApp = {
     }).join('');
   },
 
-  // EMAIL CAMPAIGNS LOG TABLE
   renderEmailLogsTable() {
     const tbody = document.getElementById('admin-email-logs-table-body');
     const campCountEl = document.getElementById('admin-campaigns-count');
@@ -556,7 +539,6 @@ const AdminApp = {
     if (overlay) overlay.classList.remove('active');
   },
 
-  // MANUAL BROADCAST MODAL
   openBroadcastModal() {
     const overlay = document.getElementById('admin-broadcast-modal-overlay');
     const select = document.getElementById('broadcast-product-select');
@@ -822,9 +804,6 @@ const AdminApp = {
     }
   },
 
-  // ==========================================
-  // SUPABASE DATABASE METHODS
-  // ==========================================
   async fetchDatabaseStatus() {
     try {
       const res = await fetch('/api/database/status');
@@ -843,7 +822,6 @@ const AdminApp = {
     const provider = (this.dbStatus && this.dbStatus.provider) || 'local_json_cache';
     const url = (this.dbStatus && this.dbStatus.url) || '';
 
-    // Update Overview header pill
     const overviewPill = document.getElementById('overview-db-status-pill');
     if (overviewPill) {
       overviewPill.innerHTML = isConn
@@ -851,7 +829,6 @@ const AdminApp = {
         : '<span class="pulse-dot" style="background:#A0A0A8;"></span> Local Cache (Supabase Ready)';
     }
 
-    // Update Database panel elements
     const statusLabel = document.getElementById('db-status-label');
     const chip = document.getElementById('db-connection-chip');
     const subtext = document.getElementById('db-status-subtext');
@@ -873,8 +850,6 @@ const AdminApp = {
       subtext.textContent = isConn
         ? 'Gingertrendz is synchronizing live with your Supabase PostgreSQL cluster with full Row Level Security.'
         : 'Gingertrendz is currently operating in offline resilient mode. Save your Supabase URL & Key below to switch to Cloud PostgreSQL.';
-        ? 'The platform is synchronizing live with your Supabase PostgreSQL cluster with full Row Level Security.'
-  : 'The platform is currently operating in offline resilient mode. Save your Supabase URL & Key below to switch to Cloud PostgreSQL.';
     }
 
 if (providerName) {
@@ -885,7 +860,6 @@ if (urlInput && url && !urlInput.value) {
   urlInput.value = url;
 }
 
-// Update table count metrics
 const metricProducts = document.getElementById('metric-products-count');
 const metricOrders = document.getElementById('metric-orders-count');
 const metricSubs = document.getElementById('metric-subscribers-count');

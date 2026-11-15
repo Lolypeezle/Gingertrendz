@@ -111,4 +111,4 @@ Gingertrendz/
 ---
 
 ## 🛡️ License
-Private Proprietary — Gingertrendz Atelier & The Fashion Disciples.
+Private Proprietary — Gingertrendz & The Fashion Disciples.

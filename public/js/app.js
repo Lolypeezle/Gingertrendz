@@ -1,8 +1,3 @@
-/**
- * GINGERTRENDZ - Luxury Editorial Boutique Storefront Engine
- * Communicates with Node.js Express REST API
- */
-
 const StoreApp = {
   products: [],
   cart: [],
@@ -23,7 +18,6 @@ const StoreApp = {
     await this.loadProducts();
     this.updateCartUI();
 
-    // Initialize admin app if present
     if (window.AdminApp) {
       window.AdminApp.init();
     }
@@ -31,7 +25,6 @@ const StoreApp = {
 
   cacheElements() {
     this.elements = {
-      // Views
       views: {
         storefront: document.getElementById('storefront-view'),
         checkout: document.getElementById('checkout-view'),
@@ -40,7 +33,6 @@ const StoreApp = {
         adminDashboard: document.getElementById('admin-view')
       },
 
-      // Navigation
       navLogo: document.getElementById('nav-logo'),
       navShop: document.getElementById('nav-shop'),
       navAdmin: document.getElementById('nav-admin'),
@@ -48,14 +40,12 @@ const StoreApp = {
       cartCount: document.getElementById('cart-count'),
       mobileCartCount: document.getElementById('mobile-cart-count'),
 
-      // Storefront Elements
       productsGrid: document.getElementById('products-grid'),
       categoryChips: document.querySelectorAll('#category-filter-container .category-chip'),
       searchInput: document.getElementById('search-input'),
       sortSelect: document.getElementById('sort-select'),
       heroShopBtn: document.getElementById('hero-shop-btn'),
 
-      // Drawers & Overlays
       drawerOverlay: document.getElementById('drawer-overlay'),
       detailDrawer: document.getElementById('product-detail-drawer'),
       detailClose: document.getElementById('detail-drawer-close'),
@@ -63,7 +53,6 @@ const StoreApp = {
       cartClose: document.getElementById('cart-drawer-close'),
       cartContinueBtn: document.getElementById('cart-continue-btn'),
 
-      // Product Detail Drawer Elements
       detailImage: document.getElementById('detail-image-container'),
       detailCategory: document.getElementById('detail-category'),
       detailBadge: document.getElementById('detail-badge'),
@@ -81,7 +70,6 @@ const StoreApp = {
       sizeGuideModal: document.getElementById('size-guide-modal-overlay'),
       sizeGuideClose: document.getElementById('size-guide-modal-close'),
 
-      // Cart Drawer Elements
       cartItems: document.getElementById('cart-items-container'),
       cartCountLabel: document.getElementById('cart-items-count-label'),
       shippingProgressBar: document.getElementById('shipping-progress-bar'),
@@ -91,7 +79,6 @@ const StoreApp = {
       cartTotal: document.getElementById('cart-total'),
       cartCheckoutBtn: document.getElementById('cart-checkout-btn'),
 
-      // Checkout Elements
       checkoutForm: document.getElementById('checkout-details-form'),
       checkoutItems: document.getElementById('checkout-summary-items'),
       checkoutSubtotal: document.getElementById('checkout-subtotal'),
@@ -102,7 +89,6 @@ const StoreApp = {
       btnCancelCheckoutTop: document.getElementById('cancel-checkout-top-btn'),
       shippingMethodRadios: document.querySelectorAll('input[name="shipping-method"]'),
 
-      // Receipt Elements
       receiptRef: document.getElementById('receipt-ref'),
       receiptDate: document.getElementById('receipt-date'),
       receiptMethod: document.getElementById('receipt-method'),
@@ -113,7 +99,6 @@ const StoreApp = {
       receiptTotal: document.getElementById('receipt-total'),
       btnSuccessShop: document.getElementById('success-shop-btn'),
 
-      // Admin Login Elements
       adminLoginForm: document.getElementById('admin-login-form'),
       adminEmail: document.getElementById('admin-email'),
       adminPassword: document.getElementById('admin-password'),
@@ -121,14 +106,12 @@ const StoreApp = {
       btnQuickFillAdmin: document.getElementById('btn-quick-fill-admin'),
       btnBackToShop: document.getElementById('btn-back-to-shop'),
 
-      // Payment Confirmation Modal
       paymentModal: document.getElementById('payment-confirmation-modal'),
       toastHub: document.getElementById('toast-hub')
     };
   },
 
   bindEvents() {
-    // Navigation link handling
     document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
       link.addEventListener('click', (e) => {
         const view = link.getAttribute('data-view');
@@ -148,7 +131,6 @@ const StoreApp = {
       });
     });
 
-    // Logo click returns to storefront
     if (this.elements.navLogo) {
       this.elements.navLogo.addEventListener('click', (e) => {
         e.preventDefault();
@@ -157,7 +139,6 @@ const StoreApp = {
       });
     }
 
-    // Direct hash routing (#admin, #portal, #login)
     const handleHash = () => {
       const hash = (window.location.hash || '').toLowerCase();
       if (hash === '#admin' || hash === '#portal' || hash === '#login') {
@@ -174,7 +155,6 @@ const StoreApp = {
     window.addEventListener('hashchange', handleHash);
     handleHash();
 
-    // Discreet shortcut: Ctrl + Shift + A to open Admin Gate
     window.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
         e.preventDefault();
@@ -182,7 +162,6 @@ const StoreApp = {
       }
     });
 
-    // Hero explore button
     if (this.elements.heroShopBtn) {
       this.elements.heroShopBtn.addEventListener('click', () => {
         const controls = document.getElementById('category-filter-container');
@@ -190,7 +169,6 @@ const StoreApp = {
       });
     }
 
-    // Category chips
     this.elements.categoryChips.forEach(chip => {
       chip.addEventListener('click', () => {
         this.elements.categoryChips.forEach(c => c.classList.remove('active'));
@@ -200,7 +178,6 @@ const StoreApp = {
       });
     });
 
-    // Search input
     let searchTimeout;
     if (this.elements.searchInput) {
       this.elements.searchInput.addEventListener('input', () => {
@@ -211,14 +188,12 @@ const StoreApp = {
       });
     }
 
-    // Sort Select
     if (this.elements.sortSelect) {
       this.elements.sortSelect.addEventListener('change', () => {
         this.loadProducts();
       });
     }
 
-    // Cart toggles & drawers
     if (this.elements.cartBtn) {
       this.elements.cartBtn.addEventListener('click', () => this.toggleCartDrawer(true));
     }
@@ -249,7 +224,6 @@ const StoreApp = {
       });
     }
 
-    // Quantity Stepper in detail drawer
     if (this.elements.detailQtyMinus) {
       this.elements.detailQtyMinus.addEventListener('click', () => {
         if (this.selectedQty > 1) {
@@ -273,7 +247,6 @@ const StoreApp = {
       });
     }
 
-    // Add to cart from detail drawer
     if (this.elements.detailAddBtn) {
       this.elements.detailAddBtn.addEventListener('click', () => {
         if (!this.selectedProduct) return;
@@ -287,7 +260,6 @@ const StoreApp = {
       });
     }
 
-    // Size Guide modal toggle
     if (this.elements.sizeGuideToggle && this.elements.sizeGuideModal) {
       this.elements.sizeGuideToggle.addEventListener('click', () => {
         this.elements.sizeGuideModal.classList.add('active');
@@ -306,7 +278,6 @@ const StoreApp = {
       });
     }
 
-    // Cart checkout button
     if (this.elements.cartCheckoutBtn) {
       this.elements.cartCheckoutBtn.addEventListener('click', () => {
         if (this.cart.length === 0) {
@@ -318,7 +289,6 @@ const StoreApp = {
       });
     }
 
-    // Checkout Cancel Buttons
     if (this.elements.btnCancelCheckout) {
       this.elements.btnCancelCheckout.addEventListener('click', () => this.showView('storefront'));
     }
@@ -326,7 +296,6 @@ const StoreApp = {
       this.elements.btnCancelCheckoutTop.addEventListener('click', () => this.showView('storefront'));
     }
 
-    // Shipping method change in checkout
     this.elements.shippingMethodRadios.forEach(radio => {
       radio.addEventListener('change', () => {
         this.elements.shippingMethodRadios.forEach(r => {
@@ -337,21 +306,18 @@ const StoreApp = {
       });
     });
 
-    // Proceed to Payment / Place Order
     if (this.elements.btnProceedPayment) {
       this.elements.btnProceedPayment.addEventListener('click', () => {
         this.handleCheckoutSubmit();
       });
     }
 
-    // Success continue shopping
     if (this.elements.btnSuccessShop) {
       this.elements.btnSuccessShop.addEventListener('click', () => {
         this.showView('storefront');
       });
     }
 
-    // Admin login form submit
     if (this.elements.adminLoginForm) {
       this.elements.adminLoginForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -359,7 +325,6 @@ const StoreApp = {
       });
     }
 
-    // Admin quick fill demo credentials
     if (this.elements.btnQuickFillAdmin) {
       this.elements.btnQuickFillAdmin.addEventListener('click', () => {
         this.elements.adminEmail.value = 'admin@gingertrendz.com';
@@ -374,7 +339,6 @@ const StoreApp = {
       });
     }
 
-    // Footer filter links
     document.querySelectorAll('.footer-filter-link').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -389,7 +353,6 @@ const StoreApp = {
       });
     });
 
-    // VIP Newsletter Drop Alert Subscription Form
     const newsletterForm = document.getElementById('newsletter-form');
     if (newsletterForm) {
       newsletterForm.addEventListener('submit', async (e) => {
@@ -432,7 +395,6 @@ const StoreApp = {
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Update nav link active state
     if (this.elements.navShop) this.elements.navShop.classList.toggle('active', viewKey === 'storefront');
     if (this.elements.navAdmin) this.elements.navAdmin.classList.toggle('active', viewKey === 'adminDashboard' || viewKey === 'adminLogin');
   },
@@ -450,7 +412,6 @@ const StoreApp = {
     if (this.elements.drawerOverlay) this.elements.drawerOverlay.classList.toggle('active', open);
   },
 
-  // API Call: Load Products
   async loadProducts() {
     const category = this.currentCategory || 'all';
     const search = this.elements.searchInput ? this.elements.searchInput.value.trim() : '';
@@ -536,7 +497,6 @@ const StoreApp = {
     this.loadProducts();
   },
 
-  // Open Product Detail Drawer
   openProductDetail(productId) {
     const product = this.products.find(p => p.id === productId);
     if (!product) return;
@@ -545,7 +505,6 @@ const StoreApp = {
     this.selectedQty = 1;
     this.elements.detailQtyVal.textContent = 1;
 
-    // Fill Details
     this.elements.detailImage.innerHTML = `
       <img src="${product.image}" class="detail-img" alt="${product.title}" onerror="this.src='assets/images/product_hoodie_1793575280654.jpg'">
     `;
@@ -555,11 +514,9 @@ const StoreApp = {
     this.elements.detailPrice.textContent = '₦' + Number(product.price).toLocaleString();
     this.elements.detailDescription.textContent = product.description;
 
-    // Render Size Chips
     const sizes = product.sizes || ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
     const sizeStock = product.sizeStock || {};
 
-    // Select first in-stock size by default
     let firstAvailableSize = null;
     const sizesHtml = sizes.map(size => {
       const stock = sizeStock[size] !== undefined ? sizeStock[size] : 5;
@@ -614,7 +571,6 @@ const StoreApp = {
     this.elements.detailAddBtn.disabled = false;
   },
 
-  // CART LOGIC
   loadCartFromStorage() {
     try {
       const saved = localStorage.getItem('gt_cart');
@@ -740,7 +696,6 @@ const StoreApp = {
     this.elements.cartShipping.textContent = shipping === 0 ? 'Complimentary' : '₦' + shipping.toLocaleString();
     this.elements.cartTotal.textContent = '₦' + total.toLocaleString();
 
-    // Free shipping threshold: ₦120,000
     const progressPercent = Math.min(100, Math.round((subtotal / 120000) * 100));
     this.elements.shippingProgressBar.style.width = progressPercent + '%';
 
@@ -752,14 +707,12 @@ const StoreApp = {
     }
   },
 
-  // CHECKOUT
   openCheckout() {
     this.showView('checkout');
 
     const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     this.shippingFee = subtotal >= 120000 ? 0 : 5000;
 
-    // Render items list in sidebar
     this.elements.checkoutItems.innerHTML = this.cart.map(item => `
       <div class="summary-item-row">
         <div>
@@ -820,7 +773,6 @@ const StoreApp = {
       subscribeEmail: subscribeEmail
     };
 
-    // Check Flutterwave Gateway Configuration
     let flwConfig = { publicKey: '', paymentOptions: 'card, banktransfer' };
     try {
       const cfgRes = await fetch('/api/payment-config');
@@ -829,14 +781,13 @@ const StoreApp = {
       console.warn('Config fetch note:', e.message);
     }
 
-    // If Flutterwave SDK is loaded and public key is configured, trigger modal
     if (window.FlutterwaveCheckout && flwConfig.publicKey) {
       FlutterwaveCheckout({
         public_key: flwConfig.publicKey,
         tx_ref: 'GT-' + Date.now(),
         amount: grandTotal,
         currency: 'NGN',
-        payment_options: 'card, banktransfer', // STRICTLY Debit Card & Direct Bank Transfer Only!
+        payment_options: 'card, banktransfer',
         customer: {
           email: email,
           phone_number: phone,
@@ -848,7 +799,6 @@ const StoreApp = {
           logo: window.location.origin + '/assets/images/logo.jpg',
         },
         callback: async (paymentResponse) => {
-          // Payment completed through Flutterwave Card / Bank Transfer
           orderPayload.paymentDetails = paymentResponse;
           orderPayload.method = `${shippingMethodTitle} (Flutterwave: ${paymentResponse.payment_type || 'Card/Bank'})`;
           await this.completeOrderSubmission(orderPayload);
@@ -860,7 +810,6 @@ const StoreApp = {
       return;
     }
 
-    // Fallback/Testing simulation if key not configured
     await this.completeOrderSubmission(orderPayload);
   },
 
@@ -886,7 +835,7 @@ const StoreApp = {
           this.cart = [];
           this.saveCartToStorage();
           this.showReceipt(data.order);
-          this.loadProducts(); // Refresh inventory counts
+          this.loadProducts();
           this.showToast('✦ Order confirmed! Email receipt & drop alerts active.');
         } else {
           alert(data.message || 'Error processing order.');
@@ -915,7 +864,6 @@ const StoreApp = {
     this.showView('success');
   },
 
-  // ADMIN AUTHENTICATION
   async handleAdminLogin() {
     const email = this.elements.adminEmail.value.trim();
     const password = this.elements.adminPassword.value;
@@ -952,7 +900,6 @@ const StoreApp = {
     }
   },
 
-  // Toast Notification
   showToast(message) {
     const hub = this.elements.toastHub;
     if (!hub) return;

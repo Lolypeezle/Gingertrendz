@@ -1,9 +1,3 @@
--- ====================================================================
--- GINGERTRENDZ - SUPABASE POSTGRESQL DATABASE SCHEMA
--- Execute this script in your Supabase Project's "SQL Editor"
--- ====================================================================
-
--- 1. PRODUCTS TABLE
 CREATE TABLE IF NOT EXISTS public.products (
     id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
@@ -15,12 +9,11 @@ CREATE TABLE IF NOT EXISTS public.products (
     stock INTEGER DEFAULT 10,
     sizes JSONB DEFAULT '["XS", "S", "M", "L", "XL", "XXL"]'::jsonb,
     size_stock JSONB DEFAULT '{"XS": 3, "S": 5, "M": 7, "L": 5, "XL": 3, "XXL": 1}'::jsonb,
-    badge TEXT DEFAULT 'Atelier Drop',
+    badge TEXT DEFAULT 'Signature Drop',
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 2. ORDERS TABLE
 CREATE TABLE IF NOT EXISTS public.orders (
     id TEXT PRIMARY KEY,
     customer JSONB NOT NULL,
@@ -33,7 +26,6 @@ CREATE TABLE IF NOT EXISTS public.orders (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 3. EMAIL SUBSCRIBERS TABLE
 CREATE TABLE IF NOT EXISTS public.subscribers (
     email TEXT PRIMARY KEY,
     name TEXT DEFAULT 'Fashion Disciple',
@@ -43,7 +35,6 @@ CREATE TABLE IF NOT EXISTS public.subscribers (
     last_notified TIMESTAMPTZ
 );
 
--- 4. EMAIL CAMPAIGN LOGS TABLE
 CREATE TABLE IF NOT EXISTS public.email_logs (
     id TEXT PRIMARY KEY,
     type TEXT DEFAULT 'drop_announcement',
@@ -56,13 +47,11 @@ CREATE TABLE IF NOT EXISTS public.email_logs (
     sent_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Enable Row Level Security (RLS)
 ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.subscribers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.email_logs ENABLE ROW LEVEL SECURITY;
 
--- Allow Public Read Access for Storefront
 DROP POLICY IF EXISTS "Public can view products" ON public.products;
 CREATE POLICY "Public can view products" ON public.products FOR SELECT USING (true);
 
@@ -78,7 +67,6 @@ CREATE POLICY "Public can subscribe emails" ON public.subscribers FOR INSERT WIT
 DROP POLICY IF EXISTS "Public can view subscribers count" ON public.subscribers;
 CREATE POLICY "Public can view subscribers count" ON public.subscribers FOR SELECT USING (true);
 
--- Allow Full Access with Anon/Service Role Key
 DROP POLICY IF EXISTS "Full access products" ON public.products;
 CREATE POLICY "Full access products" ON public.products FOR ALL USING (true);
 
@@ -91,12 +79,11 @@ CREATE POLICY "Full access subscribers" ON public.subscribers FOR ALL USING (tru
 DROP POLICY IF EXISTS "Full access email_logs" ON public.email_logs;
 CREATE POLICY "Full access email_logs" ON public.email_logs FOR ALL USING (true);
 
--- 5. SEED INITIAL PRODUCTS (THE FASHION DISCIPLES DROP '26)
 INSERT INTO public.products (id, title, category, price, description, image, color, stock, sizes, size_stock, badge)
 VALUES
 (
     'gt-001',
-    'Gingertrendz Heavyweight Atelier Hoodie',
+    'Gingertrendz Heavyweight Signature Hoodie',
     'Hoodies',
     48000,
     'Engineered from 520GSM combed organic loopback French terry. Cut in an oversized, relaxed drop-shoulder silhouette with double-layered hood and tonal embroidered brand signature.',
@@ -157,7 +144,7 @@ VALUES
     15,
     '["S", "M", "L", "XL"]'::jsonb,
     '{"S": 3, "M": 5, "L": 5, "XL": 2}'::jsonb,
-    'Atelier'
+    'Signature'
 ),
 (
     'gt-006',
@@ -174,7 +161,6 @@ VALUES
 )
 ON CONFLICT (id) DO NOTHING;
 
--- 6. SEED INITIAL SUBSCRIBERS
 INSERT INTO public.subscribers (email, name, source, orders_count)
 VALUES
 ('tari.eze@example.com', 'Tari Eze', 'checkout', 1),

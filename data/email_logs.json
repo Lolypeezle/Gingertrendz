@@ -2,7 +2,7 @@
   {
     "id": "EML-8901",
     "type": "drop_announcement",
-    "subject": "✦ NEW ATELIER DROP: Gingertrendz Heavyweight Atelier Hoodie is Live",
+    "subject": "✦ NEW DROP: Gingertrendz Heavyweight Signature Hoodie is Live",
     "recipientsCount": 3,
     "recipients": [
       "tari.eze@example.com",
@@ -10,7 +10,7 @@
       "chinedu.o@example.com"
     ],
     "product": {
-      "title": "Gingertrendz Heavyweight Atelier Hoodie",
+      "title": "Gingertrendz Heavyweight Signature Hoodie",
       "price": 48000,
       "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
       "image": "assets/images/product_hoodie_1793575280654.jpg"
