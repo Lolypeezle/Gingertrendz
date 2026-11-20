@@ -327,8 +327,8 @@ const StoreApp = {
 
     if (this.elements.btnQuickFillAdmin) {
       this.elements.btnQuickFillAdmin.addEventListener('click', () => {
-        this.elements.adminEmail.value = 'admin@gingertrendz.com';
-        this.elements.adminPassword.value = 'admin123';
+        this.elements.adminEmail.value = 'thefashiondisciples@gmail.com';
+        this.elements.adminPassword.value = 'Jamal22#';
         if (this.elements.loginError) this.elements.loginError.classList.remove('active');
       });
     }
@@ -868,33 +868,65 @@ const StoreApp = {
     const email = this.elements.adminEmail.value.trim();
     const password = this.elements.adminPassword.value;
 
+    let serverSuccess = false;
+    let serverHandled = false;
+    let serverErrorMsg = null;
+
     try {
       const res = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-      const data = await res.json();
 
-      if (data.success) {
-        localStorage.setItem('gt_admin_token', data.token);
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        serverHandled = true;
+        const data = await res.json();
+        if (data.success) {
+          serverSuccess = true;
+          localStorage.setItem('gt_admin_token', data.token);
+        } else {
+          serverErrorMsg = data.message || 'Incorrect credentials.';
+        }
+      }
+    } catch (err) {
+      console.warn('API login endpoint unreachable, checking static credentials:', err);
+    }
+
+    if (serverHandled) {
+      if (serverSuccess) {
         this.adminLoggedIn = true;
         if (this.elements.loginError) this.elements.loginError.classList.remove('active');
         this.showToast('Authenticated as Admin');
         this.showView('adminDashboard');
-        if (window.AdminApp) {
-          window.AdminApp.loadDashboard();
-        }
+        if (window.AdminApp) window.AdminApp.loadDashboard();
       } else {
         if (this.elements.loginError) {
-          this.elements.loginError.textContent = data.message || 'Incorrect credentials.';
+          this.elements.loginError.textContent = serverErrorMsg || 'Incorrect credentials.';
           this.elements.loginError.classList.add('active');
         }
       }
-    } catch (err) {
-      console.error('Login error:', err);
+      return;
+    }
+
+    // Static hosting fallback (e.g. Netlify deployment without Node.js backend)
+    const validEmails = ['thefashiondisciples@gmail.com', 'admin@gingertrendz.com', 'curator@gingertrendz.com', 'director@gingertrendz.com'];
+    const validPass = 'Jamal22#';
+
+    const matchEmail = !email || validEmails.some(e => e.toLowerCase() === email.trim().toLowerCase());
+    const matchPass = password === validPass;
+
+    if (matchEmail && matchPass) {
+      localStorage.setItem('gt_admin_token', 'gt-curator-session-' + Date.now());
+      this.adminLoggedIn = true;
+      if (this.elements.loginError) this.elements.loginError.classList.remove('active');
+      this.showToast('Authenticated as Admin');
+      this.showView('adminDashboard');
+      if (window.AdminApp) window.AdminApp.loadDashboard();
+    } else {
       if (this.elements.loginError) {
-        this.elements.loginError.textContent = 'Server connection issue. Please retry.';
+        this.elements.loginError.textContent = 'Invalid private access key or curator email.';
         this.elements.loginError.classList.add('active');
       }
     }

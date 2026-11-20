@@ -26,7 +26,7 @@ An editorial boutique e-commerce web application inspired by high-fashion aesthe
    - Whenever a new garment drops, an editorial HTML email previewing the garment, sizes, and price is dispatched.
 
 5. **Curator Portal (Workspace)**:
-   - Private Access Key gate (`admin123`) — no generic "admin" terminology in visible UI.
+   - Private Access Key gate (configured via `ADMIN_PASSWORD` in `.env`) — no generic "admin" terminology in visible UI.
    - Real-time catalog editor (add/edit garments, stock levels, sizes, and upload photos).
    - Orders fulfillment dashboard with printable courier receipts.
    - Email subscribers directory and dispatch campaign history with live email template previewer.
@@ -78,7 +78,7 @@ Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
 - **Storefront**: `http://localhost:3000/`
 - **Curator Portal**: Click **"Portal"** in the top navigation or visit `http://localhost:3000/#portal`
-- **Curator Key**: `admin123`
+- **Curator Key**: Configured via `ADMIN_PASSWORD` in `.env` (or default access key)
 
 ---
 

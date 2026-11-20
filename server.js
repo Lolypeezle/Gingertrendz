@@ -38,8 +38,15 @@ app.use('/uploads', express.static(UPLOADS_DIR));
 app.use('/assets', express.static(path.join(__dirname, 'public', 'assets')));
 
 const CURATOR_CREDENTIALS = {
-  emails: ['curator@gingertrendz.com', 'admin@gingertrendz.com', 'director@gingertrendz.com'],
-  password: 'admin123'
+  get emails() {
+    if (process.env.ADMIN_EMAIL) {
+      return process.env.ADMIN_EMAIL.split(',').map(e => e.trim().toLowerCase());
+    }
+    return ['thefashiondisciples@gmail.com', 'curator@gingertrendz.com', 'admin@gingertrendz.com', 'director@gingertrendz.com'];
+  },
+  get password() {
+    return process.env.ADMIN_PASSWORD || 'Jamal22#';
+  }
 };
 
 let mailTransporter = null;
