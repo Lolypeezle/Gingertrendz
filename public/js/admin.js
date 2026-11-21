@@ -847,7 +847,7 @@ const AdminApp = {
     } catch (_) { }
 
     // 3. Instant UI feedback
-    const msg = id ? 'Product updated successfully' : '✓ New product published to storefront!';
+    const msg = id ? '✓ Product updated successfully' : '✓ Product confirmed! Displaying live on the storefront lookbook...';
     if (window.StoreApp) window.StoreApp.showToast(msg);
     this.closeProductModal();
 
@@ -855,7 +855,23 @@ const AdminApp = {
     await this.fetchProducts();
     this.renderInventoryTable();
     this.renderOverview();
-    if (window.StoreApp) await window.StoreApp.loadProducts();
+    if (window.StoreApp) {
+      await window.StoreApp.loadProducts();
+
+      // Automatically transition to the customer storefront interface and reveal the new product
+      window.StoreApp.showView('storefront');
+      setTimeout(() => {
+        const grid = document.getElementById('products-grid');
+        if (grid) {
+          grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const firstCard = grid.querySelector('.product-card');
+          if (firstCard) {
+            firstCard.classList.add('product-card-newly-added');
+            setTimeout(() => firstCard.classList.remove('product-card-newly-added'), 5000);
+          }
+        }
+      }, 150);
+    }
   },
 
   editProduct(id) {
