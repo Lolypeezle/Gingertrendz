@@ -204,15 +204,31 @@ const AdminApp = {
   },
 
   async fetchProducts() {
+    if (window.GT_PRODUCTS_STORE) {
+      this.products = window.GT_PRODUCTS_STORE.getAllProducts();
+    }
     try {
       const res = await fetch('/api/products');
-      const data = await res.json();
-      if (data.success) {
-        this.products = data.products;
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.products) && data.products.length > 0) {
+          const custom = window.GT_PRODUCTS_STORE ? window.GT_PRODUCTS_STORE.getCustomProducts() : [];
+          const deleted = window.GT_PRODUCTS_STORE ? window.GT_PRODUCTS_STORE.getDeletedIds() : [];
+          const customIds = new Set(custom.map(c => c.id));
+          const merged = [...custom];
+          data.products.forEach(p => {
+            if (!customIds.has(p.id) && !deleted.includes(p.id)) {
+              merged.push(p);
+            }
+          });
+          this.products = merged;
+        }
       }
     } catch (err) {
-      console.error('Fetch products error:', err);
+      console.warn('Backend products endpoint unreachable, using client product store:', err);
     }
+    this.renderInventoryTable();
   },
 
   async fetchOrders() {
@@ -651,40 +667,52 @@ const AdminApp = {
 
   async handleProductFormSubmit() {
     const id = document.getElementById('edit-product-id').value;
-    const title = document.getElementById('product-title').value;
+    const title = document.getElementById('product-title').value.trim();
     const category = document.getElementById('product-category').value;
     const price = Number(document.getElementById('product-price').value);
-    const description = document.getElementById('product-description').value;
+    const description = document.getElementById('product-description').value.trim();
     const stock = Number(document.getElementById('product-stock').value);
-    const color = document.getElementById('product-color').value;
-    const sizesStr = document.getElementById('product-sizes').value;
-    const badge = document.getElementById('product-badge').value;
+    const color = document.getElementById('product-color').value.trim() || '#D4772C';
+    const sizesStr = document.getElementById('product-sizes').value.trim();
+    const badge = document.getElementById('product-badge').value.trim() || 'New Drop';
     const notifySubscribers = document.getElementById('product-notify-subscribers') ? document.getElementById('product-notify-subscribers').checked : true;
     const fileInput = document.getElementById('product-image-file');
+    const previewImg = document.getElementById('product-image-preview');
     let imageUrl = document.getElementById('product-image-url').value.trim();
 
+    // Check if an image was uploaded via file
     if (fileInput.files && fileInput.files[0]) {
-      const formData = new FormData();
-      formData.append('image', fileInput.files[0]);
+      if (previewImg && previewImg.src && previewImg.src.startsWith('data:')) {
+        imageUrl = previewImg.src;
+      }
       try {
+        const formData = new FormData();
+        formData.append('image', fileInput.files[0]);
         const uploadRes = await fetch('/api/upload', {
           method: 'POST',
           body: formData
         });
-        const uploadData = await uploadRes.json();
-        if (uploadData.success) {
-          imageUrl = uploadData.url;
+        const contentType = uploadRes.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const uploadData = await uploadRes.json();
+          if (uploadData.success && uploadData.url) {
+            imageUrl = uploadData.url;
+          }
         }
       } catch (err) {
-        console.error('File upload error:', err);
+        // Fallback to data URL already captured
       }
     }
 
     if (!imageUrl) {
-      imageUrl = 'assets/images/product_hoodie_1793575280654.jpg';
+      if (previewImg && previewImg.src && !previewImg.src.endsWith('/')) {
+        imageUrl = previewImg.src;
+      } else {
+        imageUrl = 'assets/images/product_hoodie_1793575280654.jpg';
+      }
     }
 
-    const sizes = sizesStr.split(',').map(s => s.trim().toUpperCase()).filter(Boolean);
+    const sizes = sizesStr ? sizesStr.split(',').map(s => s.trim().toUpperCase()).filter(Boolean) : ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
     const sizeStock = {};
     sizes.forEach(s => {
       sizeStock[s] = Math.max(1, Math.floor(stock / sizes.length));
@@ -704,40 +732,38 @@ const AdminApp = {
       notifySubscribers
     };
 
+    // 1. Immediately save to client-side store for zero-latency response & offline resilience
+    if (window.GT_PRODUCTS_STORE) {
+      window.GT_PRODUCTS_STORE.saveProduct(payload, id);
+    }
+
+    // 2. Dispatch to backend in background if available
     try {
-      let res;
       if (id) {
-        res = await fetch(`/api/products/${id}`, {
+        fetch(`/api/products/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
-        });
+        }).catch(() => { });
       } else {
-        res = await fetch('/api/products', {
+        fetch('/api/products', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
-        });
+        }).catch(() => { });
       }
+    } catch (_) { }
 
-      const data = await res.json();
-      if (data.success) {
-        let msg = id ? 'Product updated successfully' : 'New product published to storefront!';
-        if (!id && data.emailDispatched && data.emailDispatched.count > 0) {
-          msg += ` & Drop email sent to ${data.emailDispatched.count} customer inboxes!`;
-        }
-        if (window.StoreApp) window.StoreApp.showToast(msg);
-        this.closeProductModal();
-        await Promise.all([this.fetchProducts(), this.fetchEmailLogs(), this.fetchSubscribers()]);
-        this.renderInventoryTable();
-        this.renderEmailLogsTable();
-        this.renderSubscribersTable();
-        if (window.StoreApp) window.StoreApp.loadProducts();
-      }
-    } catch (err) {
-      console.error('Save product error:', err);
-      alert('Failed to save product.');
-    }
+    // 3. Instant UI feedback
+    const msg = id ? 'Product updated successfully' : '✓ New product published to storefront!';
+    if (window.StoreApp) window.StoreApp.showToast(msg);
+    this.closeProductModal();
+
+    // 4. Update admin tables, stats, and storefront immediately
+    await this.fetchProducts();
+    this.renderInventoryTable();
+    this.renderOverview();
+    if (window.StoreApp) await window.StoreApp.loadProducts();
   },
 
   editProduct(id) {
@@ -748,20 +774,21 @@ const AdminApp = {
   },
 
   async deleteProduct(id) {
-    if (!confirm('Are you sure you want to delete this garment from the catalog?')) return;
+    if (!confirm('Are you sure you want to delete this product from the catalog?')) return;
+
+    if (window.GT_PRODUCTS_STORE) {
+      window.GT_PRODUCTS_STORE.deleteProduct(id);
+    }
 
     try {
-      const res = await fetch(`/api/products/${id}`, { method: 'DELETE' });
-      const data = await res.json();
-      if (data.success) {
-        if (window.StoreApp) window.StoreApp.showToast('Garment deleted from catalog');
-        await this.fetchProducts();
-        this.renderInventoryTable();
-        if (window.StoreApp) window.StoreApp.loadProducts();
-      }
-    } catch (err) {
-      console.error('Delete product error:', err);
-    }
+      fetch(`/api/products/${id}`, { method: 'DELETE' }).catch(() => { });
+    } catch (err) { }
+
+    if (window.StoreApp) window.StoreApp.showToast('Product removed from catalog');
+    await this.fetchProducts();
+    this.renderInventoryTable();
+    this.renderOverview();
+    if (window.StoreApp) await window.StoreApp.loadProducts();
   },
 
   async updateOrderStatus(orderId, newStatus) {
@@ -782,18 +809,18 @@ const AdminApp = {
   },
 
   async resetDefaultCatalog() {
-    try {
-      const res = await fetch('/api/products/reset', { method: 'POST' });
-      const data = await res.json();
-      if (data.success) {
-        if (window.StoreApp) window.StoreApp.showToast('Catalog restored to default pieces');
-        await this.fetchProducts();
-        this.renderInventoryTable();
-        if (window.StoreApp) window.StoreApp.loadProducts();
-      }
-    } catch (err) {
-      console.error('Reset catalog error:', err);
+    if (window.GT_PRODUCTS_STORE) {
+      window.GT_PRODUCTS_STORE.resetCatalog();
     }
+    try {
+      fetch('/api/products/reset', { method: 'POST' }).catch(() => { });
+    } catch (err) { }
+
+    if (window.StoreApp) window.StoreApp.showToast('Catalog restored to default pieces');
+    await this.fetchProducts();
+    this.renderInventoryTable();
+    this.renderOverview();
+    if (window.StoreApp) await window.StoreApp.loadProducts();
   },
 
   printOrderReceipt(orderId) {
@@ -852,183 +879,183 @@ const AdminApp = {
         : 'Gingertrendz is currently operating in offline resilient mode. Save your Supabase URL & Key below to switch to Cloud PostgreSQL.';
     }
 
-if (providerName) {
-  providerName.textContent = provider.toUpperCase();
-}
+    if (providerName) {
+      providerName.textContent = provider.toUpperCase();
+    }
 
-if (urlInput && url && !urlInput.value) {
-  urlInput.value = url;
-}
+    if (urlInput && url && !urlInput.value) {
+      urlInput.value = url;
+    }
 
-const metricProducts = document.getElementById('metric-products-count');
-const metricOrders = document.getElementById('metric-orders-count');
-const metricSubs = document.getElementById('metric-subscribers-count');
-const metricLogs = document.getElementById('metric-logs-count');
+    const metricProducts = document.getElementById('metric-products-count');
+    const metricOrders = document.getElementById('metric-orders-count');
+    const metricSubs = document.getElementById('metric-subscribers-count');
+    const metricLogs = document.getElementById('metric-logs-count');
 
-if (metricProducts) metricProducts.textContent = `${this.products.length} garments`;
-if (metricOrders) metricOrders.textContent = `${this.orders.length} orders`;
-if (metricSubs) metricSubs.textContent = `${this.subscribers.length} subscribers`;
-if (metricLogs) metricLogs.textContent = `${this.emailLogs.length} drop broadcasts`;
+    if (metricProducts) metricProducts.textContent = `${this.products.length} garments`;
+    if (metricOrders) metricOrders.textContent = `${this.orders.length} orders`;
+    if (metricSubs) metricSubs.textContent = `${this.subscribers.length} subscribers`;
+    if (metricLogs) metricLogs.textContent = `${this.emailLogs.length} drop broadcasts`;
   },
 
   async testDatabaseConnection() {
-  const btn = document.getElementById('btn-test-db-connection');
-  if (btn) btn.disabled = true;
+    const btn = document.getElementById('btn-test-db-connection');
+    if (btn) btn.disabled = true;
 
-  try {
-    const res = await fetch('/api/database/test', { method: 'POST' });
-    const data = await res.json();
+    try {
+      const res = await fetch('/api/database/test', { method: 'POST' });
+      const data = await res.json();
 
-    if (data.connected) {
-      if (window.StoreApp) window.StoreApp.showToast('🟢 ' + data.message);
-    } else {
-      if (window.StoreApp) window.StoreApp.showToast('🟡 ' + data.message);
-    }
-    await this.fetchDatabaseStatus();
-  } catch (err) {
-    if (window.StoreApp) window.StoreApp.showToast('Connection test failed: ' + err.message);
-  } finally {
-    if (btn) btn.disabled = false;
-  }
-},
-
-  async saveDatabaseConfig() {
-  const urlInput = document.getElementById('db-supabase-url');
-  const keyInput = document.getElementById('db-supabase-key');
-  const msgBox = document.getElementById('db-config-message');
-  const saveBtn = document.getElementById('btn-save-db-config');
-
-  if (!urlInput || !keyInput) return;
-  const url = urlInput.value.trim();
-  const key = keyInput.value.trim();
-
-  if (!url || !key) {
-    if (msgBox) {
-      msgBox.style.display = 'block';
-      msgBox.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
-      msgBox.style.border = '1px solid rgba(231, 76, 60, 0.4)';
-      msgBox.style.color = '#E74C3C';
-      msgBox.textContent = 'Please enter both your Supabase URL and API Key.';
-    }
-    return;
-  }
-
-  if (saveBtn) saveBtn.disabled = true;
-  if (msgBox) {
-    msgBox.style.display = 'block';
-    msgBox.style.backgroundColor = 'rgba(230, 189, 123, 0.1)';
-    msgBox.style.border = '1px solid rgba(230, 189, 123, 0.3)';
-    msgBox.style.color = 'var(--accent-gilded)';
-    msgBox.textContent = 'Connecting and verifying credentials with Supabase...';
-  }
-
-  try {
-    const res = await fetch('/api/database/config', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url, key })
-    });
-    const data = await res.json();
-
-    if (data.success) {
-      if (msgBox) {
-        msgBox.style.backgroundColor = 'rgba(46, 204, 113, 0.15)';
-        msgBox.style.border = '1px solid rgba(46, 204, 113, 0.4)';
-        msgBox.style.color = '#2ECC71';
-        msgBox.textContent = '✓ ' + data.message;
-      }
-      if (window.StoreApp) window.StoreApp.showToast('Supabase PostgreSQL connected successfully!');
-    } else {
-      if (msgBox) {
-        msgBox.style.backgroundColor = 'rgba(243, 156, 18, 0.15)';
-        msgBox.style.border = '1px solid rgba(243, 156, 18, 0.4)';
-        msgBox.style.color = '#F39C12';
-        msgBox.textContent = 'Configuration saved, but connection check returned: ' + data.message;
-      }
-    }
-    await this.fetchDatabaseStatus();
-  } catch (err) {
-    if (msgBox) {
-      msgBox.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
-      msgBox.style.border = '1px solid rgba(231, 76, 60, 0.4)';
-      msgBox.style.color = '#E74C3C';
-      msgBox.textContent = 'Connection error: ' + err.message;
-    }
-  } finally {
-    if (saveBtn) saveBtn.disabled = false;
-  }
-},
-
-  async syncToSupabase() {
-  const btn = document.getElementById('btn-sync-to-supabase');
-  if (btn) btn.disabled = true;
-
-  try {
-    if (window.StoreApp) window.StoreApp.showToast('Syncing catalog & customer records to Supabase...');
-    const res = await fetch('/api/database/sync', { method: 'POST' });
-    const data = await res.json();
-
-    if (data.success) {
-      if (window.StoreApp) {
-        window.StoreApp.showToast(`✓ Synced: ${data.synced.products} garments, ${data.synced.orders} orders, ${data.synced.subscribers} emails to Supabase!`);
+      if (data.connected) {
+        if (window.StoreApp) window.StoreApp.showToast('🟢 ' + data.message);
+      } else {
+        if (window.StoreApp) window.StoreApp.showToast('🟡 ' + data.message);
       }
       await this.fetchDatabaseStatus();
-    } else {
-      if (window.StoreApp) window.StoreApp.showToast(`Sync Notice: ${data.message}`);
+    } catch (err) {
+      if (window.StoreApp) window.StoreApp.showToast('Connection test failed: ' + err.message);
+    } finally {
+      if (btn) btn.disabled = false;
     }
-  } catch (err) {
-    if (window.StoreApp) window.StoreApp.showToast('Sync error: ' + err.message);
-  } finally {
-    if (btn) btn.disabled = false;
-  }
-},
+  },
+
+  async saveDatabaseConfig() {
+    const urlInput = document.getElementById('db-supabase-url');
+    const keyInput = document.getElementById('db-supabase-key');
+    const msgBox = document.getElementById('db-config-message');
+    const saveBtn = document.getElementById('btn-save-db-config');
+
+    if (!urlInput || !keyInput) return;
+    const url = urlInput.value.trim();
+    const key = keyInput.value.trim();
+
+    if (!url || !key) {
+      if (msgBox) {
+        msgBox.style.display = 'block';
+        msgBox.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
+        msgBox.style.border = '1px solid rgba(231, 76, 60, 0.4)';
+        msgBox.style.color = '#E74C3C';
+        msgBox.textContent = 'Please enter both your Supabase URL and API Key.';
+      }
+      return;
+    }
+
+    if (saveBtn) saveBtn.disabled = true;
+    if (msgBox) {
+      msgBox.style.display = 'block';
+      msgBox.style.backgroundColor = 'rgba(230, 189, 123, 0.1)';
+      msgBox.style.border = '1px solid rgba(230, 189, 123, 0.3)';
+      msgBox.style.color = 'var(--accent-gilded)';
+      msgBox.textContent = 'Connecting and verifying credentials with Supabase...';
+    }
+
+    try {
+      const res = await fetch('/api/database/config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, key })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        if (msgBox) {
+          msgBox.style.backgroundColor = 'rgba(46, 204, 113, 0.15)';
+          msgBox.style.border = '1px solid rgba(46, 204, 113, 0.4)';
+          msgBox.style.color = '#2ECC71';
+          msgBox.textContent = '✓ ' + data.message;
+        }
+        if (window.StoreApp) window.StoreApp.showToast('Supabase PostgreSQL connected successfully!');
+      } else {
+        if (msgBox) {
+          msgBox.style.backgroundColor = 'rgba(243, 156, 18, 0.15)';
+          msgBox.style.border = '1px solid rgba(243, 156, 18, 0.4)';
+          msgBox.style.color = '#F39C12';
+          msgBox.textContent = 'Configuration saved, but connection check returned: ' + data.message;
+        }
+      }
+      await this.fetchDatabaseStatus();
+    } catch (err) {
+      if (msgBox) {
+        msgBox.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
+        msgBox.style.border = '1px solid rgba(231, 76, 60, 0.4)';
+        msgBox.style.color = '#E74C3C';
+        msgBox.textContent = 'Connection error: ' + err.message;
+      }
+    } finally {
+      if (saveBtn) saveBtn.disabled = false;
+    }
+  },
+
+  async syncToSupabase() {
+    const btn = document.getElementById('btn-sync-to-supabase');
+    if (btn) btn.disabled = true;
+
+    try {
+      if (window.StoreApp) window.StoreApp.showToast('Syncing catalog & customer records to Supabase...');
+      const res = await fetch('/api/database/sync', { method: 'POST' });
+      const data = await res.json();
+
+      if (data.success) {
+        if (window.StoreApp) {
+          window.StoreApp.showToast(`✓ Synced: ${data.synced.products} garments, ${data.synced.orders} orders, ${data.synced.subscribers} emails to Supabase!`);
+        }
+        await this.fetchDatabaseStatus();
+      } else {
+        if (window.StoreApp) window.StoreApp.showToast(`Sync Notice: ${data.message}`);
+      }
+    } catch (err) {
+      if (window.StoreApp) window.StoreApp.showToast('Sync error: ' + err.message);
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  },
 
   async loadSchemaSql() {
-  const previewEl = document.getElementById('schema-sql-preview');
-  if (!previewEl || previewEl.getAttribute('data-loaded') === 'true') return;
+    const previewEl = document.getElementById('schema-sql-preview');
+    if (!previewEl || previewEl.getAttribute('data-loaded') === 'true') return;
 
-  try {
-    const res = await fetch('/api/database/schema');
-    const data = await res.json();
-    if (data.success) {
-      previewEl.textContent = data.schema;
-      previewEl.setAttribute('data-loaded', 'true');
-      this.rawSchemaSql = data.schema;
+    try {
+      const res = await fetch('/api/database/schema');
+      const data = await res.json();
+      if (data.success) {
+        previewEl.textContent = data.schema;
+        previewEl.setAttribute('data-loaded', 'true');
+        this.rawSchemaSql = data.schema;
+      }
+    } catch (err) {
+      console.warn('Could not fetch schema SQL:', err.message);
     }
-  } catch (err) {
-    console.warn('Could not fetch schema SQL:', err.message);
-  }
-},
+  },
 
-copySqlSchema() {
-  const previewEl = document.getElementById('schema-sql-preview');
-  const textToCopy = this.rawSchemaSql || (previewEl ? previewEl.textContent : '');
+  copySqlSchema() {
+    const previewEl = document.getElementById('schema-sql-preview');
+    const textToCopy = this.rawSchemaSql || (previewEl ? previewEl.textContent : '');
 
-  if (!textToCopy) return;
+    if (!textToCopy) return;
 
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(textToCopy).then(() => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        if (window.StoreApp) window.StoreApp.showToast('✓ Supabase SQL Schema copied to clipboard!');
+      });
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = textToCopy;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
       if (window.StoreApp) window.StoreApp.showToast('✓ Supabase SQL Schema copied to clipboard!');
-    });
-  } else {
-    const textarea = document.createElement('textarea');
-    textarea.value = textToCopy;
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textarea);
-    if (window.StoreApp) window.StoreApp.showToast('✓ Supabase SQL Schema copied to clipboard!');
-  }
-},
+    }
+  },
 
-logout() {
-  localStorage.removeItem('gt_admin_token');
-  if (window.StoreApp) {
-    window.StoreApp.adminLoggedIn = false;
-    window.StoreApp.showView('storefront');
-    window.StoreApp.showToast('Logged out from Curator Workspace');
+  logout() {
+    localStorage.removeItem('gt_admin_token');
+    if (window.StoreApp) {
+      window.StoreApp.adminLoggedIn = false;
+      window.StoreApp.showView('storefront');
+      window.StoreApp.showToast('Logged out from Curator Workspace');
+    }
   }
-}
 };
 
 window.AdminApp = AdminApp;

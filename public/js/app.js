@@ -414,9 +414,30 @@ const StoreApp = {
 
   async loadProducts() {
     const category = this.currentCategory || 'all';
-    const search = this.elements.searchInput ? this.elements.searchInput.value.trim() : '';
+    const search = this.elements.searchInput ? this.elements.searchInput.value.trim().toLowerCase() : '';
     const sort = this.elements.sortSelect ? this.elements.sortSelect.value : 'default';
 
+    // 1. Instant zero-latency render from GT_PRODUCTS_STORE
+    if (window.GT_PRODUCTS_STORE) {
+      let prods = window.GT_PRODUCTS_STORE.getAllProducts();
+      if (category && category !== 'all') {
+        prods = prods.filter(p => p.category && p.category.toLowerCase() === category.toLowerCase());
+      }
+      if (search) {
+        prods = prods.filter(p =>
+          (p.title && p.title.toLowerCase().includes(search)) ||
+          (p.description && p.description.toLowerCase().includes(search))
+        );
+      }
+      if (sort === 'price-asc') prods.sort((a, b) => Number(a.price) - Number(b.price));
+      else if (sort === 'price-desc') prods.sort((a, b) => Number(b.price) - Number(a.price));
+      else if (sort === 'name') prods.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+
+      this.products = prods;
+      this.renderProductsGrid();
+    }
+
+    // 2. Non-blocking background sync with backend server if present
     const params = new URLSearchParams();
     if (category && category !== 'all') params.append('category', category);
     if (search) params.append('search', search);
@@ -424,13 +445,25 @@ const StoreApp = {
 
     try {
       const res = await fetch(`/api/products?${params.toString()}`);
-      const data = await res.json();
-      if (data.success) {
-        this.products = data.products;
-        this.renderProductsGrid();
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.products) && data.products.length > 0) {
+          const custom = window.GT_PRODUCTS_STORE ? window.GT_PRODUCTS_STORE.getCustomProducts() : [];
+          const deleted = window.GT_PRODUCTS_STORE ? window.GT_PRODUCTS_STORE.getDeletedIds() : [];
+          const customIds = new Set(custom.map(c => c.id));
+          const merged = [...custom];
+          data.products.forEach(p => {
+            if (!customIds.has(p.id) && !deleted.includes(p.id)) {
+              merged.push(p);
+            }
+          });
+          this.products = merged;
+          this.renderProductsGrid();
+        }
       }
     } catch (err) {
-      console.warn('API error, falling back to local dataset:', err);
+      // Offline or static Netlify host fallback already applied
     }
   },
 
@@ -466,7 +499,7 @@ const StoreApp = {
         <div class="product-card" onclick="StoreApp.openProductDetail('${p.id}')">
           <div class="product-image-wrap">
             <span class="product-card-badge">${p.badge || 'New'}</span>
-            <img src="${p.image}" class="product-img" alt="${p.title}" loading="lazy" onerror="this.src='assets/images/product_hoodie_1793575280654.jpg'">
+            <img src="${p.image}" class="product-img" alt="${p.title}" loading="lazy" decoding="async" onerror="this.src='assets/images/product_hoodie_1793575280654.jpg'">
             <div class="product-card-quick-sizes">
               ${quickSizesHtml}
             </div>
