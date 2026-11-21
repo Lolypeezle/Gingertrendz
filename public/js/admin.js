@@ -717,12 +717,14 @@ const AdminApp = {
     const idInput = document.getElementById('edit-product-id');
     const previewContainer = document.getElementById('product-image-preview-container');
     const previewImg = document.getElementById('product-image-preview');
+    const submitBtn = document.getElementById('admin-modal-submit');
 
     form.reset();
     previewContainer.style.display = 'none';
 
     if (product) {
       modalTitle.textContent = 'Edit Product';
+      if (submitBtn) submitBtn.textContent = 'Save Changes';
       idInput.value = product.id;
       document.getElementById('product-title').value = product.title || '';
       document.getElementById('product-category').value = product.category || 'Hoodies';
@@ -740,6 +742,7 @@ const AdminApp = {
       }
     } else {
       modalTitle.textContent = 'Add New Product';
+      if (submitBtn) submitBtn.textContent = 'Add';
       idInput.value = '';
       document.getElementById('product-category').value = 'Hoodies';
       document.getElementById('product-stock').value = 24;
@@ -747,6 +750,13 @@ const AdminApp = {
       document.getElementById('product-sizes').value = 'XS, S, M, L, XL, XXL';
       document.getElementById('product-badge').value = 'New Drop';
       document.getElementById('product-notify-subscribers').checked = true;
+    }
+
+    // Reset scroll to top on mobile and desktop
+    if (modalOverlay) {
+      modalOverlay.scrollTop = 0;
+      const modalBody = modalOverlay.querySelector('.admin-modal-body');
+      if (modalBody) modalBody.scrollTop = 0;
     }
 
     modalOverlay.classList.add('active');
