@@ -959,7 +959,7 @@ const StoreApp = {
       if (window.AdminApp) window.AdminApp.loadDashboard();
     } else {
       if (this.elements.loginError) {
-        this.elements.loginError.textContent = 'Invalid private access key or curator email.';
+        this.elements.loginError.textContent = 'Invalid email or password.';
         this.elements.loginError.classList.add('active');
       }
     }

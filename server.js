@@ -625,7 +625,7 @@ app.post('/api/admin/login', (req, res) => {
       admin: { name: 'Gingertrendz Curator', email: email || 'curator@gingertrendz.com' }
     });
   }
-  return res.status(401).json({ success: false, message: 'Invalid private access key or curator email.' });
+  return res.status(401).json({ success: false, message: 'Invalid email or password.' });
 });
 
 app.get('/api/stats', async (req, res) => {
