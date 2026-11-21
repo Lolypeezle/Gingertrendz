@@ -5,6 +5,8 @@ const AdminApp = {
   orders: [],
   subscribers: [],
   emailLogs: [],
+  searchQuery: '',
+  categoryFilter: 'all',
 
   init() {
     this.bindEvents();
@@ -20,6 +22,51 @@ const AdminApp = {
         this.switchPanel(panelId);
       });
     });
+
+    // Interactive Dashboard Stat Cards
+    document.querySelectorAll('.stat-card-interactive[data-goto-panel]').forEach(card => {
+      card.addEventListener('click', () => {
+        const targetPanel = card.getAttribute('data-goto-panel');
+        if (targetPanel) this.switchPanel(targetPanel);
+      });
+    });
+
+    // Quick Add Product Button in Topbar
+    const topbarAddBtn = document.getElementById('admin-topbar-add-btn');
+    if (topbarAddBtn) {
+      topbarAddBtn.addEventListener('click', () => {
+        this.openProductModal();
+      });
+    }
+
+    // View Storefront Buttons
+    const returnToStore = (e) => {
+      if (e) e.preventDefault();
+      if (window.StoreApp) window.StoreApp.showView('storefront');
+    };
+    const topbarStoreBtn = document.getElementById('admin-topbar-store-btn');
+    if (topbarStoreBtn) topbarStoreBtn.addEventListener('click', returnToStore);
+
+    const sidebarStoreBtn = document.getElementById('admin-view-store-sidebar-btn');
+    if (sidebarStoreBtn) sidebarStoreBtn.addEventListener('click', returnToStore);
+
+    // Catalog Live Search Box
+    const searchInput = document.getElementById('admin-products-search');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        this.searchQuery = e.target.value.toLowerCase().trim();
+        this.renderInventoryTable();
+      });
+    }
+
+    // Catalog Category Filter Select
+    const catFilter = document.getElementById('admin-products-cat-filter');
+    if (catFilter) {
+      catFilter.addEventListener('change', (e) => {
+        this.categoryFilter = e.target.value;
+        this.renderInventoryTable();
+      });
+    }
 
     const logoutBtn = document.getElementById('admin-logout-btn');
     if (logoutBtn) {
@@ -177,6 +224,22 @@ const AdminApp = {
       panel.classList.toggle('active', panel.id === panelId);
     });
 
+    const titles = {
+      'admin-overview': 'Overview',
+      'admin-inventory': 'Products & Catalog',
+      'admin-orders': 'Orders Fulfillment',
+      'admin-subscribers': 'Subscribers & Drops'
+    };
+    const titleEl = document.getElementById('admin-active-title');
+    if (titleEl && titles[panelId]) {
+      titleEl.textContent = titles[panelId];
+    }
+
+    const contentArea = document.querySelector('.admin-content');
+    if (contentArea) {
+      contentArea.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     if (panelId === 'admin-overview') {
       this.fetchStats().then(() => this.renderOverview());
     } else if (panelId === 'admin-inventory') {
@@ -272,16 +335,29 @@ const AdminApp = {
     const totalOrdersEl = document.getElementById('stat-total-orders');
     const avgValueEl = document.getElementById('stat-avg-value');
     const subscribersCountEl = document.getElementById('stat-total-subscribers');
+    const totalProductsEl = document.getElementById('stat-total-products');
 
     const totalSales = this.stats.totalSales || this.orders.reduce((sum, o) => sum + (o.total || 0), 0);
     const totalOrders = this.stats.totalOrders || this.orders.length;
     const avgVal = totalOrders > 0 ? Math.round(totalSales / totalOrders) : 0;
     const totalSubs = this.stats.totalSubscribers || this.subscribers.length;
+    const totalProducts = this.products ? this.products.length : 0;
 
     if (totalSalesEl) totalSalesEl.textContent = '₦' + Number(totalSales).toLocaleString();
     if (totalOrdersEl) totalOrdersEl.textContent = totalOrders;
     if (avgValueEl) avgValueEl.textContent = '₦' + Number(avgVal).toLocaleString();
     if (subscribersCountEl) subscribersCountEl.textContent = totalSubs;
+    if (totalProductsEl) totalProductsEl.textContent = totalProducts;
+
+    // Update navigation counter badges
+    const prodBadge = document.getElementById('nav-badge-products');
+    if (prodBadge) prodBadge.textContent = totalProducts;
+
+    const ordBadge = document.getElementById('nav-badge-orders');
+    if (ordBadge) ordBadge.textContent = totalOrders;
+
+    const subBadge = document.getElementById('nav-badge-subscribers');
+    if (subBadge) subBadge.textContent = totalSubs;
 
     this.renderRevenueChart();
     this.renderRecentActivity();
@@ -366,12 +442,28 @@ const AdminApp = {
     const tbody = document.getElementById('admin-inventory-table-body');
     if (!tbody) return;
 
-    if (!this.products.length) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">No garments in catalog.</td></tr>';
+    let items = this.products || [];
+    if (this.categoryFilter && this.categoryFilter !== 'all') {
+      items = items.filter(p => p.category && p.category.toLowerCase() === this.categoryFilter.toLowerCase());
+    }
+    if (this.searchQuery) {
+      items = items.filter(p =>
+        (p.title && p.title.toLowerCase().includes(this.searchQuery)) ||
+        (p.badge && p.badge.toLowerCase().includes(this.searchQuery)) ||
+        (p.category && p.category.toLowerCase().includes(this.searchQuery)) ||
+        (p.sizes && p.sizes.join(' ').toLowerCase().includes(this.searchQuery))
+      );
+    }
+
+    if (!items.length) {
+      const msg = (this.searchQuery || this.categoryFilter !== 'all')
+        ? 'No products match your search or filter criteria.'
+        : 'No products in catalog.';
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:40px; color:var(--text-secondary);">${msg}</td></tr>`;
       return;
     }
 
-    tbody.innerHTML = this.products.map(p => {
+    tbody.innerHTML = items.map(p => {
       const sizes = p.sizes || ['S', 'M', 'L', 'XL'];
       const sizeStock = p.sizeStock || {};
 

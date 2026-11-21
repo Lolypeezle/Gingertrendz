@@ -393,83 +393,144 @@
         <aside class="admin-sidebar">
           <div class="admin-brand-header">
             <img src="assets/images/logo.jpg" alt="Logo" class="admin-brand-logo">
-            <span class="admin-brand-tag">ADMIN</span>
+            <div class="admin-brand-meta">
+              <span class="admin-brand-title">GINGERTRENDZ</span>
+              <span class="admin-brand-tag">ADMIN CONSOLE</span>
+            </div>
           </div>
 
-          <div class="admin-nav-item active" data-admin-panel="admin-overview">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="7" height="9"></rect>
-              <rect x="14" y="3" width="7" height="5"></rect>
-              <rect x="14" y="12" width="7" height="9"></rect>
-              <rect x="3" y="16" width="7" height="5"></rect>
-            </svg>
-            Overview
-          </div>
+          <nav class="admin-sidebar-nav">
+            <div class="admin-nav-item active" data-admin-panel="admin-overview">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="9"></rect>
+                <rect x="14" y="3" width="7" height="5"></rect>
+                <rect x="14" y="12" width="7" height="9"></rect>
+                <rect x="3" y="16" width="7" height="5"></rect>
+              </svg>
+              <span>Overview</span>
+            </div>
 
-          <div class="admin-nav-item" data-admin-panel="admin-inventory">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-              <path d="M2 17l10 5 10-5"></path>
-              <path d="M2 12l10 5 10-5"></path>
-            </svg>
-            Manage Catalog
-          </div>
+            <div class="admin-nav-item" data-admin-panel="admin-inventory">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+              </svg>
+              <span>Products & Catalog</span>
+              <span class="admin-nav-badge" id="nav-badge-products">6</span>
+            </div>
 
-          <div class="admin-nav-item" data-admin-panel="admin-orders">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="9" cy="21" r="1"></circle>
-              <circle cx="20" cy="21" r="1"></circle>
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-            </svg>
-            Orders Fulfillment
-          </div>
+            <div class="admin-nav-item" data-admin-panel="admin-orders">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span>Orders Fulfillment</span>
+              <span class="admin-nav-badge" id="nav-badge-orders">0</span>
+            </div>
 
-          <div class="admin-nav-item" data-admin-panel="admin-subscribers">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-            Email Subscribers & Drops
-          </div>
+            <div class="admin-nav-item" data-admin-panel="admin-subscribers">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <span>Subscribers & Drops</span>
+              <span class="admin-nav-badge" id="nav-badge-subscribers">0</span>
+            </div>
+          </nav>
 
-          <div class="admin-nav-item" id="admin-logout-btn" style="margin-top: auto;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-              <polyline points="16 17 21 12 16 7"></polyline>
-              <line x1="21" y1="12" x2="9" y2="12"></line>
-            </svg>
-            Exit Workspace
+          <div class="admin-sidebar-footer">
+            <div class="admin-nav-item admin-storefront-btn" id="admin-view-store-sidebar-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <span>View Storefront</span>
+            </div>
+
+            <div class="admin-nav-item admin-logout-item" id="admin-logout-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <span>Sign Out</span>
+            </div>
           </div>
         </aside>
 
         <div class="admin-content">
 
+          <!-- Sleek Admin Topbar with Quick Navigation & Actions -->
+          <div class="admin-topbar">
+            <div class="admin-topbar-breadcrumbs">
+              <span class="admin-crumb-portal">Admin Console</span>
+              <span class="admin-crumb-sep">/</span>
+              <span class="admin-crumb-active" id="admin-active-title">Overview</span>
+            </div>
+            <div class="admin-topbar-actions">
+              <button class="btn btn-sm btn-quick-add" id="admin-topbar-add-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" style="margin-right: 5px;">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Add Product
+              </button>
+              <button class="btn btn-sm btn-secondary" id="admin-topbar-store-btn">
+                View Store ↗
+              </button>
+            </div>
+          </div>
+
           <div id="admin-overview" class="admin-panel active">
             <div class="admin-header-row">
-              <h1>Store Overview</h1>
+              <div>
+                <h1>Store Overview</h1>
+                <p style="color: var(--text-secondary); font-size: 13px;">Live performance metrics and instant navigation shortcuts</p>
+              </div>
             </div>
 
             <div class="stats-grid">
-              <div class="stat-card">
-                <span class="stat-title">Total Sales</span>
+              <div class="stat-card stat-card-interactive" data-goto-panel="admin-orders" title="Click to view Orders">
+                <div class="stat-card-header">
+                  <span class="stat-title">Total Sales</span>
+                  <span class="stat-arrow">↗</span>
+                </div>
                 <span class="stat-value" id="stat-total-sales">₦0</span>
+                <span class="stat-hint">Click to manage orders</span>
               </div>
-              <div class="stat-card">
-                <span class="stat-title">Total Orders</span>
+              <div class="stat-card stat-card-interactive" data-goto-panel="admin-orders" title="Click to view Orders">
+                <div class="stat-card-header">
+                  <span class="stat-title">Total Orders</span>
+                  <span class="stat-arrow">↗</span>
+                </div>
                 <span class="stat-value" id="stat-total-orders">0</span>
+                <span class="stat-hint">Click to fulfill shipments</span>
               </div>
-              <div class="stat-card">
-                <span class="stat-title">Email Subscribers</span>
+              <div class="stat-card stat-card-interactive" data-goto-panel="admin-inventory" title="Click to view Products">
+                <div class="stat-card-header">
+                  <span class="stat-title">Total Products</span>
+                  <span class="stat-arrow">↗</span>
+                </div>
+                <span class="stat-value accent-color" id="stat-total-products">6</span>
+                <span class="stat-hint">Click to edit catalog</span>
+              </div>
+              <div class="stat-card stat-card-interactive" data-goto-panel="admin-subscribers" title="Click to view Subscribers">
+                <div class="stat-card-header">
+                  <span class="stat-title">Email Subscribers</span>
+                  <span class="stat-arrow">↗</span>
+                </div>
                 <span class="stat-value accent-color" id="stat-total-subscribers">0</span>
-              </div>
-              <div class="stat-card">
-                <span class="stat-title">Average Order Value</span>
-                <span class="stat-value" id="stat-avg-value">₦0</span>
+                <span class="stat-hint">Click to view subscribers</span>
               </div>
             </div>
 
@@ -498,8 +559,7 @@
             <div class="admin-header-row">
               <div>
                 <h1>Inventory Catalog</h1>
-                <p style="color: var(--text-secondary); font-size: 13px;">Manage sizes, quantities, pricing and drop
-                  photography with auto email blast</p>
+                <p style="color: var(--text-secondary); font-size: 13px;">Manage sizes, quantities, pricing and drop photography with instant storefront syncing</p>
               </div>
               <button class="btn" id="admin-add-product-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -509,6 +569,29 @@
                 </svg>
                 Add New Product
               </button>
+            </div>
+
+            <!-- Instant Search & Category Filter Bar -->
+            <div class="admin-filter-bar">
+              <div class="admin-search-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="admin-products-search" placeholder="Search products by title, tag, or size..."
+                  class="admin-search-box">
+              </div>
+              <div class="admin-category-filter">
+                <select id="admin-products-cat-filter" class="admin-filter-select">
+                  <option value="all">All Categories</option>
+                  <option value="Hoodies">Hoodies</option>
+                  <option value="Outerwear">Outerwear</option>
+                  <option value="Pants">Pants</option>
+                  <option value="Tees">Tees</option>
+                  <option value="Accessories">Accessories</option>
+                </select>
+              </div>
             </div>
 
             <div class="table-card">
