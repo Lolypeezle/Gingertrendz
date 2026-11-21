@@ -614,7 +614,7 @@ const AdminApp = {
     previewContainer.style.display = 'none';
 
     if (product) {
-      modalTitle.textContent = 'Edit Garment';
+      modalTitle.textContent = 'Edit Product';
       idInput.value = product.id;
       document.getElementById('product-title').value = product.title || '';
       document.getElementById('product-category').value = product.category || 'Hoodies';
@@ -631,7 +631,7 @@ const AdminApp = {
         previewContainer.style.display = 'flex';
       }
     } else {
-      modalTitle.textContent = 'Add New Garment';
+      modalTitle.textContent = 'Add New Product';
       idInput.value = '';
       document.getElementById('product-category').value = 'Hoodies';
       document.getElementById('product-stock').value = 24;
@@ -722,7 +722,7 @@ const AdminApp = {
 
       const data = await res.json();
       if (data.success) {
-        let msg = id ? 'Garment updated successfully' : 'New garment published to storefront!';
+        let msg = id ? 'Product updated successfully' : 'New product published to storefront!';
         if (!id && data.emailDispatched && data.emailDispatched.count > 0) {
           msg += ` & Drop email sent to ${data.emailDispatched.count} customer inboxes!`;
         }
