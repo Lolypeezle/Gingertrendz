@@ -2364,6 +2364,7 @@ header {
   from {
     box-shadow: 0 0 10px rgba(192, 133, 82, 0.4);
   }
+
   to {
     box-shadow: 0 0 30px rgba(192, 133, 82, 0.8);
   }
