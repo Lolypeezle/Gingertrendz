@@ -16,11 +16,13 @@
 
 <body>
 
-  <header>
+  <header class="glass-header">
     <div class="container header-inner">
       <nav class="header-nav">
         <ul>
           <li><a href="#" class="nav-link active" data-view="storefront-view" id="nav-shop">Shop</a></li>
+          <li><a href="#" class="nav-link" id="nav-lookbook">Lookbook</a></li>
+          <li><a href="#" class="nav-link" id="nav-client-portal">Client Portal</a></li>
         </ul>
       </nav>
 
@@ -30,18 +32,60 @@
       </a>
 
       <div class="header-actions">
-        <button class="cart-toggle" id="cart-btn" aria-label="Shopping Cart">
+        <div class="header-search-capsule" id="header-search-capsule">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="nav-search-input" placeholder="Search silhouettes..." aria-label="Search Silhouettes">
+        </div>
+
+        <button class="nav-action-pill" id="nav-wishlist-btn" aria-label="View Wishlist">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span class="pill-count" id="wishlist-count">0</span>
+        </button>
+
+        <button class="cart-toggle nav-action-pill" id="cart-btn" aria-label="Shopping Cart">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <path d="M16 10a4 4 0 0 1-8 0"></path>
           </svg>
-          <span class="cart-count" id="cart-count">0</span>
+          <span class="cart-count pill-count" id="cart-count">0</span>
+        </button>
+
+        <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Mobile Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
         </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Glass Navigation Drawer -->
+  <div class="mobile-glass-nav" id="mobile-glass-nav">
+    <div class="mobile-nav-inner">
+      <div class="mobile-nav-header">
+        <span class="brand-sub">THE FASHION DISCIPLES</span>
+        <button class="drawer-close" id="mobile-nav-close" aria-label="Close Mobile Nav">✕</button>
+      </div>
+      <div class="mobile-nav-links">
+        <a href="#" class="mobile-nav-link active" id="mobile-nav-shop">Shop Collection</a>
+        <a href="#" class="mobile-nav-link" id="mobile-nav-lookbook">Lookbook & Drops</a>
+        <a href="#" class="mobile-nav-link" id="mobile-nav-portal">Client Portal & Orders</a>
+        <a href="#portal" class="mobile-nav-link" id="mobile-nav-admin">Admin Console</a>
+      </div>
+    </div>
+  </div>
 
   <main>
 
@@ -132,6 +176,195 @@
         </div>
       </section>
 
+    </section>
+
+    <!-- Customer Dashboard / Client Portal View -->
+    <section id="customer-dashboard-view" class="view-section">
+      <div class="container customer-dashboard-container">
+        
+        <div class="dashboard-topbar">
+          <button type="button" class="back-link-btn" id="client-dash-back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Return to Boutique Lookbook
+          </button>
+          <span class="portal-badge-pill">Client Portal • Private Lookbook Collector</span>
+        </div>
+
+        <div class="client-profile-glass-card">
+          <div class="profile-avatar-circle">
+            <span>TD</span>
+          </div>
+          <div class="profile-info-group">
+            <div class="profile-title-row">
+              <h1 class="profile-name" id="client-profile-name">The Fashion Disciple</h1>
+              <span class="vip-status-pill">Black Label Collector</span>
+            </div>
+            <p class="profile-meta" id="client-profile-meta">
+              <span>Client ID: <strong class="font-mono">GT-COLLECTOR-2026</strong></span>
+              <span class="sep">•</span>
+              <span id="client-profile-email">thefashiondisciples@gmail.com</span>
+              <span class="sep">•</span>
+              <span>Lagos / Global Courier Member</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="dashboard-glass-nav-pills">
+          <button class="dash-tab-btn active" data-dash-tab="orders">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            Order Tracking & History
+          </button>
+          <button class="dash-tab-btn" data-dash-tab="wishlist">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            Curated Wishlist (<span id="dash-wishlist-count">0</span>)
+          </button>
+          <button class="dash-tab-btn" data-dash-tab="addresses">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            Saved Delivery Addresses
+          </button>
+          <button class="dash-tab-btn" data-dash-tab="receipts">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            Order Receipts
+          </button>
+        </div>
+
+        <!-- Orders & Tracking Tab -->
+        <div id="dash-panel-orders" class="dashboard-panel active">
+          <div class="tracking-summary-card">
+            <div class="tracking-header-row">
+              <div>
+                <span class="tracking-subtitle">Active Shipment Tracking</span>
+                <h3 class="tracking-order-id" id="tracking-active-ref">Order #GT-684201</h3>
+              </div>
+              <span class="status-badge in-stock" id="tracking-active-status">Courier In Transit</span>
+            </div>
+            
+            <div class="tracking-stepper">
+              <div class="step-node completed">
+                <span class="step-dot"></span>
+                <span class="step-title">Order Confirmed</span>
+                <span class="step-time">Instant Verification</span>
+              </div>
+              <div class="step-node completed">
+                <span class="step-dot"></span>
+                <span class="step-title">Pattern & QC</span>
+                <span class="step-time">520GSM Inspection Passed</span>
+              </div>
+              <div class="step-node active">
+                <span class="step-dot"></span>
+                <span class="step-title">Insured Courier</span>
+                <span class="step-time">Standard / Priority Transit</span>
+              </div>
+              <div class="step-node">
+                <span class="step-dot"></span>
+                <span class="step-title">Delivered</span>
+                <span class="step-time">Doorstep Handover</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-table-card">
+            <div class="dash-table-header">
+              <h3>Archived Orders & Acquisition History</h3>
+              <span class="dash-table-note">Auto-updated on checkout & order placement</span>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Order Ref</th>
+                    <th>Date</th>
+                    <th>Garments Purchased</th>
+                    <th>Destination</th>
+                    <th>Fulfillment Method</th>
+                    <th>Amount Paid</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="client-orders-table-body">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wishlist Tab -->
+        <div id="dash-panel-wishlist" class="dashboard-panel">
+          <div class="dash-table-header" style="margin-bottom: 20px;">
+            <h3>Your Curated Silhouette Wishlist</h3>
+            <p style="color: var(--text-secondary); font-size: 13px;">Saved garments ready to add directly into your shopping bag</p>
+          </div>
+          <div class="wishlist-grid" id="client-wishlist-grid">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Addresses Tab -->
+        <div id="dash-panel-addresses" class="dashboard-panel">
+          <div class="addresses-glass-grid">
+            <div class="address-glass-card active">
+              <div class="address-card-header">
+                <span class="address-type-badge">Primary Delivery Residence</span>
+                <span class="status-badge in-stock">Default</span>
+              </div>
+              <h4 id="dash-address-name">The Fashion Disciple</h4>
+              <p id="dash-address-lines">
+                12 Admiralty Way, Lekki Phase 1<br>
+                Lagos State, Nigeria
+              </p>
+              <div class="address-card-footer">
+                <span class="address-phone" id="dash-address-phone">+234 801 234 5678</span>
+              </div>
+            </div>
+
+            <div class="address-glass-card">
+              <div class="address-card-header">
+                <span class="address-type-badge">Alternate Studio Address</span>
+              </div>
+              <h4>Creative Design Studio</h4>
+              <p>
+                Studio 4B, The Fashion Disciples Vault<br>
+                Victoria Island, Lagos
+              </p>
+              <div class="address-card-footer">
+                <span class="address-phone">+234 809 876 5432</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Receipts Tab -->
+        <div id="dash-panel-receipts" class="dashboard-panel">
+          <div class="dash-table-header" style="margin-bottom: 20px;">
+            <h3>Official Payment & Transaction Receipts</h3>
+            <p style="color: var(--text-secondary); font-size: 13px;">View or print your authenticated boutique sales receipts</p>
+          </div>
+          <div id="client-receipts-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+      </div>
     </section>
 
     <section id="checkout-view" class="view-section">
@@ -495,7 +728,8 @@
             <div class="admin-header-row">
               <div>
                 <h1>Store Overview</h1>
-                <p style="color: var(--text-secondary); font-size: 13px;">Live performance metrics and instant navigation shortcuts</p>
+                <p style="color: var(--text-secondary); font-size: 13px;">Live performance metrics and instant
+                  navigation shortcuts</p>
               </div>
             </div>
 
@@ -516,7 +750,8 @@
                 <span class="stat-value" id="stat-total-orders">0</span>
                 <span class="stat-hint">Click to fulfill shipments</span>
               </div>
-              <div class="stat-card stat-card-interactive" data-goto-panel="admin-inventory" title="Click to view Products">
+              <div class="stat-card stat-card-interactive" data-goto-panel="admin-inventory"
+                title="Click to view Products">
                 <div class="stat-card-header">
                   <span class="stat-title">Total Products</span>
                   <span class="stat-arrow">↗</span>
@@ -524,7 +759,8 @@
                 <span class="stat-value accent-color" id="stat-total-products">6</span>
                 <span class="stat-hint">Click to edit catalog</span>
               </div>
-              <div class="stat-card stat-card-interactive" data-goto-panel="admin-subscribers" title="Click to view Subscribers">
+              <div class="stat-card stat-card-interactive" data-goto-panel="admin-subscribers"
+                title="Click to view Subscribers">
                 <div class="stat-card-header">
                   <span class="stat-title">Email Subscribers</span>
                   <span class="stat-arrow">↗</span>
@@ -559,7 +795,8 @@
             <div class="admin-header-row">
               <div>
                 <h1>Inventory Catalog</h1>
-                <p style="color: var(--text-secondary); font-size: 13px;">Manage sizes, quantities, pricing and drop photography with instant storefront syncing</p>
+                <p style="color: var(--text-secondary); font-size: 13px;">Manage sizes, quantities, pricing and drop
+                  photography with instant storefront syncing</p>
               </div>
               <button class="btn" id="admin-add-product-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -810,17 +1047,38 @@
 
       </div>
 
+      <!-- Detail Gallery Thumbnails & Video Container -->
+      <div class="detail-gallery-row" id="detail-gallery-thumbnails"></div>
+      <div class="detail-video-box" id="detail-video-container" style="display: none;"></div>
+
       <div class="detail-meta">
         <div class="detail-category-row">
           <span class="detail-category" id="detail-category">HOODIES</span>
           <span class="detail-badge" id="detail-badge">NEW DROP</span>
         </div>
         <h1 class="detail-title" id="detail-title">Heavyweight Hoodie</h1>
-        <div class="detail-price" id="detail-price">₦48,000</div>
+        <div class="detail-price-row">
+          <div class="detail-price" id="detail-price">₦48,000</div>
+          <div class="detail-stars-summary">
+            <span class="stars-gold">★★★★★</span>
+            <span id="detail-rating-quick">4.9</span>
+            <span class="reviews-count-pill" id="detail-reviews-quick-count">(38 reviews)</span>
+          </div>
+        </div>
 
         <p class="detail-description" id="detail-description">
           Detailed product description goes here...
         </p>
+
+        <!-- Product Colour Selection -->
+        <div class="detail-color-section">
+          <div class="size-header-row">
+            <span class="size-selector-label">Curated Color: <strong id="detail-color-selected-name" style="color: var(--text-primary);">Ginger Ochre</strong></span>
+          </div>
+          <div class="color-swatches-row" id="detail-colors-container">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
 
         <div class="detail-size-section">
           <div class="size-header-row">
@@ -845,6 +1103,23 @@
         <div class="detail-actions">
           <button class="btn" id="add-to-cart-drawer-btn">Add to Bag</button>
           <span class="stock-status" id="detail-stock-status">In Stock & Ready for Dispatch</span>
+        </div>
+
+        <!-- Customer Reviews & Ratings -->
+        <div class="detail-reviews-section" id="detail-reviews-section">
+          <div class="reviews-header-bar">
+            <div>
+              <span class="reviews-section-title">Verified Collector Reviews</span>
+              <div class="reviews-stars-summary">
+                <span class="stars-gold">★★★★★</span>
+                <span class="rating-number" id="detail-rating-number">4.9 / 5.0</span>
+                <span class="reviews-verified-note" id="detail-reviews-count-label">(48 verified client reviews)</span>
+              </div>
+            </div>
+          </div>
+          <div class="reviews-list" id="detail-reviews-list">
+            <!-- Populated dynamically -->
+          </div>
         </div>
 
         <div class="drawer-accordion" id="size-guide-accordion">
@@ -1237,6 +1512,21 @@
   </div>
 
   <div class="toast-hub" id="toast-hub"></div>
+
+  <!-- Mandatory Floating Liquid Glass Shopping Cart (All Devices) -->
+  <button class="glass-floating-cart" id="floating-cart-btn" aria-label="Open Floating Shopping Bag">
+    <div class="floating-cart-inner">
+      <div class="floating-cart-icon-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="floating-cart-badge" id="floating-cart-count">0</span>
+      </div>
+      <span class="floating-cart-text">Bag</span>
+    </div>
+  </button>
 
   <script src="js/products-data.js"></script>
   <script src="js/admin.js"></script>

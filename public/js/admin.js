@@ -237,7 +237,7 @@ const AdminApp = {
 
     const contentArea = document.querySelector('.admin-content');
     if (contentArea) {
-      contentArea.scrollTo({ top: 0, behavior: 'smooth' });
+      contentArea.scrollTo({ top: 0, behavior: 'auto' });
     }
 
     if (panelId === 'admin-overview') {
@@ -872,7 +872,7 @@ const AdminApp = {
       setTimeout(() => {
         const grid = document.getElementById('products-grid');
         if (grid) {
-          grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          grid.scrollIntoView({ behavior: 'auto', block: 'start' });
           const firstCard = grid.querySelector('.product-card');
           if (firstCard) {
             firstCard.classList.add('product-card-newly-added');
